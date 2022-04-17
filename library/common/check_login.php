@@ -53,7 +53,7 @@ if ($stmt->num_rows()) {
         } else echo "查询学院和专业信息时发生错误，请联系管理员并反馈问题";
         echo "successful";
     } else echo "密码错误";
-} else echo "该用户不存在";
+} else echo "用户不存在";
 
 //关闭链接并释放结果集
 $stmt->free_result();
