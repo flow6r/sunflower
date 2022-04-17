@@ -32,9 +32,8 @@ $("#loginDiv").on("click", "#loginBtn", function () {
             data: { usrID: usrID, usrPasswd: usrPasswd },
             error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
             success: function (status) {
-                if (status === "successful") {
-                    alert("登录成功");
-                } else {
+                if (status === "successful") window.location.href = "../../page/panel.html";
+                else {
                     if (status.length > 6) alert(status);
                     else {
                         $("#loginDiv").find("#tips").attr("placeholder", status);
