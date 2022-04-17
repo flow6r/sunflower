@@ -14,7 +14,7 @@ if (!isset($_SESSION["userInfo"])) {
     $usrInfoJSON = json_encode($_SESSION["userInfo"], JSON_UNESCAPED_UNICODE);
     echo $usrInfoJSON;
     //将用户信息写入JSON文件
-    file_put_contents("user_info.json", $usrInfoJSON);
+    // file_put_contents("user_info.json", $usrInfoJSON);
 }
 
 exit;
