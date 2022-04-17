@@ -117,8 +117,8 @@ input::-webkit-input-placeholder {
     width: 380px;
     text-align: center;
     border-radius: 7px;
-    border: 2px solid #d8dee4;
     background-color: #ffffff;
+    border: 2px solid #d8dee4;
 }
 
 #helperDiv span {
