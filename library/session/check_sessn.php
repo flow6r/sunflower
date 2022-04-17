@@ -2,6 +2,7 @@
 /*获取用户信息会话中数据的脚本*/
 //启动会话
 session_start();
+
 //检查会话变量是否存在
 if (!isset($_SESSION["userInfo"])) {
     //返回错误信息
