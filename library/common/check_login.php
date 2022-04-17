@@ -55,7 +55,7 @@ if ($stmt->num_rows()) {
     } else echo "密码错误";
 } else echo "用户不存在";
 
-//关闭链接并释放结果集
+//释放结果集并关闭链接
 $stmt->free_result();
 $db->close();
 exit;
