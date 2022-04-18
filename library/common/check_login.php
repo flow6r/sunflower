@@ -28,23 +28,7 @@ if ($stmt->num_rows()) {
     );
     $stmt->fetch();
     if (password_verify($usrPasswd, $UsrPasswd)) {
-        $stmt->free_result();
-        if ($MjrAbrv === null) {
-            $query = "SELECT ColgName FROM College WHERE ColgAbrv = ?";
-            $stmt = $db->prepare($query);
-            $stmt->bind_param("s", $ColgAbrv);
-        } else {
-            $query = "SELECT C.ColgName, M.MjrName FROM College AS C, Major AS M WHERE C.ColgAbrv = ? AND M.MjrAbrv = ? AND C.ColgAbrv = M.ColgAbrv";
-            $stmt = $db->prepare($query);
-            $stmt->bind_param("ss", $ColgAbrv, $MjrAbrv);
-        }
-        $stmt->execute();
-        $stmt->store_result();
-        if ($stmt->num_rows()) {
-            $stmt->bind_result($ColgName, $MjrName);
-            $stmt->fetch();
-            require_once("../session/user_info.php");
-        } else echo "查询学院和专业信息时发生错误，请联系管理员并反馈问题";
+        require_once("../session/user_info.php");
         echo "successful";
     } else echo "密码错误";
 } else echo "用户不存在";
