@@ -69,40 +69,44 @@ $("#regrDiv").on("focusin", "#usrAdms", function () {
 });
 
 $("#regrDiv").on("focusin", "#colgAbrv", function () {
-    $("#regrDiv").find("#colgAbrv").empty();
+    if ($("#regrDiv").find("#colgAbrv").val() == null) {
+        $("#regrDiv").find("#colgAbrv").empty();
 
-    $.ajax({
-        url: "../../library/common/query_colg.php",
-        type: "GET",
-        async: false,
-        dataType: "json",
-        error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
-        success: function (colgJSON) {
-            for (let indx = 0; indx < colgJSON.length; indx++) $("#regrDiv").find("#colgAbrv").append(
-                "<option value='" + colgJSON[indx].ColgAbrv + "'>" + colgJSON[indx].ColgName + "</option>"
-            );
-        }
-
-    });
+        $.ajax({
+            url: "../../library/common/query_colg.php",
+            type: "GET",
+            async: false,
+            dataType: "json",
+            error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+            success: function (colgJSON) {
+                $("#regrDiv").find("#colgAbrv").append("<option value='tips'>请选择学院</option>");
+                for (let indx = 0; indx < colgJSON.length; indx++) $("#regrDiv").find("#colgAbrv").append(
+                    "<option value='" + colgJSON[indx].ColgAbrv + "'>" + colgJSON[indx].ColgName + "</option>"
+                );
+            }
+        });
+    }
 });
 
 $("#regrDiv").on("change", "#colgAbrv", function () {
     let colgAbrv = $("#regrDiv").find("#colgAbrv").val();
     $("#regrDiv").find("#mjrAbrv").empty();
 
-    $.ajax({
-        url: "../../library/common/query_mjr.php",
-        type: "GET",
-        async: false,
-        data: { colgAbrv: colgAbrv },
-        dataType: "json",
-        error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
-        success: function (mjrJSON) {
-            for (let indx = 0; indx < mjrJSON.length; indx++) $("#regrDiv").find("#mjrAbrv").append(
-                "<option value='" + mjrJSON[indx].MjrAbrv + "'>" + mjrJSON[indx].MjrName + "</option>"
-            );
-        }
-    });
+    if (colgAbrv != "tips") {
+        $.ajax({
+            url: "../../library/common/query_mjr.php",
+            type: "GET",
+            async: false,
+            data: { colgAbrv: colgAbrv },
+            dataType: "json",
+            error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+            success: function (mjrJSON) {
+                for (let indx = 0; indx < mjrJSON.length; indx++) $("#regrDiv").find("#mjrAbrv").append(
+                    "<option value='" + mjrJSON[indx].MjrAbrv + "'>" + mjrJSON[indx].MjrName + "</option>"
+                );
+            }
+        });
+    }
 });
 
 $("#regrDiv").on("click", "#back", function () {
