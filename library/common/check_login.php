@@ -43,12 +43,6 @@ if ($stmt->num_rows()) {
         if ($stmt->num_rows()) {
             $stmt->bind_result($ColgName, $MjrName);
             $stmt->fetch();
-            $UsrGen = ($UsrGen == "male" ? "男" : "女");
-            switch ($UsrRole) {
-                case "std" : $UsrRole = "学生"; break;
-                case "tch" : $UsrRole = "教师"; break;
-                case "admin" : $UsrRole = "管理员"; break;
-            }
             require_once("../session/user_info.php");
         } else echo "查询学院和专业信息时发生错误，请联系管理员并反馈问题";
         echo "successful";
