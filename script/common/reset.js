@@ -72,7 +72,7 @@ $("#rstDiv").on("click", "#verfCodeBtn", function () {
             type: "POST",
             async: false,
             data: { verfCode: verfCode },
-            error: function () { alert("启动会话失败，请联系管理员并反馈问题"); },
+            error: function () { alert("启动会话时发生错误，请联系管理员并反馈问题"); },
             success: function (status) {
                 if (status === "valid") {
                     $("#tips").find("span").empty();
