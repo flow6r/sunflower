@@ -35,13 +35,13 @@ input::-webkit-input-placeholder {
     text-align: center;
     visibility: hidden;
     border-radius: 7px;
-    background-color: #9ceda1;
-    border: 2px solid #43af41;
+    background-color: #9ef39c;
+    border: 2px solid #298545;
 }
 
 #sent span {
     font-size: 1.1em;
-    color: #999b9e;
+    color: #298545;
 }
 
 #rstDiv {
@@ -124,11 +124,11 @@ input::-webkit-input-placeholder {
     text-align: center;
     visibility: hidden;
     border-radius: 7px;
-    background-color: #ffebe9;
-    border: 2px solid #ffc1c0;
+    background-color: #ffe8e6;
+    border: 2px solid #db2828;
 }
 
 #tips span {
     font-size: 1.1em;
-    color: #999b9e;
+    color: #db2828;
 }
