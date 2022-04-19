@@ -17,8 +17,10 @@ $("#regrDiv").on("focusout", "#usrPasswd", function () {
 
     $("#tips").find("span").empty();
 
-    if (usrPasswd === "") $("#regrDiv").find("#usrPasswd").attr("placeholder", "请输入密码");
-    else if (usrPasswd.length < 6 || usrPasswd.length > 18) {
+    if (usrPasswd === "") {
+        $("#tips").attr("style", "visibility: hidden;");
+        $("#regrDiv").find("#usrPasswd").attr("placeholder", "请输入密码");
+    } else if (usrPasswd.length < 6 || usrPasswd.length > 18) {
         $("#tips").attr("style", "visibility: visible;");
         $("#tips").find("span").append("请输入6~18位密码");
     } else {
@@ -33,13 +35,15 @@ $("#regrDiv").on("focusout", "#verfPasswd", function () {
 
     $("#tips").find("span").empty();
 
-    if (verfPasswd === "") $("#regrDiv").find("#verfPasswd").attr("placeholder", "请重复密码");
-    else if (usrPasswd != verfPasswd) {
-        $("#tips").attr("style", "visibility: visible;");
-        $("#tips").find("span").append("两次输入的密码不一致");
+    if (verfPasswd === "") {
+        $("#tips").attr("style", "visibility: hidden;");
+        $("#regrDiv").find("#verfPasswd").attr("placeholder", "请重复密码");
     } else if (usrPasswd.length < 6 || usrPasswd.length > 18) {
         $("#tips").attr("style", "visibility: visible;");
         $("#tips").find("span").append("请输入6~18位密码");
+    } else if (usrPasswd != verfPasswd) {
+        $("#tips").attr("style", "visibility: visible;");
+        $("#tips").find("span").append("两次输入的密码不一致");
     } else {
         $("#tips").attr("style", "visibility: hidden;");
         $("#regrDiv").find("#verfPasswd").removeAttr("placeholder");
