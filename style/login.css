@@ -20,6 +20,10 @@ input::-webkit-input-placeholder {
     text-align: center;
 }
 
+#loginDiv #loginFrm #loginTbl #tips::-webkit-input-placeholder {
+    color: #db2828;
+}
+
 #logoDiv {
     position: relative;
     padding: 0px;
@@ -85,8 +89,8 @@ input::-webkit-input-placeholder {
     font-size: 1.1em;
     visibility: hidden;
     border-radius: 7px;
-    background-color: #ffebe9;
-    border: 2px solid #ffc1c0;
+    background-color: #ffe8e6;
+    border: 2px solid #db2828;
 }
 
 #loginDiv #loginFrm #loginTbl #loginBtn {
