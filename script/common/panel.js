@@ -3,12 +3,12 @@ var usrInfo = null;
 /*获取登录的用户信息*/
 $(document).ready(function () {
     $("#content").empty();
-    obtainUserInfo();
+    obtainUsrInfo();
     // $("#content").append("<h1 style='color: #2c974b;'>学生电子档案袋系统</h1>");
 });
 
 /*实现从会话中获取用户信息的函数*/
-function obtainUserInfo() {
+function obtainUsrInfo() {
     $.ajax({
         url: "../../library/session/check_sessn.php",
         type: "GET",
@@ -69,6 +69,72 @@ $(".usrNav").on("click", "label", function () {
     }
 });
 
+/*基本信息*/
+$(".usrNav").on("click", "#basInfo", function () {
+    $("#content").empty();
+    $("#content").append(
+        "<div id='basInfoDiv'><form id='basInfoFrm' name='basInfoFrm'><table id='basInfoTbl'>" +
+        "<tr><td><label>ID</label></td><td><input type='text' id='usrID' name='usrID' disabled='disabled' /></td></tr>" +
+        "<tr><td><label>姓名</label></td><td><input type='text' id='usrName' name='usrName' disabled='disabled' /></td></tr>" +
+        "<tr><td><label>性别</label></td><td><select id='usrGen' name='usrGen' disabled='disabled'></select></td></tr>" +
+        "<tr><td><label>入学年份</label></td><td><select id='usrAdms' name='usrAdms' disabled='disabled'></select></td></tr>" +
+        "<tr><td><label>隶属学院</label></td><td><select id='colgAbrv' name='colgAbrv' disabled='disabled'></select></td></tr>" +
+        "<tr><td><label>所在专业</label></td><td><select id='mjrAbrv' name='mjrAbrv' disabled='disabled'></select></td></tr>" +
+        "<tr><td><input type='button' id='editBasInfoBtn' name='editBasInfoBtn' value='编辑'/></td>" +
+        "<td><input type='button' id='cnlEditInfoBtn' name='cnlEditInfoBtn' value='取消'/>" +
+        "<input type='button' id='updtBasInfoBtn' name='updtBasInfoBtn' value='更新'/></td></tr></table></form></div>"
+    );
+
+    $("#content").find("#basInfoDiv").find("#usrID").attr("placeholder", usrInfo["UsrID"]);
+    $("#content").find("#basInfoDiv").find("#usrID").attr("value", usrInfo["UsrID"]);
+    $("#content").find("#basInfoDiv").find("#usrName").attr("placeholder", usrInfo["UsrName"]);
+    $("#content").find("#basInfoDiv").find("#usrName").attr("value", usrInfo["UsrName"]);
+    $("#content").find("#basInfoDiv").find("#usrGen").append("<option value='" + usrInfo["UsrGen"] + "'>" + (usrInfo["UsrGen"] === "male" ? "男" : "女") + "</option>");
+    $("#content").find("#basInfoDiv").find("#usrAdms").append("<option value='" + usrInfo["UsrAdms"] + "'>" + usrInfo["UsrAdms"] + "</option>");
+
+    $.ajax({
+        url: "../../library/common/query_colg.php",
+        type: "GET",
+        async: false,
+        data: { usrRole: usrInfo["UsrRole"] },
+        dataType: "json",
+        error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+        success: function (colgJSON) {
+            for (let indx = 0; indx < colgJSON.length; indx++) {
+                $("#content").find("#basInfoDiv").find("#colgAbrv").append(
+                    "<option value='" + colgJSON[indx].ColgAbrv + "'>" + colgJSON[indx].ColgName + "</option>"
+                );
+                if (usrInfo["ColgAbrv"] === colgJSON[indx].ColgAbrv)
+                    $("#content").find("#basInfoDiv").find("#colgAbrv").find("option[value='" + colgJSON[indx].ColgAbrv + "']").attr("selected", "selected");
+            }
+
+            $.ajax({
+                url: "../../library/common/query_mjr.php",
+                type: "GET",
+                async: false,
+                data: { usrRole: usrInfo["UsrRole"], colgAbrv: usrInfo["ColgAbrv"] },
+                dataType: "json",
+                error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+                success: function (mjrJSON) {
+                    for (let indx = 0; indx < mjrJSON.length; indx++) {
+                        $("#content").find("#basInfoDiv").find("#mjrAbrv").append(
+                            "<option value='" + mjrJSON[indx].MjrAbrv + "'>" + mjrJSON[indx].MjrName + "</option>"
+                        );
+                        if (usrInfo["MjrAbrv"] === mjrJSON[indx].MjrAbrv)
+                            $("#content").find("#basInfoDiv").find("#mjrAbrv").find("option[value='" + mjrJSON[indx].MjrAbrv + "']").attr("selected", "selected");
+                    }
+                }
+            });
+        }
+    });
+});
+
+/*编辑个人信息*/
+$("#content").on("click", "#basInfoDiv #editBasInfoBtn", function () {
+    $("#content").find("#basInfoDiv").find("#editBasInfoBtn").attr("style", "visibility: hidden;");
+    $("#content").find("#basInfoDiv").find("#cnlEditInfoBtn").attr("style", "visibility: visible;");
+    $("#content").find("#basInfoDiv").find("#updtBasInfoBtn").attr("style", "visibility: visible;");
+});
 
 /*退出登录*/
 $(".usrNav").on("click", "#logout", function () {
