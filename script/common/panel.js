@@ -128,6 +128,11 @@ $(".usrNav").on("click", "#basInfo", function () {
     });
 });
 
+/*安全设置*/
+$(".usrNav").on("click", "#secInfo", function () {
+
+});
+
 /*退出登录*/
 $(".usrNav").on("click", "#logout", function () {
     $.ajax({
