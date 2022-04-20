@@ -1,3 +1,4 @@
+/*检查电子邮箱完整性*/
 $("#rstDiv").on("focusout", "#usrEmail", function () {
     let usrEmail = $("#rstDiv").find("#usrEmail").val();
 
@@ -5,6 +6,7 @@ $("#rstDiv").on("focusout", "#usrEmail", function () {
     else $("#rstDiv").find("#usrEmail").removeAttr("placeholder");
 });
 
+/*验证电子邮箱*/
 $("#rstDiv").on("click", "#verfEmailBtn", function () {
     let usrEmail = $("#rstDiv").find("#usrEmail").val();
 
@@ -52,6 +54,7 @@ $("#rstDiv").on("click", "#verfEmailBtn", function () {
     } else $("#rstDiv").find("#usrEmail").attr("placeholder", "请输入电子邮箱");
 });
 
+/*检查验证码完整性*/
 $("#rstDiv").on("focusout", "#verfCode", function () {
     let verfCode = $("#rstDiv").find("#verfCode").val();
 
@@ -59,6 +62,7 @@ $("#rstDiv").on("focusout", "#verfCode", function () {
     else $("#rstDiv").find("#usrEmail").removeAttr("placeholder");
 });
 
+/*验证电子邮箱*/
 $("#rstDiv").on("click", "#verfCodeBtn", function () {
     let verfCode = $("#rstDiv").find("#verfCode").val();
 
@@ -96,6 +100,7 @@ $("#rstDiv").on("click", "#verfCodeBtn", function () {
     } else $("#rstDiv").find("#verfCode").attr("placeholder", "请输入验证码");
 });
 
+/*检查新密码完整性*/
 $("#rstDiv").on("focusout", "#newPasswd", function () {
     let newPasswd = $("#rstDiv").find("#newPasswd").val();
 
@@ -113,6 +118,7 @@ $("#rstDiv").on("focusout", "#newPasswd", function () {
     }
 });
 
+/*检查密码完整性*/
 $("#rstDiv").on("focusout", "#verfPasswd", function () {
     let newPasswd = $("#rstDiv").find("#newPasswd").val();
     let verfPasswd = $("#rstDiv").find("#verfPasswd").val();
@@ -134,6 +140,7 @@ $("#rstDiv").on("focusout", "#verfPasswd", function () {
     }
 });
 
+/*重置密码*/
 $("#rstDiv").on("click", "#rstPasswdBtn", function () {
     let newPasswd = $("#rstDiv").find("#newPasswd").val();
     let verfPasswd = $("#rstDiv").find("#verfPasswd").val();
