@@ -1,3 +1,4 @@
+/*检查用户ID完整性*/
 $("#loginDiv").on("focusout", "#usrID", function () {
     let usrID = $("#loginDiv").find("#usrID").val();
 
@@ -5,6 +6,7 @@ $("#loginDiv").on("focusout", "#usrID", function () {
     else $("#loginDiv").find("#usrID").removeAttr("placeholder");
 });
 
+/*检查用户密码完整性*/
 $("#loginDiv").on("focusout", "#usrPasswd", function () {
     let usrPasswd = $("#loginDiv").find("#usrPasswd").val();
 
@@ -12,6 +14,7 @@ $("#loginDiv").on("focusout", "#usrPasswd", function () {
     else $("#loginDiv").find("#usrPasswd").removeAttr("placeholder");
 });
 
+/*验证登录信息*/
 $("#loginDiv").on("click", "#loginBtn", function () {
     let usrID = $("#loginDiv").find("#usrID").val();
     let usrPasswd = $("#loginDiv").find("#usrPasswd").val();
