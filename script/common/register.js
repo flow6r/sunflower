@@ -87,6 +87,7 @@ $("#regrDiv").on("focusin", "#colgAbrv", function () {
             url: "../../library/common/query_colg.php",
             type: "GET",
             async: false,
+            data: { usrRole: "std" },
             dataType: "json",
             error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
             success: function (colgJSON) {
@@ -109,7 +110,7 @@ $("#regrDiv").on("change", "#colgAbrv", function () {
             url: "../../library/common/query_mjr.php",
             type: "GET",
             async: false,
-            data: { colgAbrv: colgAbrv },
+            data: { usrRole: "std", colgAbrv: colgAbrv },
             dataType: "json",
             error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
             success: function (mjrJSON) {
