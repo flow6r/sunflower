@@ -1,3 +1,4 @@
+/*检查用户ID完整性*/
 $("#regrDiv").on("focusout", "#usrID", function () {
     let usrID = $("#regrDiv").find("#usrID").val();
 
@@ -5,6 +6,7 @@ $("#regrDiv").on("focusout", "#usrID", function () {
     else $("#regrDiv").find("#usrID").removeAttr("placeholder");
 });
 
+/*检查姓名完整性*/
 $("#regrDiv").on("focusout", "#usrName", function () {
     let usrName = $("#regrDiv").find("#usrName").val();
 
@@ -12,6 +14,7 @@ $("#regrDiv").on("focusout", "#usrName", function () {
     else $("#regrDiv").find("#usrName").removeAttr("placeholder");
 });
 
+/*检查密码完整性*/
 $("#regrDiv").on("focusout", "#usrPasswd", function () {
     let usrPasswd = $("#regrDiv").find("#usrPasswd").val();
 
@@ -29,6 +32,7 @@ $("#regrDiv").on("focusout", "#usrPasswd", function () {
     }
 });
 
+/*检查密码完整性*/
 $("#regrDiv").on("focusout", "#verfPasswd", function () {
     let usrPasswd = $("#regrDiv").find("#usrPasswd").val();
     let verfPasswd = $("#regrDiv").find("#verfPasswd").val();
@@ -50,11 +54,13 @@ $("#regrDiv").on("focusout", "#verfPasswd", function () {
     }
 });
 
+/*追加性别选项*/
 $("#regrDiv").on("focusin", "#usrGen", function () {
     $("#regrDiv").find("#usrGen").empty();
     $("#regrDiv").find("#usrGen").append("<option value='male'>男</option><option value='female'>女</option>");
 });
 
+/*检查电子邮箱完整性*/
 $("#regrDiv").on("focusout", "#usrEmail", function () {
     let usrEmail = $("#regrDiv").find("#usrEmail").val();
 
@@ -62,6 +68,7 @@ $("#regrDiv").on("focusout", "#usrEmail", function () {
     else $("#regrDiv").find("#usrEmail").removeAttr("placeholder");
 });
 
+/*追加入学年份选项*/
 $("#regrDiv").on("focusin", "#usrAdms", function () {
     $("#regrDiv").find("#usrAdms").empty();
     let currYear = new Date();
@@ -71,6 +78,7 @@ $("#regrDiv").on("focusin", "#usrAdms", function () {
     }
 });
 
+/*追加学院选项*/
 $("#regrDiv").on("focusin", "#colgAbrv", function () {
     if ($("#regrDiv").find("#colgAbrv").val() == null) {
         $("#regrDiv").find("#colgAbrv").empty();
@@ -91,6 +99,7 @@ $("#regrDiv").on("focusin", "#colgAbrv", function () {
     }
 });
 
+/*追加专业选项*/
 $("#regrDiv").on("change", "#colgAbrv", function () {
     let colgAbrv = $("#regrDiv").find("#colgAbrv").val();
     $("#regrDiv").find("#mjrAbrv").empty();
@@ -112,10 +121,12 @@ $("#regrDiv").on("change", "#colgAbrv", function () {
     }
 });
 
+/*返回登录页面*/
 $("#regrDiv").on("click", "#back", function () {
     window.location.href = "../../index.html";
 });
 
+/*注册学生用户*/
 $("#regrDiv").on("click", "#regrBtn", function () {
     let usrID = $("#regrDiv").find("#usrID").val();
     let usrName = $("#regrDiv").find("#usrName").val();
