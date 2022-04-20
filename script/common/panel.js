@@ -90,7 +90,14 @@ $(".usrNav").on("click", "#basInfo", function () {
     $("#content").find("#basInfoDiv").find("#usrName").attr("placeholder", usrInfo["UsrName"]);
     $("#content").find("#basInfoDiv").find("#usrName").attr("value", usrInfo["UsrName"]);
     $("#content").find("#basInfoDiv").find("#usrGen").append("<option value='" + usrInfo["UsrGen"] + "'>" + (usrInfo["UsrGen"] === "male" ? "男" : "女") + "</option>");
-    $("#content").find("#basInfoDiv").find("#usrAdms").append("<option value='" + usrInfo["UsrAdms"] + "'>" + usrInfo["UsrAdms"] + "</option>");
+    if (usrInfo["UsrAdms"] != null) {
+        let currYear = new Date();
+        let yyyy = Number(currYear.getFullYear());
+        for (let lower = yyyy - 4; lower <= yyyy; lower++) {
+            $("#content").find("#basInfoDiv").find("#usrAdms").append("<option value='" + lower + "'>" + lower + "</option>");
+        }
+        $("#content").find("#basInfoDiv").find("#usrAdms").find("option[value='" + usrInfo["UsrAdms"] + "']").attr("selected", "selected");
+    } else $("#content").find("#basInfoDiv").find("#usrAdms").append("<option value='null'>暂无</option>");
 
     $.ajax({
         url: "../../library/common/query_colg.php",
@@ -104,9 +111,8 @@ $(".usrNav").on("click", "#basInfo", function () {
                 $("#content").find("#basInfoDiv").find("#colgAbrv").append(
                     "<option value='" + colgJSON[indx].ColgAbrv + "'>" + colgJSON[indx].ColgName + "</option>"
                 );
-                if (usrInfo["ColgAbrv"] === colgJSON[indx].ColgAbrv)
-                    $("#content").find("#basInfoDiv").find("#colgAbrv").find("option[value='" + colgJSON[indx].ColgAbrv + "']").attr("selected", "selected");
             }
+            $("#content").find("#basInfoDiv").find("#colgAbrv").find("option[value='" + usrInfo["ColgAbrv"] + "']").attr("selected", "selected");
 
             $.ajax({
                 url: "../../library/common/query_mjr.php",
@@ -120,20 +126,12 @@ $(".usrNav").on("click", "#basInfo", function () {
                         $("#content").find("#basInfoDiv").find("#mjrAbrv").append(
                             "<option value='" + mjrJSON[indx].MjrAbrv + "'>" + mjrJSON[indx].MjrName + "</option>"
                         );
-                        if (usrInfo["MjrAbrv"] === mjrJSON[indx].MjrAbrv)
-                            $("#content").find("#basInfoDiv").find("#mjrAbrv").find("option[value='" + mjrJSON[indx].MjrAbrv + "']").attr("selected", "selected");
                     }
+                    $("#content").find("#basInfoDiv").find("#mjrAbrv").find("option[value='" + usrInfo["MjrAbrv"] + "']").attr("selected", "selected");
                 }
             });
         }
     });
-});
-
-/*编辑个人信息*/
-$("#content").on("click", "#basInfoDiv #editBasInfoBtn", function () {
-    $("#content").find("#basInfoDiv").find("#editBasInfoBtn").attr("style", "visibility: hidden;");
-    $("#content").find("#basInfoDiv").find("#cnlEditInfoBtn").attr("style", "visibility: visible;");
-    $("#content").find("#basInfoDiv").find("#updtBasInfoBtn").attr("style", "visibility: visible;");
 });
 
 /*退出登录*/
