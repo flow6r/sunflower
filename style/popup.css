@@ -17,7 +17,7 @@
     color: #298545;
 }
 
-#secInfo-UpdtEmailDiv {
+.secInfo-UpdtDiv {
     position: relative;
     padding: 0px;
     margin: 0px auto;
@@ -31,7 +31,7 @@
     z-index: 10;
 }
 
-#secInfo-UpdtEmailDiv #secInfo-UpdtEmailFrm {
+.secInfo-UpdtDiv .secInfo-UpdtFrm {
     position: absolute;
     padding: 0px;
     margin: 0 auto;
@@ -39,7 +39,7 @@
     height: 290px;
 }
 
-#secInfo-UpdtEmailDiv #secInfo-UpdtEmailFrm #secInfo-UpdtEmailTbl {
+.secInfo-UpdtDiv .secInfo-UpdtFrm .secInfo-UpdtTbl {
     position: relative;
     padding: 0;
     margin: 10px auto;
@@ -47,20 +47,20 @@
     border-spacing: 15px;
 }
 
-#secInfo-UpdtEmailDiv #secInfo-UpdtEmailFrm #secInfo-UpdtEmailTbl th span {
+.secInfo-UpdtDiv .secInfo-UpdtFrm .secInfo-UpdtTbl th span {
     font-size: 1.3em;
 }
 
-#secInfo-UpdtEmailDiv #secInfo-UpdtEmailFrm #secInfo-UpdtEmailTbl label {
+.secInfo-UpdtDiv .secInfo-UpdtFrm .secInfo-UpdtTbl label {
     font-size: 1.3em;
 }
 
-#secInfo-UpdtEmailDiv #secInfo-UpdtEmailFrm #secInfo-UpdtEmailTbl .secInfo-Input::-webkit-input-placeholder {
+.secInfo-UpdtDiv .secInfo-UpdtFrm .secInfo-UpdtTbl .secInfo-Input::-webkit-input-placeholder {
     color: #999b9e;
     text-align: center;
 }
 
-#secInfo-UpdtEmailDiv #secInfo-UpdtEmailFrm #secInfo-UpdtEmailTbl .secInfo-Input {
+.secInfo-UpdtDiv .secInfo-UpdtFrm .secInfo-UpdtTbl .secInfo-Input {
     width: 270px;
     height: 30px;
     outline: none;
@@ -69,7 +69,7 @@
     border-radius: 7px;
 }
 
-#secInfo-UpdtEmailDiv #secInfo-UpdtEmailFrm .cnlUpdtBtn {
+.secInfo-UpdtDiv .secInfo-UpdtFrm .secInfo-UpdtTbl .cnlUpdtBtn {
     float: left;
     width: 80px;
     height: 36px;
@@ -80,7 +80,7 @@
     border: 2px solid #298545;
 }
 
-#secInfo-UpdtEmailDiv #secInfo-UpdtEmailFrm #secInfo-UpdtEmailTbl .cnlUpdtBtn:hover {
+.secInfo-UpdtDiv .secInfo-UpdtFrm .secInfo-UpdtTbl .cnlUpdtBtn:hover {
     float: left;
     width: 80px;
     height: 36px;
@@ -92,7 +92,7 @@
     border: 2px solid #298545;
 }
 
-#secInfo-UpdtEmailDiv #secInfo-UpdtEmailFrm #secInfo-UpdtEmailTbl .contBtn {
+.secInfo-UpdtDiv .secInfo-UpdtFrm .secInfo-UpdtTbl .contBtn {
     float: right;
     width: 80px;
     height: 36px;
@@ -103,7 +103,7 @@
     border: 2px solid #298545;
 }
 
-#secInfo-UpdtEmailDiv #secInfo-UpdtEmailFrm #secInfo-UpdtEmailTbl .contBtn:hover {
+.secInfo-UpdtDiv .secInfo-UpdtFrm .secInfo-UpdtTbl .contBtn:hover {
     float: right;
     width: 80px;
     height: 36px;
