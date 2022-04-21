@@ -103,7 +103,8 @@ $("body").on("focusout", "#secInfo-UpdtEmailDiv #verfNewEmailBtn", function () {
                                     "<tr><th colspan='2'><span>验证码</span></th></tr>" +
                                     "<tr><td colspan='2'><input type='text' id='verfCode' name='verfCode' class='secInfo-Input' maxlength='5' /></td></tr>" +
                                     "<tr><td><input type='button' class='cnlUpdtBtn' value='取消' /></td>" +
-                                    "<td><input type='button' id='verfCodeBtn' name='verfCodeBtn' class='contBtn' value='继续' /></td></tr>");
+                                    "<td><input type='button' id='verfCodeBtn' name='verfCodeBtn' class='contBtn' value='继续' /></td></tr>"
+                                );
                             } else {
                                 $("body").find("#secInfo-ErrTips").find("span").empty();
                                 $("body").find("#secInfo-ErrTips").attr("style", "visibility: visible");
@@ -204,8 +205,8 @@ $("body").on("click", "#secInfo-UpdtEmailDiv #verfCodeBtn", function () {
                             success: function (status) {
                                 if (status === "successful") {
                                     obtainUpdtedUsrInfo();
-                                    cnlUpdtSecInfo();
                                     alert("成功更新电子邮箱");
+                                    cnlUpdtSecInfo();
                                     $("#content").find("#secInfoDiv").find("#usrEmail").attr("placeholder", usrInfo["UsrEmail"]);
                                 } else {
                                     $("body").find("#secInfo-ErrTips").find("span").empty();
@@ -225,8 +226,196 @@ $("body").on("click", "#secInfo-UpdtEmailDiv #verfCodeBtn", function () {
     } else $("body").find("#secInfo-UpdtEmailDiv").find("#verfCode").attr("placeholder", "请输入验证码");
 });
 
+/*显示更新密码的弹窗*/
+$("#content").on("click", "#secInfoDiv #updtPasswdBtn", function () {
+    $("#mask").attr("style", "visibility: visible;");
+    $("body").append(
+        "<div id='secInfo-CqtTips' class='secInfo-Tips'><span>已将验证码发送至邮箱，请查收</span></div>" +
+        "<div id='secInfo-UpdtPasswdDiv' class='secInfo-UpdtDiv'><form id='secInfo-UpdtPasswdFrm' name='secInfo-UpdtPasswdFrm' class='secInfo-UpdtFrm'>" +
+        "<table id='secInfo-UpdtPasswdTbl' class='secInfo-UpdtTbl'><tr><th colspan='2'><span>验证电子邮箱</span></th></tr>" +
+        "<tr><td colspan='2'><input type='email' id='usrEmail' name='usrEmail' class='secInfo-Input' maxlength='100' /></td></tr>" +
+        "<tr><td><input type='button' class='cnlUpdtBtn' value='取消' /></td>" +
+        "<td><input type='button' id='verfUsrEmailBtn' name='verfUsrEmailBtn' class='contBtn' value='继续' /></td></tr>" +
+        "</table></form></div><div id='secInfo-ErrTips' class='secInfo-Tips'><span></span></div>"
+    );
+});
+
+/*更新密码时检查电子邮箱完整性*/
+$("body").on("focusout", "#secInfo-UpdtPasswdDiv #usrEmail", function () {
+    let usrEmail = $("#secInfo-UpdtPasswdDiv").find("#usrEmail").val();
+
+    if (usrEmail === "") $("body").find("#secInfo-UpdtPasswdDiv").find("#usrEmail").attr("placeholder", "请输入电子邮箱");
+    else $("body").find("#secInfo-UpdtPasswdDiv").find("#usrEmail").removeAttr("placeholder");
+
+});
+
+/*更新密码时验证电子邮箱*/
+$("body").on("click", "#secInfo-UpdtPasswdDiv #verfUsrEmailBtn", function () {
+    let usrEmail = $("#secInfo-UpdtPasswdDiv").find("#usrEmail").val();
+
+    $("body").find("#secInfo-ErrTips").find("span").empty();
+    $("body").find("#secInfo-ErrTips").attr("style", "visibility: hidden");
+
+    if (usrEmail != "") {
+        $.ajax({
+            url: "../../library/common/verify_email.php",
+            type: "POST",
+            async: false,
+            data: { usrRole: usrInfo["UsrRole"], usrEmail: usrEmail },
+            error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+            success: function (status) {
+                if (status === "valid") {
+                    $.ajax({
+                        url: "../../library/common/send_code.php",
+                        type: "POST",
+                        async: false,
+                        data: { usrEmail: usrEmail },
+                        error: function () { alert("发送验证码失败，请联系管理员并反馈问题"); },
+                        success: function (status) {
+                            if (status === "successful") {
+                                $("body").find("#secInfo-CqtTips").attr("style", "visibility: visible");
+                                $("body").find("#secInfo-UpdtPasswdDiv").find("#secInfo-UpdtPasswdTbl").empty();
+                                $("body").find("#secInfo-UpdtPasswdDiv").find("#secInfo-UpdtPasswdTbl").append(
+                                    "<tr><th colspan='2'><span>验证码</span></th></tr>" +
+                                    "<tr><td colspan='2'><input type='text' id='verfCode' name='verfCode' class='secInfo-Input' maxlength='5' /></td></tr>" +
+                                    "<tr><td><input type='button' class='cnlUpdtBtn' value='取消' /></td>" +
+                                    "<td><input type='button' id='verfCodeBtn' name='verfCodeBtn' class='contBtn' value='继续' /></td></tr>"
+                                );
+                            } else {
+                                $("body").find("#secInfo-ErrTips").find("span").empty();
+                                $("body").find("#secInfo-ErrTips").attr("style", "visibility: visible");
+                                $("body").find("#secInfo-ErrTips").find("span").append("发送验证码失败，请联系管理员并反馈问题");
+                            }
+                        }
+                    });
+                } else {
+                    $("body").find("#secInfo-ErrTips").find("span").empty();
+                    $("body").find("#secInfo-ErrTips").attr("style", "visibility: visible");
+                    $("body").find("#secInfo-ErrTips").find("span").append(status);
+                }
+            }
+        });
+    } else $("body").find("#secInfo-UpdtPasswdDiv").find("#usrEmail").attr("placeholder", "请输入电子邮箱");
+});
+
+/*更新密码时检查验证码完整性*/
+$("body").on("focusout", "#secInfo-UpdtPasswdDiv #verfCode", function () {
+    let verfCode = $("body").find("#secInfo-UpdtPasswdDiv").find("#verfCode").val();
+
+    if (verfCode === "") $("body").find("#secInfo-UpdtPasswdDiv").find("#verfCode").attr("placeholder", "请输入验证码");
+    else $("body").find("#secInfo-UpdtPasswdDiv").find("#verfCode").removeAttr("placeholder");
+});
+
+/*更新密码时验证随机验证码正确性*/
+$("body").on("click", "#secInfo-UpdtPasswdDiv #verfCodeBtn", function () {
+    let verfCode = $("body").find("#secInfo-UpdtPasswdDiv").find("#verfCode").val();
+
+    $("body").find("#secInfo-CqtTips").attr("style", "visibility: hidden");
+    $("body").find("#secInfo-ErrTips").find("span").empty();
+    $("body").find("#secInfo-ErrTips").attr("style", "visibility: hidden");
+
+    if (verfCode != "") {
+        $.ajax({
+            url: "../../library/common/verify_code.php",
+            type: "POST",
+            async: false,
+            data: { verfCode: verfCode },
+            error: function () { alert("启动会话时发生错误，请联系管理员并反馈问题"); },
+            success: function (status) {
+                if (status === "valid") {
+                    $("body").find("#secInfo-UpdtPasswdDiv").find("#secInfo-UpdtPasswdTbl").empty();
+                    $("body").find("#secInfo-UpdtPasswdDiv").find("#secInfo-UpdtPasswdTbl").append(
+                        "<tr><td colspan='2' style='float: left;'><label>新密码</label></td></tr>" +
+                        "<tr><td colspan='2'><input type='password' id='newPasswd' name='newPasswd' class='secInfo-Input' maxlength='18' " +
+                        "title='密码由6-18位的英文字母、数字和特殊字符组成' /></td></tr>" +
+                        "<tr><td colspan='2' style='float: left;'><label>重复密码</label></td></tr>" +
+                        "<tr><td colspan='2'><input type='password' id='verfPasswd' name='verfPasswd' class='secInfo-Input' maxlength='18' " +
+                        "title='密码由6-18位的英文字母、数字和特殊字符组成' /></td></tr>" +
+                        "<tr><td><input type='button' class='cnlUpdtBtn' value='取消' /></td>" +
+                        "<td><input type='button' id='updtPasswdBtn' name='updtPasswdBtn' class='contBtn' value='继续' /></td></tr>"
+                    );
+                } else {
+                    $("body").find("#secInfo-ErrTips").find("span").empty();
+                    $("body").find("#secInfo-ErrTips").attr("style", "visibility: visible");
+                    $("body").find("#secInfo-ErrTips").find("span").append("验证码错误");
+                }
+            }
+        });
+    } else $("body").find("#secInfo-UpdtPasswdDiv").find("#verfCode").attr("placeholder", "请输入验证码");
+});
+
+/*更新密码时检查新密码完整性*/
+$("body").on("focusout", "#secInfo-UpdtPasswdDiv #newPasswd", function () {
+    let newPasswd = $("body").find("#secInfo-UpdtPasswdDiv").find("#newPasswd").val();
+
+    $("body").find("#secInfo-ErrTips").find("span").empty();
+
+    if (newPasswd === "") {
+        $("body").find("#secInfo-ErrTips").attr("style", "visibility: hidden");
+        $("body").find("#secInfo-UpdtPasswdDiv").find("#newPasswd").attr("placeholder", "请输入密码");
+    } else if (newPasswd.length < 6 || newPasswd.length > 18) {
+        $("body").find("#secInfo-ErrTips").attr("style", "visibility: visible");
+        $("body").find("#secInfo-ErrTips").find("span").append("请输入6~18位密码");
+    } else $("body").find("#secInfo-ErrTips").attr("style", "visibility: hidden");
+});
+
+/*更新密码时检查重复密码完整性*/
+$("body").on("focusout", "#secInfo-UpdtPasswdDiv #verfPasswd", function () {
+    let newPasswd = $("body").find("#secInfo-UpdtPasswdDiv").find("#newPasswd").val();
+    let verfPasswd = $("body").find("#secInfo-UpdtPasswdDiv").find("#verfPasswd").val();
+
+    $("body").find("#secInfo-ErrTips").find("span").empty();
+
+    if (verfPasswd === "") {
+        $("body").find("#secInfo-ErrTips").attr("style", "visibility: hidden");
+        $("body").find("#secInfo-UpdtPasswdDiv").find("#verfPasswd").attr("placeholder", "请重复输入密码");
+    } else if (newPasswd.length < 6 || newPasswd.length > 18) {
+        $("body").find("#secInfo-ErrTips").attr("style", "visibility: visible");
+        $("body").find("#secInfo-ErrTips").find("span").append("请输入6~18位密码");
+    } else if (newPasswd != verfPasswd) {
+        $("body").find("#secInfo-ErrTips").attr("style", "visibility: visible");
+        $("body").find("#secInfo-ErrTips").find("span").append("两次输入的密码不一致");
+    } else $("#tips").attr("style", "visibility: hidden;");
+});
+
+/*更新用户密码*/
+$("body").on("click", "#secInfo-UpdtPasswdDiv #updtPasswdBtn", function () {
+    let newPasswd = $("body").find("#secInfo-UpdtPasswdDiv").find("#newPasswd").val();
+    let verfPasswd = $("body").find("#secInfo-UpdtPasswdDiv").find("#verfPasswd").val();
+
+    $("body").find("#secInfo-ErrTips").find("span").empty();
+
+    if (newPasswd === "" || verfPasswd === "") {
+        $("body").find("#secInfo-ErrTips").attr("style", "visibility: visible");
+        $("body").find("#secInfo-ErrTips").find("span").append("请完善密码信息");
+    } else if (newPasswd.length < 6 || newPasswd.length > 18) {
+        $("body").find("#secInfo-ErrTips").attr("style", "visibility: visible");
+        $("body").find("#secInfo-ErrTips").find("span").append("请输入6~18位密码");
+    } else if (newPasswd != verfPasswd) {
+        $("body").find("#secInfo-ErrTips").attr("style", "visibility: visible");
+        $("body").find("#secInfo-ErrTips").find("span").append("两次输入的密码不一致");
+    } else {
+        $.ajax({
+            url: "../../library/common/reset_passwd.php",
+            type: "POST",
+            async: false,
+            data: { usrID: usrInfo["UsrID"], usrRole: usrInfo["UsrRole"], newPasswd: newPasswd },
+            error: function () { alert("更新密码失败，请联系管理员并反馈问题"); },
+            success: function (status) {
+                if (status === "successful") {
+                    alert("成功重置密码");
+                    cnlUpdtSecInfo();
+                } else {
+                    $("body").find("#secInfo-ErrTips").attr("style", "visibility: visible");
+                    $("body").find("#secInfo-ErrTips").find("span").append(status);
+                }
+            }
+        });
+    }
+});
+
 /*取消更新*/
-$("body").on("click", "#secInfo-UpdtEmailDiv .cnlUpdtBtn", function () {
+$("body").on("click", ".secInfo-UpdtDiv .cnlUpdtBtn", function () {
     cnlUpdtSecInfo();
 });
 
