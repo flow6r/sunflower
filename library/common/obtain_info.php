@@ -1,8 +1,8 @@
 <?php
 /*获取用户信息的脚本*/
 //获取POST请求的数据
-$usrRole = $_POST["usrRole"];
 $usrID = $_POST["usrID"];
+$usrRole = $_POST["usrRole"];
 
 //引入数据库用户信息脚本
 switch ($usrRole) {
@@ -23,7 +23,7 @@ switch ($usrRole) {
 //连接数据库
 $db = mysqli_connect($dbServer, $dbUser, $dbUserPasswd, $dbName);
 if (mysqli_connect_error()) {
-    echo "连接数据库时发生错误，请联系管理员并反馈问题";
+    echo "连接数据库失败，请联系管理员并反馈问题";
     exit;
 }
 
