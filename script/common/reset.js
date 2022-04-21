@@ -18,7 +18,7 @@ $("#rstDiv").on("click", "#verfEmailBtn", function () {
             data: { usrRole: "temp", usrEmail: usrEmail },
             error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
             success: function (status) {
-                if (status === "successful") {
+                if (status === "valid") {
                     $.ajax({
                         url: "../../library/common/send_code.php",
                         type: "POST",
@@ -62,7 +62,7 @@ $("#rstDiv").on("focusout", "#verfCode", function () {
     else $("#rstDiv").find("#usrEmail").removeAttr("placeholder");
 });
 
-/*验证电子邮箱*/
+/*验证随机验证码*/
 $("#rstDiv").on("click", "#verfCodeBtn", function () {
     let verfCode = $("#rstDiv").find("#verfCode").val();
 
