@@ -17,7 +17,7 @@ require_once("../dbuser/student.php");
 //连接数据库
 $db = mysqli_connect($dbServer, $dbUser, $dbUserPasswd, $dbName);
 if (mysqli_connect_error()) {
-    echo "连接数据库时发生错误，请联系管理员并反馈问题";
+    echo "连接数据库失败，请联系管理员并反馈问题";
     exit;
 }
 
