@@ -130,7 +130,17 @@ $(".usrNav").on("click", "#basInfo", function () {
 
 /*安全设置*/
 $(".usrNav").on("click", "#secInfo", function () {
+    $("#content").empty();
+    $("#content").append(
+        "<div id='secInfoDiv'><form id='secInfoFrm' name='secInfoFrm'><table id='secInfoTbl'>" +
+        "<tr><td><label>电子邮箱</label></td><td><input type='email' id='usrEmail' name='usrEmail' disabled='disabled' maxlength='100' /></td>" +
+        "<td><input type='button' id='updtEmailBtn' name='updtEmailBtn' class='updtBtn' value='更新' /></td></tr>" +
+        "<tr><td><label>账户密码</label></td><td><input type='password' id='origPasswd' name='origPasswd' disabled='disabled' maxlength='18' /></td>" +
+        "<td><input type='button' id='updtPasswdBtn' name='updtPasswdBtn' class='updtBtn' value='更新' /></td></tr></table></form></div>"
+    );
 
+    $("#content").find("#secInfoDiv").find("#usrEmail").attr("placeholder", usrInfo["UsrEmail"]);
+    $("#content").find("#secInfoDiv").find("#origPasswd").attr("placeholder", "******************");
 });
 
 /*退出登录*/
