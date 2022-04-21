@@ -1,8 +1,8 @@
 <?php
 /*检查电子邮箱的脚本*/
 //获取POST请求的数据
-$usrEmail = $_POST["usrEmail"];
 $usrRole = $_POST["usrRole"];
+$usrEmail = $_POST["usrEmail"];
 
 //引入数据库用户信息脚本
 switch ($usrRole) {
@@ -23,7 +23,7 @@ switch ($usrRole) {
 //连接数据库
 $db = mysqli_connect($dbServer, $dbUser, $dbUserPasswd, $dbName);
 if (mysqli_connect_error()) {
-    echo "连接数据库时发生错误，请联系管理员并反馈问题";
+    echo "连接数据库失败，请联系管理员并反馈问题";
     exit;
 }
 
@@ -33,7 +33,7 @@ $stmt = $db->prepare($query);
 $stmt->bind_param("s", $usrEmail);
 $stmt->execute();
 $stmt->store_result();
-if ($stmt->num_rows()) echo "successful";
+if ($stmt->num_rows()) echo "valid";
 else echo "该邮箱未被绑定";
 
 
