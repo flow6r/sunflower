@@ -10,7 +10,7 @@ require_once("../dbuser/temp.php");
 //连接数据库
 $db = mysqli_connect($dbServer, $dbUser, $dbUserPasswd, $dbName);
 if (mysqli_connect_error()) {
-    echo "连接数据库时发生错误，请联系管理员并反馈问题";
+    echo "连接数据库失败，请联系管理员并反馈问题";
     exit;
 }
 
@@ -29,7 +29,7 @@ if ($stmt->num_rows()) {
     $stmt->fetch();
     if (password_verify($usrPasswd, $UsrPasswd)) {
         require_once("../session/user_info.php");
-        echo "successful";
+        echo "valid";
     } else echo "密码错误";
 } else echo "用户不存在";
 
