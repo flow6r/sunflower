@@ -1,0 +1,60 @@
+#secInfoDiv {
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    width: 99.5%;
+    height: 99%;
+    border-radius: 7px;
+    border: 2px solid #d8dee4;
+    background-color: #f6f8fa;
+}
+
+#secInfoDiv #secInfoFrm {
+    position: absolute;
+    padding: 0;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+}
+
+#secInfoDiv #secInfoFrm #secInfoTbl {
+    border-spacing: 10px;
+}
+
+#secInfoDiv #secInfoFrm #secInfoTbl label {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #2c974b;
+}
+
+#secInfoDiv #secInfoFrm #secInfoTbl #origPasswd,
+#secInfoDiv #secInfoFrm #secInfoTbl #usrEmail {
+    float: right;
+    width: 270px;
+    height: 30px;
+    outline: none;
+    font-size: 1.2em;
+    border: 2px solid #d8dee4;
+    border-radius: 7px;
+}
+
+#secInfoDiv #secInfoFrm #secInfoTbl .updtBtn {
+    width: 60px;
+    height: 36px;
+    font-size: 1.2em;
+    color: #ffffff;
+    border-radius: 7px;
+    background-color: #2c974b;
+    border: 2px solid #298545;
+}
+
+#secInfoDiv #secInfoFrm #secInfoTbl .updtBtn:hover {
+    width: 60px;
+    height: 36px;
+    cursor: pointer;
+    font-size: 1.2em;
+    color: #ffffff;
+    border-radius: 7px;
+    background-color: #278b44;
+    border: 2px solid #298545;
+}
