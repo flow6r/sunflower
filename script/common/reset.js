@@ -127,7 +127,7 @@ $("#rstDiv").on("focusout", "#verfPasswd", function () {
 
     if (verfPasswd === "") {
         $("#tips").attr("style", "visibility: hidden;");
-        $("#rstDiv").find("#verfPasswd").attr("placeholder", "请重复密码");
+        $("#rstDiv").find("#verfPasswd").attr("placeholder", "请重复输入密码");
     } else if (newPasswd.length < 6 || newPasswd.length > 18) {
         $("#tips").attr("style", "visibility: visible;");
         $("#tips").find("span").append("请输入6~18位密码");
@@ -167,8 +167,7 @@ $("#rstDiv").on("click", "#rstPasswdBtn", function () {
                 if (status === "successful") {
                     alert("重置密码成功");
                     window.location.href = "../../index.html";
-                }
-                else {
+                } else {
                     $("#tips").attr("style", "visibility: visible;");
                     $("#tips").find("span").append(status);
                 }
