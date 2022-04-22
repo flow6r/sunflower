@@ -25,13 +25,13 @@ if (mysqli_connect_error()) {
 }
 
 //查询数据库，获取用户信息
-$query = "SELECT UsrID, UsrName, UsrGen, UsrRole, UsrEmail, UsrAdms, ColgAbrv, MjrAbrv FROM User WHERE UsrID = ?";
+$query = "SELECT UsrID, UsrName, UsrGen, UsrRole, UsrEmail, UsrAdms, ColgAbrv, MjrAbrv, AvatarPath FROM User WHERE UsrID = ?";
 $stmt = $db->prepare($query);
 $stmt->bind_param("s", $usrID);
 $stmt->execute();
 $stmt->store_result();
 if ($stmt->num_rows()) {
-    $stmt->bind_result($UsrID, $UsrName, $UsrGen, $UsrRole, $UsrEmail, $UsrAdms, $ColgAbrv, $MjrAbrv);
+    $stmt->bind_result($UsrID, $UsrName, $UsrGen, $UsrRole, $UsrEmail, $UsrAdms, $ColgAbrv, $MjrAbrv, $AvatarPath);
     $stmt->fetch();
     require_once("../session/user_info.php");
     echo "successful";
