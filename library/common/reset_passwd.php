@@ -10,20 +10,7 @@ session_start();
 $usrEmail = $_SESSION["usrEmail"];
 
 //引入数据库用户信息脚本
-switch ($usrRole) {
-    case "std":
-        require_once("../dbuser/student.php");
-        break;
-    case "tch":
-        require_once("../dbuser/teacher.php");
-        break;
-    case "admin":
-        require_once("../dbuser/admin.php");
-        break;
-    default:
-        require_once("../dbuser/temp.php");
-        break;
-}
+require_once("../dbuser/temp.php");
 
 //连接数据库
 $db = mysqli_connect($dbServer, $dbUser, $dbUserPasswd, $dbName);
