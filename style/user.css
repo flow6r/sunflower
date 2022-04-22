@@ -1,0 +1,211 @@
+.mgtDiv {
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    width: 99.5%;
+    height: 99%;
+    border-radius: 7px;
+    border: 2px solid #d8dee4;
+    background-color: #f6f8fa;
+}
+
+.mgtDiv .mgtFrm {
+    position: absolute;
+    padding: 0;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+}
+
+.mgtDiv .mgtFrm .qryMenuTbl {
+    width: 100%;
+    height: 6.5%;
+    border-bottom: 2px solid #d8dee4;
+}
+
+.mgtDiv .mgtFrm .qryMenuTbl tr:nth-child(1) td:nth-child(1) {
+    width: 396px;
+}
+
+.mgtDiv .mgtFrm .qryMenuTbl tr:nth-child(1) td:nth-child(2) {
+    width: 188px;
+}
+
+.mgtDiv .mgtFrm .qryMenuTbl tr:nth-child(1) td:nth-child(3) {
+    width: 66px;
+}
+
+.mgtDiv .mgtFrm .qryMenuTbl tr:nth-child(1) td:nth-child(4),
+.mgtDiv .mgtFrm .qryMenuTbl tr:nth-child(1) td:nth-child(5) {
+    width: 108px;
+}
+
+.mgtDiv .mgtFrm .qryBarTbl {
+    width: 100%;
+    height: 5%;
+}
+
+.mgtDiv .mgtFrm .qryBarTbl a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #2c974b;
+}
+
+.mgtDiv .mgtFrm .qryBarTbl a:hover {
+    color: #58c473;
+}
+
+.mgtDiv .mgtFrm .qryBarTbl tr:nth-child(1) {
+    width: 100%;
+}
+
+.mgtDiv .mgtFrm .qryUsrRecsDiv {
+    width: 99.6%;
+    height: 83%;
+    border: 2px solid #d8dee4;
+    background-color: #f6f8fa;
+    border-radius: 7px;
+}
+
+.mgtDiv .mgtFrm .qryUsrRecsDiv .qryRecsCrdTbl {
+    width: 100%;
+    text-align: center;
+}
+
+.mgtDiv .mgtFrm .qryUsrRecsDiv .qryRecsCrdTbl td {
+    width: 10%;
+}
+
+.mgtDiv .mgtFrm .qryUsrRecsDiv .qryRecsCrdTbl .usrCrdDiv {
+    position: relative;
+    padding: 0px;
+    margin: 1px auto;
+    width: 10vw;
+    height: 12vw;
+    border-radius: 7px;
+    border: 2px solid #2e7142;
+    background-color: #f6f8fa;
+}
+
+.mgtDiv .mgtFrm .qryUsrRecsDiv .qryRecsCrdTbl .usrCrdDiv .usrCrdFrm {
+    position: absolute;
+    padding: 0px;
+    margin: 0px auto;
+    width: 100%;
+    height: 100%;
+}
+
+.mgtDiv .mgtFrm .qryUsrRecsDiv .qryRecsCrdTbl .usrCrdDiv .usrCrdFrm .usrCrdTbl{
+    position: relative;
+    padding: 0px;
+    margin: 0px auto;
+    text-align: center;
+    border-spacing: 5px;
+}
+
+.mgtDiv .mgtFrm .recsPageCtlTbl {
+    width: 100%;
+    height: 5%;
+    text-align: center;
+}
+
+.mgtDiv .mgtFrm .recsPageCtlTbl tr:nth-child(1) td:nth-child(1) {
+    width: 40%;
+}
+
+.mgtDiv .mgtFrm .recsPageCtlTbl tr:nth-child(1) td:nth-child(2) {
+    width: 20%;
+}
+
+.mgtDiv .mgtFrm .recsPageCtlTbl tr:nth-child(1) td:nth-child(3) {
+    width: 40%;
+}
+
+.mgtDiv .mgtFrm .recsPageCtlTbl #prevPage {
+    float: right;
+}
+
+.mgtDiv .mgtFrm .recsPageCtlTbl #nextPage {
+    float: left;
+}
+
+.mgtDiv .mgtFrm .recsPageCtlTbl .pageCtlBtn {
+    width: 50px;
+    font-size: 1.2em;
+    color: #ffffff;
+    border-radius: 7px;
+    background-color: #2c974b;
+    border: 2px solid #298545;
+}
+
+.mgtDiv .mgtFrm .recsPageCtlTbl .pageCtlBtn:hover {
+    cursor: pointer;
+    background-color: #278b44;
+}
+
+.mgtDiv .mgtFrm .recsPageCtlTbl .pageOpt {
+    width: 30px;
+    font-size: 1.2em;
+    color: #2c974b;
+    border-radius: 7px;
+    background-color: #f6f8fa;
+    border: 2px solid #298545;
+}
+
+.mgtDiv .mgtFrm .recsPageCtlTbl .pageOpt:hover {
+    cursor: pointer;
+    background-color: #ffffff;
+}
+
+.mgtDiv .mgtFrm .recsPageCtlTbl tr:nth-child(1) {
+    width: 100%;
+}
+
+.mgtDiv .mgtFrm .qryMenuTbl .searchItem {
+    width: 380px;
+    height: 30px;
+    outline: none;
+    font-size: 1.3em;
+    border: 2px solid #2c974b;
+    border-radius: 7px;
+}
+
+.mgtDiv .mgtFrm .qryMenuTbl .searchType {
+    width: 180px;
+    height: 36px;
+    outline: none;
+    font-size: 1.3em;
+    border: 2px solid #2c974b;
+    border-radius: 7px;
+}
+
+.mgtDiv .mgtFrm .qryMenuTbl .searchButton {
+    width: 60px;
+    height: 36px;
+    font-size: 1.2em;
+    color: #ffffff;
+    border-radius: 7px;
+    background-color: #2c974b;
+    border: 2px solid #298545;
+}
+
+.mgtDiv .mgtFrm .qryMenuTbl .searchButton:hover {
+    cursor: pointer;
+    background-color: #278b44;
+}
+
+
+.mgtDiv .mgtFrm .qryMenuTbl .oterOpBtn {
+    width: 100px;
+    height: 36px;
+    font-size: 1.2em;
+    color: #ffffff;
+    border-radius: 7px;
+    background-color: #2c974b;
+    border: 2px solid #298545;
+}
+
+.mgtDiv .mgtFrm .qryMenuTbl .oterOpBtn:hover {
+    cursor: pointer;
+    background-color: #278b44;
+}
