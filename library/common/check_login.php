@@ -24,7 +24,7 @@ if ($stmt->num_rows()) {
     $stmt->bind_result(
         $UsrID, $UsrName, $UsrPasswd,
         $UsrGen, $UsrRole, $UsrEmail,
-        $UsrAdms, $ColgAbrv, $MjrAbrv
+        $UsrAdms, $ColgAbrv, $MjrAbrv, $AvatarPath
     );
     $stmt->fetch();
     if (password_verify($usrPasswd, $UsrPasswd)) {
