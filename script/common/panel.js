@@ -41,9 +41,9 @@ function addTchOpt() {
         "<li id='stdMgt' name='stdMgt'><label><span>学生管理</span><a href='#'></a></label></li>" +
         "<li id='crseMgt' name='crseMgt'><label><span>课程管理</span><a href='#'></a></label></li>"
     );
-    $("#nav").find("#usrInfo").find("#schedMgt").find("span").empty().append("课程管理");
-    $("#nav").find("#usrInfo").find("#grpMgt").find("span").empty().append("小组管理");
-    $("#nav").find("#usrInfo").find("#achvMgt").find("span").empty().append("成就管理");
+    $("#nav").find("#schedMgt").find("label").find("span").empty().append("课程管理");
+    $("#nav").find("#grpMgt").find("label").find("span").empty().append("小组管理");
+    $("#nav").find("#achvMgt").find("label").find("span").empty().append("成就管理");
 }
 
 /*完善管理员用户导航栏*/
@@ -54,9 +54,9 @@ function addAdminOpt() {
         "<li id='tchMgt' name='tchMgt'><label><span style='float: right;'>教师用户</span><a href='#'></a></label></li>" +
         "</ul></li><li id='crseQry' name='crseQry'><label><span>课程查询</span><a href='#'></a></label></li>"
     );
-    $("#nav").find("#usrInfo").find("#schedMgt").find("span").empty().append("课程管理");
-    $("#nav").find("#usrInfo").find("#grpMgt").find("span").empty().append("小组管理");
-    $("#nav").find("#usrInfo").find("#achvMgt").find("span").empty().append("成就管理");
+    $("#nav").find("#schedMgt").find("label").find("span").empty().append("课程管理");
+    $("#nav").find("#grpMgt").find("label").find("span").empty().append("小组管理");
+    $("#nav").find("#achvMgt").find("label").find("span").empty().append("成就管理");
 }
 
 //二级栏目收缩
@@ -141,6 +141,14 @@ $(".usrNav").on("click", "#secInfo", function () {
 
     $("#content").find("#secInfoDiv").find("#usrEmail").attr("placeholder", usrInfo["UsrEmail"]);
     $("#content").find("#secInfoDiv").find("#origPasswd").attr("placeholder", "******************");
+});
+
+/*学生用户管理*/
+$(".usrNav").on("click", "#stdMgt", function () {
+    $("#content").empty();
+    $("#content").append(
+        "awdawd"
+    );
 });
 
 /*退出登录*/
