@@ -147,7 +147,18 @@ $(".usrNav").on("click", "#secInfo", function () {
 $(".usrNav").on("click", "#stdMgt", function () {
     $("#content").empty();
     $("#content").append(
-        "awdawd"
+        "<div id='usrMgtDiv' class='mgtDiv'><form id='usrMgtFrm' name='usrMgtFrm' class='mgtFrm'>" +
+        "<table id='qryUsrMenuTbl' class='qryMenuTbl'>" +
+        "<tr><td><input type='text' id='qryUsrItem' name='qryUsrItem' class='searchItem'/></td>" +
+        "<td><select id='qryUsrType' name='qryUsrType' class='searchType'></select></td>" +
+        "<td><input type='button' id='qryUsrRecsBtn' name='qryUsrRecsBtn' class='searchButton' value='查询' /></td>" +
+        "<td><input type='button' id='addRecBtn' name='addRecBtn' class='oterOpBtn' value='新增记录' /></td>" +
+        "<td><input type='button' id='impRecsBtn' name='impRecsBtn' class='oterOpBtn' value='批量导入' /></td>" +
+        "<td><input type='button' id='delRecsBtn' name='delRecsBtn' class='oterOpBtn' value='批量删除' /></td></tr></table>" +
+        "<table id='qryUsrBarTbl' class='qryBarTbl'><tr><td><span><a id='qryUsrAnchor' href='#'>学生用户&gt;</a></span></td></tr></table>" +
+        "<div class='qryUsrRecsDiv'></div><table id='usrRecsPageCtlTbl' class='recsPageCtlTbl'>" +
+        "<tr><td><input type='button' id='prevPage' name='prevPage' class='pageCtlBtn' value='&lt;' /></td><td id=''></td>" +
+        "<td><input type='button' id='nextPage' name='nextPage' class='pageCtlBtn' value='&gt;' /></td></tr></table></form></div>"
     );
 });
 
