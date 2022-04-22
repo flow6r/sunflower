@@ -39,7 +39,7 @@ else {
     else {
         $stmt->free_result();
         $UsrPasswd = password_hash($UsrPasswd, PASSWORD_BCRYPT);
-        $query = "INSERT INTO User VALUES (?,?,?,?,?,?,?,?,?)";
+        $query = "INSERT INTO User VALUES (?,?,?,?,?,?,?,?,?,NULL)";
         $stmt = $db->prepare($query);
         $stmt->bind_param(
             "ssssssiss",
