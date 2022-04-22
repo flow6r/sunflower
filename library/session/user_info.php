@@ -13,6 +13,7 @@ $userInfo = array(
     "UsrAdms" => $UsrAdms,
     "ColgAbrv" => $ColgAbrv,
     "MjrAbrv" => $MjrAbrv,
+    "AvatarPath" => $AvatarPath
 );
 
 //创建会话变量
