@@ -88,6 +88,10 @@
     text-decoration: none;
 }
 
+.mgtDiv .mgtFrm .qryUsrRecsDiv .qryRecsLstTbl .usrDetlAnchor {
+    color: #0000ee;
+}
+
 .mgtDiv .mgtFrm .recsPageCtlTbl {
     width: 100%;
     height: 5%;
