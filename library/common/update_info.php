@@ -20,9 +20,6 @@ switch ($usrRole) {
     case "admin":
         require_once("../dbuser/admin.php");
         break;
-    default:
-        require_once("../dbuser/temp.php");
-        break;
 }
 
 //连接数据库
