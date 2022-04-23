@@ -142,6 +142,32 @@ $("#content").on("click", "#usrMgtDiv .qryUsrRecsDiv .qryRecsLstTbl .usrCheckBox
     }
 });
 
+/*显示添加新用户记录的弹窗*/
+$("#content").on("click", "#usrMgtDiv #qryUsrMenuTbl #addRecBtn", function () {
+    $("#mask").attr("style", "visibility: visible;");
+    $("body").append(
+        "<div id='addRecDiv' class='usrMgtPopup'><form id='addRecFrm'><table id='addRecTbl'>" +
+        "<tr><th colspan='2'><span id='addRecTitl'>新增学生用户</span></th></tr>" +
+        "<tr><td><label>用户ID</label></td><td><input type='text' id='usrID' name='usrID' maxlength='15' /></td></tr>" +
+        "<tr><td><label>姓名</label></td><td><input type='text' id='usrName' name='usrName' maxlength='10' /></td></tr>" +
+        "<tr><td><label>性别</label></td><td><select id='usrGen' name='usrGen'></select></td></tr>" +
+        "<tr><td><label>电子邮箱</label></td><td><input type='email' id='usrEmail' name='usrEmail' maxlength='100' /></td></tr>" +
+        "<tr id='optRow'><td><label>入学年份</label></td><td><select id='usrAdms' name='usrAdms'></select></td></tr>" +
+        "<tr><td><label>隶属学院</label></td><td><select id='colgAbrv' name='colgAbrv'></select></td></tr>" +
+        "<tr><td><label>所在专业</label></td><td><select id='mjrAbrv' name='mjrAbrv'></select></td></tr>" +
+        "<tr><td><input type='button' class='cnlBtn' value='取消' /></td>" +
+        "<td><input type='button' id='addNewRecBtn' name='addNewRecBtn' value='新增' /></td></tr>" +
+        "</table></form></div><div class='usrMgtPopupTips'><span></span></div>"
+    );
+
+    if (trgtRole === "tch") {
+        $("body").find("#addRecDiv").find("#addRecFrm").find("#addRecTbl").find("#addRecTitl").empty().append("新增教师用户记录");
+        $("body").find("#addRecDiv").find("#addRecFrm").find("#addRecTbl").find("#optRow").remove();
+        $("body").find("#addRecDiv").attr("style", "height: 455px;");
+        $("body").find("#addRecDiv").find("#addRecFrm").attr("style", "height: 455px;");
+    }
+});
+
 /*批量删除用户记录*/
 $("#content").on("click", "#usrMgtDiv #qryUsrMenuTbl #delRecsBtn", function () {
     if (usrIDAray.length != 0) {
@@ -159,3 +185,10 @@ $("#content").on("click", "#usrMgtDiv #qryUsrMenuTbl #delRecsBtn", function () {
     } else alert("您选择了0条用户记录，请选择至少一条记录后再执行批量删除操作");
 });
 
+/*关闭弹窗*/
+$("body").on("click", ".usrMgtPopup .cnlBtn", function () {
+    $("#mask").attr("style", "visibility: hidden;");
+
+    $("body").find(".usrMgtPopup").remove();
+    $("body").find(".usrMgtPopupTips").remove();
+});
