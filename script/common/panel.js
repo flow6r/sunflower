@@ -157,7 +157,7 @@ $(".usrNav").on("click", "#stdMgt", function () {
         "<td><input type='button' id='impRecsBtn' name='impRecsBtn' class='oterOpBtn' value='批量导入' /></td>" +
         "<td><input type='button' id='delRecsBtn' name='delRecsBtn' class='oterOpBtn' value='批量删除' /></td></tr></table>" +
         "<table id='qryUsrBarTbl' class='qryBarTbl'><tr><td><span><a id='qryUsrAnchor' href='#'>学生用户&gt;</a></span></td></tr></table>" +
-        "<div class='qryUsrRecsDiv'><table class='qryRecsLstTbl'><tr id='usrRecsHead'><th></th><th>用户ID</th><th>姓名</th><th>性别</th><th>电子邮箱</th><th>其他</th></tr>" +
+        "<div class='qryUsrRecsDiv'><table class='qryRecsLstTbl'><tr id='usrRecsHead'><th width='50px'></th><th>用户ID</th><th>姓名</th><th>性别</th><th>电子邮箱</th><th>其他</th></tr>" +
         "</table></div><table id='usrRecsPageCtlTbl' class='recsPageCtlTbl'>" +
         "<tr><td><input type='button' id='prevPage' name='prevPage' class='pageCtlBtn' value='&lt;' /></td><td id='pageOpts'></td>" +
         "<td><input type='button' id='nextPage' name='nextPage' class='pageCtlBtn' value='&gt;' /></td></tr></table></form></div>"
