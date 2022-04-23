@@ -146,6 +146,29 @@ $(".usrNav").on("click", "#secInfo", function () {
 
 /*学生用户管理*/
 $(".usrNav").on("click", "#stdMgt", function () {
+    printUsrMgtPanel();
+
+    trgtRole = "std";
+
+    if (usrInfo["UsrRole"] === "tch") {
+        $("#content").find("#usrMgtDiv").find("#qryUsrMenuTbl").find("#qryUsrType").find("option[value='MjrAbrv']").remove();
+        queryUsrs(usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], trgtRole, usrInfo["MjrAbrv"], "MjrAbrv");
+    } else queryUsrs(usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], trgtRole, "", "UsrID");
+});
+
+/*教师用户管理*/
+$(".usrNav").on("click", "#tchMgt", function () {
+    printUsrMgtPanel();
+
+    trgtRole = "tch";
+
+    $("#content").find("#usrMgtDiv").find("#qryUsrMenuTbl").find("#qryUsrType").find("option[value='UsrAdms']").remove();
+
+    queryUsrs(usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], trgtRole, "", "UsrID");
+});
+
+/*实现打印用户管理面板的函数*/
+function printUsrMgtPanel() {
     $("#content").empty();
     $("#content").append(
         "<div id='usrMgtDiv' class='mgtDiv'><form id='usrMgtFrm' name='usrMgtFrm' class='mgtFrm'>" +
@@ -167,14 +190,7 @@ $(".usrNav").on("click", "#stdMgt", function () {
         "<option value='UsrID'>用户ID</option><option value='UsrName'>姓名</option><option value='UsrGen'>性别</option>" +
         "<option value='UsrAdms'>入学年份</option><option value='MjrAbrv'>所在专业</option>"
     );
-
-    trgtRole = "std"
-
-    if (usrInfo["UsrRole"] === "tch") {
-        $("#content").find("#usrMgtDiv").find("#qryUsrMenuTbl").find("#qryUsrType").find("option[value='MjrAbrv']").remove();
-        queryUsrs(usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], trgtRole, usrInfo["MjrAbrv"], "MjrAbrv");
-    } else queryUsrs(usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], trgtRole, "", "UsrID");
-});
+}
 
 /*退出登录*/
 $(".usrNav").on("click", "#logout", function () {
