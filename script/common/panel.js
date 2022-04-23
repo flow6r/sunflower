@@ -1,4 +1,5 @@
 var usrInfo = null;
+var trgtRole = null;
 
 /*获取登录的用户信息*/
 $(document).ready(function () {
@@ -149,17 +150,30 @@ $(".usrNav").on("click", "#stdMgt", function () {
     $("#content").append(
         "<div id='usrMgtDiv' class='mgtDiv'><form id='usrMgtFrm' name='usrMgtFrm' class='mgtFrm'>" +
         "<table id='qryUsrMenuTbl' class='qryMenuTbl'>" +
-        "<tr><td><input type='text' id='qryUsrItem' name='qryUsrItem' class='searchItem'/></td>" +
+        "<tr><td><input type='text' id='qryUsrItem' name='qryUsrItem' class='searchItem' placeholder='请输入待查询的关键词'/></td>" +
         "<td><select id='qryUsrType' name='qryUsrType' class='searchType'></select></td>" +
         "<td><input type='button' id='qryUsrRecsBtn' name='qryUsrRecsBtn' class='searchButton' value='查询' /></td>" +
         "<td><input type='button' id='addRecBtn' name='addRecBtn' class='oterOpBtn' value='新增记录' /></td>" +
         "<td><input type='button' id='impRecsBtn' name='impRecsBtn' class='oterOpBtn' value='批量导入' /></td>" +
         "<td><input type='button' id='delRecsBtn' name='delRecsBtn' class='oterOpBtn' value='批量删除' /></td></tr></table>" +
         "<table id='qryUsrBarTbl' class='qryBarTbl'><tr><td><span><a id='qryUsrAnchor' href='#'>学生用户&gt;</a></span></td></tr></table>" +
-        "<div class='qryUsrRecsDiv'></div><table id='usrRecsPageCtlTbl' class='recsPageCtlTbl'>" +
-        "<tr><td><input type='button' id='prevPage' name='prevPage' class='pageCtlBtn' value='&lt;' /></td><td id=''></td>" +
+        "<div class='qryUsrRecsDiv'><table class='qryRecsLstTbl'><tr id='usrRecsHead'><th></th><th>用户ID</th><th>姓名</th><th>性别</th><th>电子邮箱</th><th>其他</th></tr>" +
+        "</table></div><table id='usrRecsPageCtlTbl' class='recsPageCtlTbl'>" +
+        "<tr><td><input type='button' id='prevPage' name='prevPage' class='pageCtlBtn' value='&lt;' /></td><td id='pageOpts'></td>" +
         "<td><input type='button' id='nextPage' name='nextPage' class='pageCtlBtn' value='&gt;' /></td></tr></table></form></div>"
     );
+
+    $("#content").find("#usrMgtDiv").find("#qryUsrMenuTbl").find("#qryUsrType").append(
+        "<option value='UsrID'>用户ID</option><option value='UsrName'>姓名</option><option value='UsrGen'>性别</option>" +
+        "<option value='UsrAdms'>入学年份</option><option value='MjrAbrv'>所在专业</option>"
+    );
+
+    trgtRole = "std"
+
+    if (usrInfo["UsrRole"] === "tch") {
+        $("#content").find("#usrMgtDiv").find("#qryUsrMenuTbl").find("#qryUsrType").find("option[value='MjrAbrv']").remove();
+        queryUsrs(usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], trgtRole, usrInfo["MjrAbrv"], "MjrAbrv");
+    } else queryUsrs(usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], trgtRole, "", "UsrID");
 });
 
 /*退出登录*/
