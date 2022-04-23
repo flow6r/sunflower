@@ -104,14 +104,8 @@ input::-webkit-input-placeholder {
 }
 
 #loginDiv #loginFrm #loginTbl #loginBtn:hover {
-    width: 278px;
-    height: 36px;
     cursor: pointer;
-    font-size: 1.2em;
-    color: #ffffff;
-    border-radius: 7px;
     background-color: #278b44;
-    border: 2px solid #298545;
 }
 
 #helperDiv {
