@@ -22,6 +22,8 @@ $("#content").on("click", "#usrMgtDiv #qryUsrMenuTbl #qryUsrRecsBtn", function (
 
 /*实现查询用户的函数*/
 function queryUsrs(usrRole, colgAbrv, mjrAbrv, trgtRole, searchItem, searchType) {
+    $("#content").find("#usrMgtDiv").find("#qryUsrMenuTbl").find("#qryUsrItem").val("");
+
     $.ajax({
         url: "../../library/common/query_usrs.php",
         type: "GET",
@@ -70,11 +72,10 @@ function printUsrLsts(currPage) {
     for (; begnIndx <= endIndx && begnIndx < usrsInfo.length; begnIndx++) {
         $("#content").find("#usrMgtDiv").find(".qryRecsLstTbl").find("#usrRecsHead").after(
             "<tr><td><input type='checkbox' class='usrCheckBox' value='" + usrsInfo[begnIndx].UsrID + "' /></td>" +
-            "<td>" + usrsInfo[begnIndx].UsrID + "</td>" +
-            "<td>" + usrsInfo[begnIndx].UsrName + "</td>" +
+            "<td>" + usrsInfo[begnIndx].UsrID + "</td><td>" + usrsInfo[begnIndx].UsrName + "</td>" +
             "<td>" + (usrsInfo[begnIndx].UsrGen === "male" ? "男" : "女") + "</td>" +
             "<td><a href='mailto:" + usrsInfo[begnIndx].UsrEmail + "'>" + usrsInfo[begnIndx].UsrEmail + "</a></td>" +
-            "<td>详情</td></tr>"
+            "<td><a href='#' id='" + usrsInfo[begnIndx].UsrID + "' class='usrDetlAnchor'>进入详情页</a></td></tr>"
         );
     }
 }
@@ -103,7 +104,7 @@ function printPageOpts(currPage) {
 
     for (; begnPage <= endPage; begnPage++) {
         $("#content").find("#usrMgtDiv").find("#usrRecsPageCtlTbl").find("#pageOpts").append(
-            "<input type='button' class='pageOpt' value='" + begnPage + "'>"
+            "<input type='button' id='' class='pageOpt' value='" + begnPage + "'>"
         );
     }
 
@@ -113,3 +114,48 @@ function printPageOpts(currPage) {
     if (currPage === usrsTotPages) $("#content").find("#usrMgtDiv").find("#usrRecsPageCtlTbl").find("#nextPage").attr("disabled", "disabled");
     else $("#content").find("#usrMgtDiv").find("#usrRecsPageCtlTbl").find("#nextPage").removeAttr("disabled");
 }
+
+/*上一页*/
+$("#content").on("#usrMgtDiv #usrRecsPageCtlTbl #prevPage", function () {
+    printUsrLsts(usrsCurrPage - 1);
+    printPageOpts(usrsCurrPage - 1);
+});
+
+/*下一页*/
+$("#content").on("#usrMgtDiv #usrRecsPageCtlTbl #nextPage", function () {
+    printUsrLsts(usrsCurrPage + 1);
+    printPageOpts(usrsCurrPage + 1);
+});
+
+/*获取选中的用户ID*/
+$("#content").on("click", "#usrMgtDiv .qryUsrRecsDiv .qryRecsLstTbl .usrCheckBox", function (event) {
+    let currUsrID = $(event.target).val();
+
+    if ($(event.target).attr("checked")) {
+        $(event.target).removeAttr("checked");
+        let currUsrIDIndx = usrIDAray.indexOf(currUsrID);
+        usrIDAray.splice(currUsrIDIndx, 1);
+        usrIDIndx--;
+    } else {
+        $(event.target).attr("checked", "ture");
+        usrIDAray[usrIDIndx++] = currUsrID;
+    }
+});
+
+/*批量删除用户记录*/
+$("#content").on("click", "#usrMgtDiv #qryUsrMenuTbl #delRecsBtn", function () {
+    if (usrIDAray.length != 0) {
+        $.ajax({
+            url: "../../library/common/delete_usrs.php",
+            type: "POST",
+            async: false,
+            data: { usrRole: usrInfo["UsrRole"], usrIDAray: usrIDAray },
+            error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+            success: function (status) {
+                if (status === "successful") alert("成功删除" + usrIDAray.length + "条用户记录");
+                else alert(status);
+            }
+        });
+    } else alert("您选择了0条用户记录，请选择至少一条记录后再执行批量删除操作");
+});
+
