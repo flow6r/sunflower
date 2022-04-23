@@ -396,7 +396,7 @@ $("body").on("click", "#secInfo-UpdtPasswdDiv #updtPasswdBtn", function () {
         $("body").find("#secInfo-ErrTips").find("span").append("两次输入的密码不一致");
     } else {
         $.ajax({
-            url: "../../library/common/reset_passwd.php",
+            url: "../../library/common/update_passwd.php",
             type: "POST",
             async: false,
             data: { usrID: usrInfo["UsrID"], usrRole: usrInfo["UsrRole"], newPasswd: newPasswd },
