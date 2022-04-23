@@ -163,6 +163,7 @@ $(".usrNav").on("click", "#tchMgt", function () {
     trgtRole = "tch";
 
     $("#content").find("#usrMgtDiv").find("#qryUsrMenuTbl").find("#qryUsrType").find("option[value='UsrAdms']").remove();
+    $("#content").find("#usrMgtDiv").find("#qryUsrBarTbl").find("#qryUsrAnchor").empty().append("教师用户&gt;");
 
     queryUsrs(usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], trgtRole, "", "UsrID");
 });
