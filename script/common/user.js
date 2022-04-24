@@ -20,6 +20,13 @@ $("#content").on("click", "#usrMgtDiv #qryUsrMenuTbl #qryUsrRecsBtn", function (
     } else alert("请输入待查询的关键词");
 });
 
+/*通过用户导航标签查询用户*/
+$("#content").on("click", "#usrMgtDiv #qryUsrBarTbl #qryUsrAnchor", function () {
+    if (usrInfo["UsrRole"] === "tch")
+        queryUsrs(usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], trgtRole, usrInfo["MjrAbrv"], "MjrAbrv");
+    else queryUsrs(usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], trgtRole, "", "UsrID");
+});
+
 /*实现查询用户的函数*/
 function queryUsrs(usrRole, colgAbrv, mjrAbrv, trgtRole, searchItem, searchType) {
     $("#content").find("#usrMgtDiv").find("#qryUsrMenuTbl").find("#qryUsrItem").val("");
