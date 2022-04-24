@@ -10,9 +10,6 @@ $searchType = $_GET["searchType"];
 
 //引入数据库用户信息脚本
 switch ($usrRole) {
-    case "std":
-        require_once("../dbuser/student.php");
-        break;
     case "tch":
         require_once("../dbuser/teacher.php");
         break;
