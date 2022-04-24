@@ -126,15 +126,21 @@ function printPageOpts(currPage) {
 }
 
 /*上一页*/
-$("#content").on("#usrMgtDiv #usrRecsPageCtlTbl #prevPage", function () {
-    printUsrLsts(usrsCurrPage - 1);
-    printPageOpts(usrsCurrPage - 1);
+$("#content").on("click", "#usrMgtDiv #usrMgtFrm #usrRecsPageCtlTbl #prevPage", function () {
+    if(usrsCurrPage != 1) {
+        usrsCurrPage--;
+        printUsrLsts(usrsCurrPage);
+        printPageOpts(usrsCurrPage);
+    }
 });
 
 /*下一页*/
-$("#content").on("#usrMgtDiv #usrRecsPageCtlTbl #nextPage", function () {
-    printUsrLsts(usrsCurrPage + 1);
-    printPageOpts(usrsCurrPage + 1);
+$("#content").on("click", "#usrMgtDiv #usrMgtFrm #usrRecsPageCtlTbl #nextPage", function () {
+    if (usrsCurrPage != usrsTotPages) {
+        usrsCurrPage++;
+        printUsrLsts(usrsCurrPage);
+        printPageOpts(usrsCurrPage);
+    }
 });
 
 /*获取选中的用户ID*/
