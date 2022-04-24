@@ -12,8 +12,8 @@ $("#content").on("click", "#usrMgtDiv #qryUsrMenuTbl #qryUsrRecsBtn", function (
     let searchType = $("#content").find("#usrMgtDiv").find("#qryUsrMenuTbl").find("#qryUsrType").val();
 
     if (searchItem != "") {
-        $("#content").find("#usrMgtDiv").find("#qryUsrBarTbl").find("#qryUsrAnchor").siblings().remove();
-        $("#content").find("#usrMgtDiv").find(".qryRecsLstTbl").find("#usrRecsHead").siblings().remove();
+        $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find("#qryUsrBarTbl").find("#qryUsrAnchor").siblings().remove();
+        $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".qryRecsLstTbl").empty();
 
         if (usrInfo["UsrRole"] === "tch") queryUsrs(usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], trgtRole, usrInfo["MjrAbrv"], "MjrAbrv");
         else queryUsrs(usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], trgtRole, searchItem, searchType);
@@ -44,6 +44,10 @@ function queryUsrs(usrRole, colgAbrv, mjrAbrv, trgtRole, searchItem, searchType)
         success: function (usrsJSON) {
             usrsInfo = usrsJSON;
 
+            $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".qryRecsLstTbl").append(
+                "<tr id='usrRecsHead'><th width='50px'></th><th>用户ID</th><th>姓名</th><th>性别</th><th>电子邮箱</th><th>其他</th></tr>"
+            );
+
             if (usrsInfo.length === 0) {
                 alert("共0条用户记录");
 
@@ -63,16 +67,15 @@ function queryUsrs(usrRole, colgAbrv, mjrAbrv, trgtRole, searchItem, searchType)
     });
 }
 
-/*实现打印每页用户卡片的函数*/
+/*实现打印每页用户记录的函数*/
 function printUsrLsts(currPage) {
     let begnIndx = null;
     let endIndx = null;
     usrIDAray = new Array();
     usrIDIndx = null;
 
-    $("#content").find("#usrMgtDiv").find("#qryUsrBarTbl").find("#qryUsrAnchor").siblings().remove();
-    $("#content").find("#usrMgtDiv").find(".qryRecsLstTbl").find("#usrRecsHead").siblings().remove();
-
+    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find("#qryUsrBarTbl").find("#qryUsrAnchor").siblings().remove();
+    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".qryRecsLstTbl").find("#usrRecsHead").siblings().remove();
     begnIndx = (currPage - 1) * usrsLstLimt;
     endIndx = (currPage * usrsLstLimt) - 1;
 
@@ -352,8 +355,8 @@ function ReQueryUsrs() {
     let searchItem = $("#content").find("#usrMgtDiv").find("#qryUsrMenuTbl").find("#qryUsrItem").val();
     let searchType = $("#content").find("#usrMgtDiv").find("#qryUsrMenuTbl").find("#qryUsrType").val();
 
-    $("#content").find("#usrMgtDiv").find("#qryUsrBarTbl").find("#qryUsrAnchor").siblings().remove();
-    $("#content").find("#usrMgtDiv").find(".qryRecsLstTbl").find("#usrRecsHead").siblings().remove();
+    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find("#qryUsrBarTbl").find("#qryUsrAnchor").siblings().remove();
+    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".qryRecsLstTbl").empty();
 
     if (searchItem === "") {
         searchItem = "";
