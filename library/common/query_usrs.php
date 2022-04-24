@@ -25,38 +25,52 @@ if (mysqli_connect_error()) {
     exit;
 }
 
-//检查查询类型
-if ($searchType === "UsrAdms") $searchItem = intval($searchItem);
-
 //检查查询关键词
 if ($searchType === "UsrGen") {
     if (preg_match("/男/", $searchItem)) $searchItem = "male";
     else if (preg_match("/女/", $searchItem)) $searchItem = "female";
     else { echo "请输入正确的查询关键词"; exit; }
-}
 
-//设置查询关键词
-$searchItem = "%" . $searchItem . "%";
+    switch ($usrRole) {
+        case "tch":
+            $query = "SELECT UsrID, UsrName, UsrGen, UsrEmail FROM User " .
+            "WHERE UsrRole = ? AND MjrAbrv = ? AND UsrGen = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("sss", $trgtRole, $mjrAbrv, $searchItem);
+            break;
+        case "admin":
+            $query = "SELECT UsrID, UsrName, UsrGen, UsrEmail FROM User " .
+            "WHERE UsrRole = ? AND ColgAbrv = ? AND UsrGen = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("sss", $trgtRole, $colgAbrv, $searchItem);
+            break;
+    }
+} else {
+    //检查查询类型
+    if ($searchType === "UsrAdms") $searchItem = intval($searchItem);
+    //设置查询关键词
+    $searchItem = "%" . $searchItem . "%";
 
-//查询用户信息
-switch ($usrRole) {
-    case "tch":
-        $query = "SELECT UsrID, UsrName, UsrGen, UsrEmail FROM User 
-        WHERE UsrRole = ? AND MjrAbrv = ? AND " . $searchType . " LIKE ?";
-        $stmt = $db->prepare($query);
-        $stmt->bind_param("sss", $trgtRole, $mjrAbrv, $searchItem);
-        break;
-    case "admin":
-        if ($searchType === "MjrAbrv")
-            $query = "SELECT U.UsrID, U.UsrName, U.UsrGen, U.UsrEmail FROM User AS U
-            INNER JOIN Major AS M ON U.MjrAbrv = M.MjrAbrv
-            WHERE U.UsrRole = ? AND U.ColgAbrv = ?
-            AND U.ColgAbrv = M.ColgAbrv AND M.MjrName LIKE ?;";
-        else $query = "SELECT UsrID, UsrName, UsrGen, UsrEmail FROM User 
-        WHERE UsrRole = ? AND ColgAbrv = ? AND " . $searchType . " LIKE ?";
-        $stmt = $db->prepare($query);
-        $stmt->bind_param("sss", $trgtRole, $colgAbrv, $searchItem);
-        break;
+    //查询用户信息
+    switch ($usrRole) {
+        case "tch":
+            $query = "SELECT UsrID, UsrName, UsrGen, UsrEmail FROM User " .
+            "WHERE UsrRole = ? AND MjrAbrv = ? AND " . $searchType . " LIKE ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("sss", $trgtRole, $mjrAbrv, $searchItem);
+            break;
+        case "admin":
+            if ($searchType === "MjrAbrv")
+                $query = "SELECT U.UsrID, U.UsrName, U.UsrGen, U.UsrEmail FROM User AS U " .
+                "INNER JOIN Major AS M ON U.MjrAbrv = M.MjrAbrv " .
+                "WHERE U.UsrRole = ? AND U.ColgAbrv = ? " .
+                "AND U.ColgAbrv = M.ColgAbrv AND M.MjrName LIKE ?;";
+            else $query = "SELECT UsrID, UsrName, UsrGen, UsrEmail FROM User " .
+            "WHERE UsrRole = ? AND ColgAbrv = ? AND " . $searchType . " LIKE ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("sss", $trgtRole, $colgAbrv, $searchItem);
+            break;
+    }
 }
 $stmt->execute();
 
