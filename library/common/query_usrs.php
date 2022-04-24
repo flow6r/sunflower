@@ -64,7 +64,7 @@ if ($searchType === "UsrGen") {
                 $query = "SELECT U.UsrID, U.UsrName, U.UsrGen, U.UsrEmail FROM User AS U " .
                 "INNER JOIN Major AS M ON U.MjrAbrv = M.MjrAbrv " .
                 "WHERE U.UsrRole = ? AND U.ColgAbrv = ? " .
-                "AND U.ColgAbrv = M.ColgAbrv AND M.MjrName LIKE ?;";
+                "AND U.ColgAbrv = M.ColgAbrv AND M.MjrName LIKE ?";
             else $query = "SELECT UsrID, UsrName, UsrGen, UsrEmail FROM User " .
             "WHERE UsrRole = ? AND ColgAbrv = ? AND " . $searchType . " LIKE ?";
             $stmt = $db->prepare($query);
