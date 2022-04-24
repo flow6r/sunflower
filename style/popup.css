@@ -144,9 +144,9 @@
     position: relative;
     padding: 0px;
     margin: 0px auto;
-    top: 100px;
+    top: 60px;
     width: 475px;
-    height: 505px;
+    height: 455px;
     border-radius: 7px;
     border: 2px solid #d8dee4;
     background-color: #f6f8fa;
@@ -158,7 +158,7 @@
     padding: 0px;
     margin: 0px auto;
     width: 475px;
-    height: 505px;
+    height: 455px;
 }
 
 #addRecDiv #addRecFrm #addRecTbl {
@@ -204,7 +204,6 @@
     border-radius: 7px;
 }
 
-#addRecDiv #addRecFrm #addRecTbl #colgAbrv,
 #addRecDiv #addRecFrm #addRecTbl #mjrAbrv {
     float: right;
     width: 278px;
@@ -250,13 +249,14 @@
 .usrMgtPopupTips {
     position: relative;
     padding: 5px 0;
-    margin: 20px auto 10px auto;
-    width: 450px;
+    margin: 80px auto;
+    width: 475px;
     text-align: center;
     visibility: hidden;
     border-radius: 7px;
     background-color: #ffe8e6;
     border: 2px solid #db2828;
+    z-index: 10;
 }
 
 .usrMgtPopupTips span {
