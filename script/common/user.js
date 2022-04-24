@@ -153,7 +153,6 @@ $("#content").on("click", "#usrMgtDiv #qryUsrMenuTbl #addRecBtn", function () {
         "<tr><td><label>性别</label></td><td><select id='usrGen' name='usrGen'></select></td></tr>" +
         "<tr><td><label>电子邮箱</label></td><td><input type='email' id='usrEmail' name='usrEmail' maxlength='100' /></td></tr>" +
         "<tr id='optRow'><td><label>入学年份</label></td><td><select id='usrAdms' name='usrAdms'></select></td></tr>" +
-        "<tr><td><label>隶属学院</label></td><td><select id='colgAbrv' name='colgAbrv'></select></td></tr>" +
         "<tr><td><label>所在专业</label></td><td><select id='mjrAbrv' name='mjrAbrv'></select></td></tr>" +
         "<tr><td><input type='button' class='cnlBtn' value='取消' /></td>" +
         "<td><input type='button' id='addNewRecBtn' name='addNewRecBtn' value='新增' /></td></tr>" +
@@ -163,8 +162,113 @@ $("#content").on("click", "#usrMgtDiv #qryUsrMenuTbl #addRecBtn", function () {
     if (trgtRole === "tch") {
         $("body").find("#addRecDiv").find("#addRecFrm").find("#addRecTbl").find("#addRecTitl").empty().append("新增教师用户记录");
         $("body").find("#addRecDiv").find("#addRecFrm").find("#addRecTbl").find("#optRow").remove();
-        $("body").find("#addRecDiv").attr("style", "height: 455px;");
-        $("body").find("#addRecDiv").find("#addRecFrm").attr("style", "height: 455px;");
+        $("body").find("#addRecDiv").attr("style", "height: 400px;");
+        $("body").find("#addRecDiv").find("#addRecFrm").attr("style", "height: 400px;");
+    }
+});
+
+/*添加用户时检查用户ID完整性*/
+$("body").on("focusout", "#addRecDiv #addRecFrm #addRecTbl #usrID", function () {
+    let usrID = $("body").find("#addRecDiv").find("#addRecFrm").find("#addRecTbl").find("#usrID").val();
+
+    if (usrID === "") $("body").find("#addRecDiv").find("#addRecFrm").find("#addRecTbl").find("#usrID").attr("placeholder", "请输入用户ID");
+    else $("body").find("#addRecDiv").find("#addRecFrm").find("#addRecTbl").find("#usrID").removeAttr("placeholder");
+});
+
+/*添加用户时检查姓名完整性*/
+$("body").on("focusout", "#addRecDiv #addRecFrm #addRecTbl #usrName", function () {
+    let usrName = $("body").find("#addRecDiv").find("#addRecFrm").find("#addRecTbl").find("#usrID").val();
+
+    if (usrName === "") $("body").find("#addRecDiv").find("#addRecFrm").find("#addRecTbl").find("#usrName").attr("placeholder", "请输入姓名");
+    else $("body").find("#addRecDiv").find("#addRecFrm").find("#addRecTbl").find("#usrName").removeAttr("placeholder");
+});
+
+/*添加用户时追加性别选项*/
+$("body").on("focusin", "#addRecDiv #addRecFrm #addRecTbl #usrGen", function () {
+    $("body").find("#addRecDiv").find("#addRecFrm").find("#addRecTbl").find("#usrGen").empty();
+    $("body").find("#addRecDiv").find("#addRecFrm").find("#addRecTbl").find("#usrGen").append(
+        "<option value='male'>男</option><option value='female'>女</option>"
+    );
+});
+
+/*添加用户时检查电子邮箱ID完整性*/
+$("body").on("focusout", "#addRecDiv #addRecFrm #addRecTbl #usrEmail", function () {
+    let usrEmail = $("body").find("#addRecDiv").find("#addRecFrm").find("#addRecTbl").find("#usrEmail").val();
+
+    if (usrEmail === "") $("body").find("#addRecDiv").find("#addRecFrm").find("#addRecTbl").find("#usrEmail").attr("placeholder", "请输入电子邮箱");
+    else $("body").find("#addRecDiv").find("#addRecFrm").find("#addRecTbl").find("#usrName").removeAttr("placeholder");
+});
+
+/*添加用户时追加入学年份选项*/
+$("body").on("focusin", "#addRecDiv #addRecFrm #addRecTbl #usrAdms", function () {
+    $("body").find("#addRecDiv").find("#addRecFrm").find("#addRecTbl").find("#usrAdms").empty();
+    let currYear = new Date();
+    let yyyy = Number(currYear.getFullYear());
+    for (let lower = yyyy - 4; lower <= yyyy; lower++) {
+        $("body").find("#addRecDiv").find("#addRecFrm").find("#addRecTbl").find("#usrAdms").append("<option value='" + lower + "'>" + lower + "</option>");
+    }
+});
+
+/*添加用户时追加所在专业选项*/
+$("body").on("focusin", "#addRecDiv #addRecFrm #addRecTbl #mjrAbrv", function () {
+    $.ajax({
+        url: "../../library/common/query_mjr.php",
+        type: "GET",
+        async: false,
+        data: { usrRole: usrInfo["UsrRole"], colgAbrv: usrInfo["ColgAbrv"] },
+        dataType: "json",
+        error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+        success: function (mjrJSON) {
+            $("body").find("#addRecDiv").find("#addRecFrm").find("#addRecTbl").find("#mjrAbrv").empty();
+            for (let indx = 0; indx < mjrJSON.length; indx++)
+                $("body").find("#addRecDiv").find("#addRecFrm").find("#addRecTbl").find("#mjrAbrv").append(
+                    "<option value='" + mjrJSON[indx].MjrAbrv + "'>" + mjrJSON[indx].MjrName + "</option>"
+                );
+        }
+    });
+});
+
+/*添加新用户*/
+$("body").on("click", "#addRecDiv #addRecFrm #addRecTbl #addNewRecBtn", function () {
+    let usrID = $("body").find("#addRecDiv").find("#addRecFrm").find("#addRecTbl").find("#usrID").val();
+    let usrName = $("body").find("#addRecDiv").find("#addRecFrm").find("#addRecTbl").find("#usrName").val();
+    let usrGen = $("body").find("#addRecDiv").find("#addRecFrm").find("#addRecTbl").find("#usrGen").val();
+    let usrEmail = $("body").find("#addRecDiv").find("#addRecFrm").find("#addRecTbl").find("#usrEmail").val();
+    let usrAdms = null;
+    let mjrAbrv = $("body").find("#addRecDiv").find("#addRecFrm").find("#addRecTbl").find("#mjrAbrv").val();
+
+    if (trgtRole === "std") usrAdms = $("body").find("#addRecDiv").find("#addRecFrm").find("#addRecTbl").find("#usrAdms").val();
+
+    $("body").find(".usrMgtPopupTips").find("span").empty();
+    $("body").find(".usrMgtPopupTips").attr("style", "visibility: hidden;");
+
+    if (usrID != "" && usrName != "" && usrGen != "" && usrEmail != "" && mjrAbrv != "") {
+        if (trgtRole === "std" && usrAdms == null) {
+            $("body").find(".usrMgtPopupTips").attr("style", "visibility: visible;");
+            $("body").find(".usrMgtPopupTips").find("span").append("请完善用户信息");
+        } else {
+            $.ajax({
+                url: "../../library/common/add_acct.php",
+                type: "POST",
+                async: false,
+                data: {
+                    usrRole: usrInfo["UsrRole"], usrID: usrID, usrName: usrName,
+                    usrGen: usrGen, trgtRole: trgtRole, usrEmail: usrEmail,
+                    usrAdms: usrAdms, colgAbrv: usrInfo["ColgAbrv"], mjrAbrv: mjrAbrv
+                },
+                error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+                success: function (status) {
+                    if (status === "successful") alert("成功添加新的用户记录");
+                    else {
+                        $("body").find(".usrMgtPopupTips").attr("style", "visibility: visible;");
+                        $("body").find(".usrMgtPopupTips").find("span").append(status);                   
+                    }
+                }
+            });
+        }
+    } else {
+        $("body").find(".usrMgtPopupTips").attr("style", "visibility: visible;");
+        $("body").find(".usrMgtPopupTips").find("span").append("请完善用户信息");
     }
 });
 
