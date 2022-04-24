@@ -80,7 +80,7 @@ function printUsrLsts(currPage) {
     endIndx = (currPage * usrsLstLimt) - 1;
 
     for (; begnIndx <= endIndx && begnIndx < usrsInfo.length; begnIndx++) {
-        $("#content").find("#usrMgtDiv").find(".qryRecsLstTbl").find("#usrRecsHead").after(
+        $("#content").find("#usrMgtDiv").find(".qryRecsLstTbl").append(
             "<tr><td><input type='checkbox' class='usrCheckBox' value='" + usrsInfo[begnIndx].UsrID + "' /></td>" +
             "<td>" + usrsInfo[begnIndx].UsrID + "</td><td>" + usrsInfo[begnIndx].UsrName + "</td>" +
             "<td>" + (usrsInfo[begnIndx].UsrGen === "male" ? "男" : "女") + "</td>" +
@@ -127,11 +127,18 @@ function printPageOpts(currPage) {
 
 /*上一页*/
 $("#content").on("click", "#usrMgtDiv #usrMgtFrm #usrRecsPageCtlTbl #prevPage", function () {
-    if(usrsCurrPage != 1) {
+    if (usrsCurrPage != 1) {
         usrsCurrPage--;
         printUsrLsts(usrsCurrPage);
         printPageOpts(usrsCurrPage);
     }
+});
+
+/*页码跳转*/
+$("#content").on("click", "#usrMgtDiv #usrMgtFrm #usrRecsPageCtlTbl .pageOpt", function (event) {
+    usrsCurrPage = $(event.target).val();
+    printUsrLsts(usrsCurrPage);
+    printPageOpts(usrsCurrPage);
 });
 
 /*下一页*/
