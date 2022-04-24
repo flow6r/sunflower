@@ -139,6 +139,8 @@
     border-radius: 7px;
     background-color: #f6f8fa;
     border: 2px solid #298545;
+    margin-right: 5px;
+    margin-left: 5px;
 }
 
 .mgtDiv .mgtFrm .recsPageCtlTbl .pageOpt:hover {
