@@ -144,8 +144,8 @@ if ($canIsrt) {
 } else {
     $tips = null;
     for ($indx = 0; $indx < count($cantIsrtUsrInfoAray); $indx++)
-        $tips .= "\n用户ID：" . $cantIsrtUsrInfoAray[$indx]["UsrID"] . "，错误原因：" . $cantIsrtUsrInfoAray[$indx]["ErrTxt"];
-    echo "<script>alert('您导入的信息中包含已存在的用户记录" . $tips . "\n请检查无误后再执行批量导入的操作');</script>";
+        $tips .= "\\n用户ID：" . $cantIsrtUsrInfoAray[$indx]["UsrID"] . "，错误原因：" . $cantIsrtUsrInfoAray[$indx]["ErrTxt"];
+    echo "<script>alert('您导入的信息中包含已存在的用户记录" . $tips . "\\n请检查无误后再执行批量导入的操作');</script>";
     unlink($newStdUsrsInfoFile);
 }
 
