@@ -110,6 +110,7 @@ function printPageOpts(currPage) {
         }
     }
 
+    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find("#usrRecsPageCtlTbl").attr("style", "visibility: visible;");
     $("#content").find("#usrMgtDiv").find("#usrRecsPageCtlTbl").find("#pageOpts").empty();
 
     for (; begnPage <= endPage; begnPage++) {
@@ -383,3 +384,11 @@ function ReQueryUsrs() {
     if (usrInfo["UsrRole"] === "tch") queryUsrs(usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], trgtRole, usrInfo["MjrAbrv"], "MjrAbrv");
     else queryUsrs(usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], trgtRole, searchItem, searchType);
 }
+
+/*进入用户详情页*/
+$("#content").on("click", "#usrMgtDiv #usrMgtFrm .qryUsrRecsDiv .qryRecsLstTbl .usrDetlAnchor", function (event) {
+    let usrID = $(event.target).attr("id");
+
+    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".qryRecsLstTbl").empty();
+    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find("#usrRecsPageCtlTbl").attr("style", "visibility: hidden;");
+});
