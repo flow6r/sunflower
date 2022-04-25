@@ -44,6 +44,11 @@ function queryUsrs(usrRole, colgAbrv, mjrAbrv, trgtRole, searchItem, searchType)
         success: function (usrsJSON) {
             usrsInfo = usrsJSON;
 
+            $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find("#qryUsrBarTbl").find("#qryUsrAnchor").siblings().remove();
+
+            $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").empty();
+            $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").attr("class", "qryRecsLstTbl")
+
             $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".qryRecsLstTbl").append(
                 "<tr id='usrRecsHead'><th width='50px'></th><th>用户ID</th><th>姓名</th><th>性别</th><th>电子邮箱</th><th>其他</th></tr>"
             );
@@ -74,7 +79,6 @@ function printUsrLsts(currPage) {
     usrIDAray = new Array();
     usrIDIndx = null;
 
-    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find("#qryUsrBarTbl").find("#qryUsrAnchor").siblings().remove();
     $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".qryRecsLstTbl").find("#usrRecsHead").siblings().remove();
     begnIndx = (currPage - 1) * usrsLstLimt;
     endIndx = (currPage * usrsLstLimt) - 1;
@@ -389,6 +393,83 @@ function ReQueryUsrs() {
 $("#content").on("click", "#usrMgtDiv #usrMgtFrm .qryUsrRecsDiv .qryRecsLstTbl .usrDetlAnchor", function (event) {
     let usrID = $(event.target).attr("id");
 
-    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".qryRecsLstTbl").empty();
-    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find("#usrRecsPageCtlTbl").attr("style", "visibility: hidden;");
+    $.ajax({
+        url: "../../library/common/query_usr.php",
+        type: "GET",
+        async: false,
+        data: { usrRole: usrInfo["UsrRole"], usrID: usrID },
+        dataType: "json",
+        error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+        success: function (usrJSON) {
+            if (usrJSON["error"] === "查询用户失败，请联系管理员并反馈问题") alert("查询用户失败，请联系管理员并反馈问题");
+            else {
+                $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find("#qryUsrBarTbl").find("#qryUsrAnchor").after("<a href='#'>用户信息&gt;</a>");
+                $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".qryRecsLstTbl").empty();
+                $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find("#usrRecsPageCtlTbl").attr("style", "visibility: hidden;");
+                $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".qryRecsLstTbl").attr("class", "currUsrInfoTbl")
+
+                $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").append(
+                    "<tr><td rowspan='8'><img id='usrAvatar' src='' /></td>" +
+                    "<td><label>用户ID</label></td><td><input type='text' id='usrID' name='usrID' disabled='disabled' /></td></tr>" +
+                    "<tr><td><label>姓名</label></td><td><input type='text' id='usrName' name='usrName' disabled='disabled' /></td></tr>" +
+                    "<tr><td><label>性别</label></td><td><select id='usrGen' name='usrGen' disabled='disabled'></select></td></tr>" +
+                    "<tr><td><label>密码</label></td><td><input type='text' id='usrPasswd' name='usrPasswd' disabled='disabled' /></td></tr>" +
+                    "<tr><td><label>电子邮箱</label></td><td><input type='email' id='usrEmail' name='usrEmail' disabled='disabled' /></td></tr>" +
+                    "<tr><td><label>入学年份</label></td><td><select id='usrAdms' name='usrAdms' disabled='disabled'></select></td></tr>" +
+                    "<tr><td><label>隶属学院</label></td><td><select id='colgAbrv' name='colgAbrv' disabled='disabled'></select></td></tr>" +
+                    "<tr><td><label>所在专业</label></td><td><select id='mjrAbrv' name='mjrAbrv' disabled='disabled'></select></td></tr>" +
+                    "<tr><td><input type='button' id='updtAvatar' name='updtAvatar' value='更新头像' /></td>" +
+                    "<td><input type='button' id='editUsrInfoBtn' name='editUsrInfoBtn' value='编辑' />" +
+                    "</td><td><input type='button' id='cnlUpdtUsrInfoBtn' name='cnlUpdtUsrInfoBtn' value='取消' />" +
+                    "<input type='button' id='updtUsrInfoBtn' name='updtUsrInfoBtn' value='保存' /></td></tr>"
+                );
+                $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("img").attr("src", (usrJSON[0].AvatarPath === null ? "../../image/avatar/flower.jpg" : usrJSON[0].AvatarPath));
+                $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrID").attr("placeholder", usrJSON[0].UsrID);
+                $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrName").attr("placeholder", usrJSON[0].UsrName);
+                $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrGen").append("<option value='male'>男</option><option value='female'>女</option>");
+                $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrGen").find("option[value='" + usrJSON[0].UsrGen + "']").attr("selected", "selected");
+                $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrPasswd").attr("value", "**********");
+                $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrEmail").attr("placeholder", usrJSON[0].UsrEmail);
+                if (usrJSON[0].UsrAdms != null)
+                    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrAdms").append(
+                        "<option value='" + usrJSON[0].UsrAdms + "'>" + usrJSON[0].UsrAdms + "</option>");
+                else $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrAdms").append("<option value='null'>暂无</option>");
+
+                $.ajax({
+                    url: "../../library/common/query_colg.php",
+                    type: "GET",
+                    async: false,
+                    data: { usrRole: usrInfo["UsrRole"] },
+                    dataType: "json",
+                    error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+                    success: function (colgJSON) {
+                        for (let indx = 0; indx < colgJSON.length; indx++) {
+                            $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#colgAbrv").append(
+                                "<option value='" + colgJSON[indx].ColgAbrv + "'>" + colgJSON[indx].ColgName + "</option>"
+                            );
+                        }
+                        $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#colgAbrv").find("option[value='" + usrJSON[0].ColgAbrv + "']").attr("selected", "selected");
+                        if (usrJSON[0].MjrAbrv != null) {
+                            $.ajax({
+                                url: "../../library/common/query_mjr.php",
+                                type: "GET",
+                                async: false,
+                                data: { usrRole: usrInfo["UsrRole"], colgAbrv: usrJSON[0].ColgAbrv },
+                                dataType: "json",
+                                error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+                                success: function (mjrJSON) {
+                                    for (let indx = 0; indx < mjrJSON.length; indx++) {
+                                        $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#mjrAbrv").append(
+                                            "<option value='" + mjrJSON[indx].MjrAbrv + "'>" + mjrJSON[indx].MjrName + "</option>"
+                                        );
+                                    }
+                                    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#mjrAbrv").find("option[value='" + usrJSON[0].MjrAbrv + "']").attr("selected", "selected");
+                                }
+                            });
+                        } else $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#mjrAbrv").append("<option value='null'>暂无</option>");
+                    }
+                });
+            }
+        }
+    })
 });
