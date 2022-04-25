@@ -114,9 +114,13 @@ function printPageOpts(currPage) {
 
     for (; begnPage <= endPage; begnPage++) {
         $("#content").find("#usrMgtDiv").find("#usrRecsPageCtlTbl").find("#pageOpts").append(
-            "<input type='button' id='' class='pageOpt' value='" + begnPage + "'>"
+            "<input type='button' class='pageOpt' value='" + begnPage + "'>"
         );
     }
+
+    $("#content").find("#usrMgtDiv").find("#usrRecsPageCtlTbl").find("#pageOpts").find(".currPageOpt").attr("class", "pageOpt");
+
+    $("#content").find("#usrMgtDiv").find("#usrRecsPageCtlTbl").find("#pageOpts").find("input[type='button'][value='" + currPage + "']").attr("class", "currPageOpt");
 
     if (currPage === 1) $("#content").find("#usrMgtDiv").find("#usrRecsPageCtlTbl").find("#prevPage").attr("disabled", "disabled");
     else $("#content").find("#usrMgtDiv").find("#usrRecsPageCtlTbl").find("#prevPage").removeAttr("disabled");
