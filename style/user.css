@@ -96,6 +96,7 @@
     width: 100%;
     height: 5%;
     text-align: center;
+    visibility: visible;
 }
 
 .mgtDiv .mgtFrm .recsPageCtlTbl tr:nth-child(1) td:nth-child(1) {
