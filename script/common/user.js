@@ -393,6 +393,13 @@ function ReQueryUsrs() {
 $("#content").on("click", "#usrMgtDiv #usrMgtFrm .qryUsrRecsDiv .qryRecsLstTbl .usrDetlAnchor", function (event) {
     let usrID = $(event.target).attr("id");
 
+    queryCurrUsrInfo(usrID);
+});
+
+/*实现查询用户信息详情的函数*/
+function queryCurrUsrInfo(currUsrID) {
+    let usrID = currUsrID;
+
     $.ajax({
         url: "../../library/common/query_usr.php",
         type: "GET",
@@ -403,6 +410,7 @@ $("#content").on("click", "#usrMgtDiv #usrMgtFrm .qryUsrRecsDiv .qryRecsLstTbl .
         success: function (usrJSON) {
             if (usrJSON["error"] === "查询用户失败，请联系管理员并反馈问题") alert("查询用户失败，请联系管理员并反馈问题");
             else {
+                $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find("#qryUsrBarTbl").find("#qryUsrAnchor").siblings().remove();
                 $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find("#qryUsrBarTbl").find("#qryUsrAnchor").after("<a href='#'>用户信息&gt;</a>");
                 $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".qryRecsLstTbl").empty();
                 $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find("#usrRecsPageCtlTbl").attr("style", "visibility: hidden;");
@@ -410,17 +418,17 @@ $("#content").on("click", "#usrMgtDiv #usrMgtFrm .qryUsrRecsDiv .qryRecsLstTbl .
 
                 $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").append(
                     "<tr><td rowspan='8'><img id='usrAvatar' src='' /></td>" +
-                    "<td><label>用户ID</label></td><td><input type='text' id='usrID' name='usrID' disabled='disabled' /></td></tr>" +
-                    "<tr><td><label>姓名</label></td><td><input type='text' id='usrName' name='usrName' disabled='disabled' /></td></tr>" +
+                    "<td><label>用户ID</label></td><td><input type='text' id='usrID' name='" + usrJSON[0].UsrID + "' maxlength='15' disabled='disabled' /></td></tr>" +
+                    "<tr><td><label>姓名</label></td><td><input type='text' id='usrName' name='usrName' maxlength='10' disabled='disabled' /></td></tr>" +
                     "<tr><td><label>性别</label></td><td><select id='usrGen' name='usrGen' disabled='disabled'></select></td></tr>" +
-                    "<tr><td><label>密码</label></td><td><input type='text' id='usrPasswd' name='usrPasswd' disabled='disabled' /></td></tr>" +
-                    "<tr><td><label>电子邮箱</label></td><td><input type='email' id='usrEmail' name='usrEmail' disabled='disabled' /></td></tr>" +
+                    "<tr><td><label>密码</label></td><td><input type='text' id='usrPasswd' name='usrPasswd' maxlength='18' disabled='disabled' /></td></tr>" +
+                    "<tr><td><label>电子邮箱</label></td><td><input type='email' id='usrEmail' name='" + usrJSON[0].UsrEmail + "' maxlength='100' disabled='disabled' /></td></tr>" +
                     "<tr><td><label>入学年份</label></td><td><select id='usrAdms' name='usrAdms' disabled='disabled'></select></td></tr>" +
                     "<tr><td><label>隶属学院</label></td><td><select id='colgAbrv' name='colgAbrv' disabled='disabled'></select></td></tr>" +
                     "<tr><td><label>所在专业</label></td><td><select id='mjrAbrv' name='mjrAbrv' disabled='disabled'></select></td></tr>" +
-                    "<tr><td><input type='button' id='updtAvatar' name='updtAvatar' value='更新头像' /></td>" +
+                    "<tr><td><input type='button' id='updtAvatar' name='" + usrJSON[0].UsrID + "' value='更新头像' /></td>" +
                     "<td><input type='button' id='editUsrInfoBtn' name='editUsrInfoBtn' value='编辑' />" +
-                    "</td><td><input type='button' id='cnlUpdtUsrInfoBtn' name='cnlUpdtUsrInfoBtn' value='取消' />" +
+                    "</td><td><input type='button' id='cnlUpdtUsrInfoBtn' name='" + usrJSON[0].UsrID + "' value='取消' />" +
                     "<input type='button' id='updtUsrInfoBtn' name='updtUsrInfoBtn' value='保存' /></td></tr>"
                 );
                 $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("img").attr("src", (usrJSON[0].AvatarPath === null ? "../../image/avatar/flower.jpg" : usrJSON[0].AvatarPath));
@@ -472,4 +480,103 @@ $("#content").on("click", "#usrMgtDiv #usrMgtFrm .qryUsrRecsDiv .qryRecsLstTbl .
             }
         }
     })
+}
+
+/*编辑用户信息*/
+$("#content").on("click", "#usrMgtDiv #usrMgtFrm .qryUsrRecsDiv .currUsrInfoTbl #editUsrInfoBtn", function () {
+    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#updtAvatar").attr("disabled", "disabled");
+    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#editUsrInfoBtn").attr("style", "visibility: hidden;");
+    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#cnlUpdtUsrInfoBtn").attr("style", "visibility: visible;");
+    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#updtUsrInfoBtn").attr("style", "visibility: visible;");
+
+    let currUsrID = $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrID").attr("placeholder");
+    let currUsrName = $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrName").attr("placeholder");
+    let currUsrEmail = $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrEmail").attr("placeholder");
+    let currUsrAdms = $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrAdms").val();
+
+    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrID").val(currUsrID).removeAttr("placeholder").removeAttr("disabled");
+    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrName").val(currUsrName).removeAttr("placeholder").removeAttr("disabled");
+    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrPasswd").removeAttr("disabled");
+    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrEmail").val(currUsrEmail).removeAttr("placeholder").removeAttr("disabled");
+    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrGen").removeAttr("disabled");
+    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrAdms").removeAttr("disabled").empty();
+
+    let currYear = new Date();
+    let yyyy = Number(currYear.getFullYear());
+    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrAdms").append("<option value='null'>暂无</option>");
+    for (let lower = yyyy - 4; lower <= yyyy; lower++) {
+        $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrAdms").append("<option value='" + lower + "'>" + lower + "</option>");
+    }
+    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrAdms").find("option[value='" + currUsrAdms + "']").attr("selected", "selected");
+    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#colgAbrv").removeAttr("disabled");
+    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#mjrAbrv").removeAttr("disabled");
+});
+
+/*切换学院时查询该学院下设专业*/
+$("#content").on("change", "#usrMgtDiv #usrMgtFrm .qryUsrRecsDiv .currUsrInfoTbl #colgAbrv", function () {
+    let colgAbrv = $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#colgAbrv").val();
+
+    $.ajax({
+        url: "../../library/common/query_mjr.php",
+        type: "GET",
+        async: false,
+        data: { usrRole: usrInfo["UsrRole"], colgAbrv: colgAbrv },
+        dataType: "json",
+        error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+        success: function (mjrJSON) {
+            $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#mjrAbrv").empty();
+            for (let indx = 0; indx < mjrJSON.length; indx++) {
+                $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#mjrAbrv").append(
+                    "<option value='" + mjrJSON[indx].MjrAbrv + "'>" + mjrJSON[indx].MjrName + "</option>"
+                );
+            }
+        }
+    });
+});
+
+/*取消编辑用户信息*/
+$("#content").on("click", "#usrMgtDiv #usrMgtFrm .qryUsrRecsDiv .currUsrInfoTbl #cnlUpdtUsrInfoBtn", function (event) {
+    let usrID = $(event.target).attr("name");
+
+    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").empty();
+
+    queryCurrUsrInfo(usrID);
+});
+
+/*保存更改并更新用户信息*/
+$("#content").on("click", "#usrMgtDiv #usrMgtFrm .qryUsrRecsDiv .currUsrInfoTbl #updtUsrInfoBtn", function () {
+    let origID = $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrID").attr("name");
+    let usrID = $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrID").val();
+    let usrName = $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrName").val();
+    let usrGen = $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrGen").val();
+    let usrPasswd = $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrPasswd").val();
+    let origEmail = $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrEmail").attr("name");
+    let usrEmail = $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrEmail").val();
+    let usrAdms = $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrAdms").val();
+    let colgAbrv = $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#colgAbrv").val();
+    let mjrAbrv = $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#mjrAbrv").val();
+
+    // alert(usrID + "," + usrName + "," + usrGen + "," + usrPasswd + "," + usrEmail + "," + usrAdms + "," + colgAbrv + "," + mjrAbrv);
+
+    if (usrID != "" && usrName != "" && usrGen != "" && usrPasswd != "" && usrEmail != "" && colgAbrv != "" && mjrAbrv) {
+        $.ajax({
+            url: "../../library/common/update_usrinfo.php",
+            type: "POST",
+            async: false,
+            data: {
+                origID: origID, usrID: usrID, usrName: usrName, usrGen: usrGen, usrPasswd: usrPasswd, origEmail: origEmail,
+                usrEmail: usrEmail, usrAdms: usrAdms, colgAbrv: colgAbrv, mjrAbrv: mjrAbrv, usrRole: usrInfo["UsrRole"]
+            },
+            error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+            success: function (status) {
+                if (status === "successful") {
+                    alert("成功更新用户信息");
+                    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").empty();
+                    queryCurrUsrInfo(usrID);
+                } else alert(status);
+            }
+        });
+    } else alert("请完善待更改的用户信息后再执行更新操作");
+
+
 });
