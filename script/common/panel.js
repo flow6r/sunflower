@@ -177,9 +177,9 @@ function printUsrMgtPanel() {
         "<tr><td><input type='text' id='qryUsrItem' name='qryUsrItem' class='searchItem' placeholder='请输入待查询的关键词'/></td>" +
         "<td><select id='qryUsrType' name='qryUsrType' class='searchType'></select></td>" +
         "<td><input type='button' id='qryUsrRecsBtn' name='qryUsrRecsBtn' class='searchButton' value='查询' /></td>" +
-        "<td><input type='button' id='addRecBtn' name='addRecBtn' class='oterOpBtn' value='新增记录' /></td>" +
-        "<td><input type='button' id='impRecsBtn' name='impRecsBtn' class='oterOpBtn' value='批量导入' /></td>" +
-        "<td><input type='button' id='delRecsBtn' name='delRecsBtn' class='oterOpBtn' value='批量删除' /></td></tr></table>" +
+        "<td><input type='button' id='addRecBtn' name='addRecBtn' class='otherOpBtn' value='新增记录' /></td>" +
+        "<td><input type='button' id='impRecsBtn' name='impRecsBtn' class='otherOpBtn' value='批量导入' /></td>" +
+        "<td><input type='button' id='delRecsBtn' name='delRecsBtn' class='otherOpBtn' value='批量删除' /></td></tr></table>" +
         "<table id='qryUsrBarTbl' class='qryBarTbl'><tr><td><span><a id='qryUsrAnchor' href='#'>学生用户&gt;</a></span></td></tr></table>" +
         "<div class='qryUsrRecsDiv'><table class='qryRecsLstTbl'></table></div><table id='usrRecsPageCtlTbl' class='recsPageCtlTbl'>" +
         "<tr><td><input type='button' id='prevPage' name='prevPage' class='pageCtlBtn' value='&lt;' /></td><td id='pageOpts'></td>" +
