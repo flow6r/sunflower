@@ -148,6 +148,23 @@
     background-color: #ffffff;
 }
 
+.mgtDiv .mgtFrm .recsPageCtlTbl .currPageOpt {
+    width: 30px;
+    font-size: 1.2em;
+    color: #ffffff;
+    border-radius: 7px;
+    background-color: #2c974b;
+    border: 2px solid #298545;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.mgtDiv .mgtFrm .recsPageCtlTbl .currPageOpt:hover {
+    cursor: pointer;
+    background-color: #278b44;
+}
+
+
 .mgtDiv .mgtFrm .recsPageCtlTbl tr:nth-child(1) {
     width: 100%;
 }
@@ -186,7 +203,7 @@
 }
 
 
-.mgtDiv .mgtFrm .qryMenuTbl .oterOpBtn {
+.mgtDiv .mgtFrm .qryMenuTbl .otherOpBtn {
     width: 100px;
     height: 36px;
     font-size: 1.2em;
@@ -196,7 +213,7 @@
     border: 2px solid #298545;
 }
 
-.mgtDiv .mgtFrm .qryMenuTbl .oterOpBtn:hover {
+.mgtDiv .mgtFrm .qryMenuTbl .otherOpBtn:hover {
     cursor: pointer;
     background-color: #278b44;
 }
