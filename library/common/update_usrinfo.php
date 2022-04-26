@@ -30,7 +30,32 @@ if (mysqli_connect_error()) {
     exit;
 }
 
-//查询数据库
+//检查入学年份
+if ($usrAdms == "null") {
+    $query = "SELECT UsrRole FROM User WHERE UsrID = ?";
+    $stmt = $db->prepare($query);
+    $stmt->bind_param("s", $origID);
+    $stmt->execute();
+    $stmt->store_result();
+    if ($stmt->num_rows()) {
+        $stmt->bind_result($UsrRole);
+        $stmt->fetch();
+        if ($UsrRole === "std") {
+            echo "入学年份字段不能为空";
+            $stmt->free_result();
+            $db->close();
+            exit;
+        } else $usrAdms = null;
+    } else {
+        echo "查询用户失败，请联系管理员并反馈问题";
+        $stmt->free_result();
+        $db->close();
+        exit;
+    }
+} else $usrAdms = intval($usrAdms);
+
+
+//检查用户ID和电子邮箱是否可用
 if ($origID != $usrID || $origEmail != $usrEmail) {
     $query = "SELECT UsrID, UsrEmail FROM User WHERE UsrID = ? OR UsrEmail = ?";
     $stmt = $db->prepare($query);
@@ -52,8 +77,6 @@ if ($origID != $usrID || $origEmail != $usrEmail) {
 $updtPasswd = true;
 if (preg_match("/^\*(\*)*\*$/", $usrPasswd)) $updtPasswd = false;
 else $usrPasswd = password_hash($usrPasswd, PASSWORD_BCRYPT);
-
-if ($usrAdms != null) $usrAdms = intval($usrAdms);
 
 //更新用户信息
 if ($updtPasswd) {
