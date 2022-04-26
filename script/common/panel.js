@@ -39,10 +39,10 @@ function addStdOpt() {
 /*完善教师用户导航栏*/
 function addTchOpt() {
     $("#nav").find("#usrInfo").after(
-        "<li id='stdMgt' name='stdMgt'><label><span>学生管理</span><a href='#'></a></label></li>" +
-        "<li id='crseMgt' name='crseMgt'><label><span>课程管理</span><a href='#'></a></label></li>"
+        "<li id='stdMgt' name='stdMgt'><label><span>学生管理</span><a href='#'></a></label></li>"
     );
     $("#nav").find("#schedMgt").find("label").find("span").empty().append("课程管理");
+    $("#nav").find("#schedMgt").attr("id", "crseMgt").attr("name", "crseMgt");
     $("#nav").find("#grpMgt").find("label").find("span").empty().append("小组管理");
     $("#nav").find("#achvMgt").find("label").find("span").empty().append("成就管理");
 }
@@ -52,10 +52,10 @@ function addAdminOpt() {
     $("#nav").find("#usrInfo").after(
         "<li id='usrMgt' name='usrMgt'><label><span>用户管理</span><a href='#'></a></label><ul id='usrMgtSubNav' name='usrMgtSubNav'>" +
         "<li id='stdMgt' name='stdMgt'><label><span style='float: right;'>学生用户</span><a href='#'></a></label></li>" +
-        "<li id='tchMgt' name='tchMgt'><label><span style='float: right;'>教师用户</span><a href='#'></a></label></li>" +
-        "</ul></li><li id='crseQry' name='crseQry'><label><span>课程查询</span><a href='#'></a></label></li>"
+        "<li id='tchMgt' name='tchMgt'><label><span style='float: right;'>教师用户</span><a href='#'></a></label></li></ul></li>"
     );
     $("#nav").find("#schedMgt").find("label").find("span").empty().append("课程管理");
+    $("#nav").find("#schedMgt").attr("id", "crseMgt").attr("name", "crseMgt");
     $("#nav").find("#grpMgt").find("label").find("span").empty().append("小组管理");
     $("#nav").find("#achvMgt").find("label").find("span").empty().append("成就管理");
 }
