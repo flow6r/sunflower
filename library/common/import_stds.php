@@ -76,7 +76,7 @@ for ($indx = 0; $indx < $dataRows; $indx++, $begnRows++) {
     $newStdUsrsInfoAray[$indx]["UsrAdms"] = intval($newStdUsrsInfo->getCellByColumnAndRow(5, $begnRows)->getValue());
     $newStdUsrsInfoAray[$indx]["ColgAbrv"] = $newStdUsrsInfo->getCellByColumnAndRow(6, $begnRows)->getValue();
     $newStdUsrsInfoAray[$indx]["MjrAbrv"] = $newStdUsrsInfo->getCellByColumnAndRow(7, $begnRows)->getValue();
-    $newStdUsrsInfoAray[$indx]["AvatarPath"] = null;
+    $newStdUsrsInfoAray[$indx]["AvatarPath"] = NULL;
 }
 
 //将数据保存为JSON格式并写入文件
