@@ -22,7 +22,7 @@ if (mysqli_connect_error()) {
 }
 
 //查询数据库
-$query = "SELECT UsrID, UsrName, UsrGen, UsrEmail, UsrAdms, ColgAbrv, MjrAbrv, AvatarPath " .
+$query = "SELECT UsrID, UsrName, UsrGen, UsrRole, UsrEmail, UsrAdms, ColgAbrv, MjrAbrv, AvatarPath " .
 "FROM User WHERE UsrID = ?";
 $stmt = $db->prepare($query);
 $stmt->bind_param("s", $usrID);
@@ -30,6 +30,7 @@ $stmt->execute();
 
 $result = $stmt->get_result();
 $usr = $result->fetch_all(MYSQLI_ASSOC);
+require_once("../session/curr_usrinfo.php");
 if (count($usr) != 0) {
     $usrJSON = json_encode($usr, JSON_UNESCAPED_UNICODE);
     echo $usrJSON;
