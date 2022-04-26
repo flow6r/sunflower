@@ -30,7 +30,7 @@ if (mysqli_connect_error()) {
 }
 
 if ($usrAdms != "null") $usrAdms = intval($usrAdms);
-else $usrAdms = null;
+else $usrAdms = NULL;
 
 //查询数据库
 $query = "SELECT UsrID FROM User WHERE UsrID = ?";
