@@ -40,8 +40,8 @@ if ($origID != $usrID || $origEmail != $usrEmail) {
     if ($stmt->num_rows()) {
         $stmt->bind_result($UsrID, $UsrEmail);
         $stmt->fetch();
-        if ($UsrID === $usrID && $origEmail === $usrEmail) echo "ID为" . $UsrID . "的用户已存在";
-        if ($UsrEmail === $usrEmail && $origID === $usrID) echo "电子邮箱" . $UsrEmail . "已被绑定";
+        if ($origID != $usrID) echo "ID为" . $usrID . "的用户已存在\n";
+        if ($origEmail != $usrEmail) echo "电子邮箱" . $usrEmail . "已被绑定\n";
         $stmt->free_result();
         $db->close();
         exit;
