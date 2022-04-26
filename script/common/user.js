@@ -431,7 +431,7 @@ function queryCurrUsrInfo(currUsrID) {
                     "</td><td><input type='button' id='cnlUpdtUsrInfoBtn' name='" + usrJSON[0].UsrID + "' value='取消' />" +
                     "<input type='button' id='updtUsrInfoBtn' name='updtUsrInfoBtn' value='保存' /></td></tr>"
                 );
-                $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("img").attr("src", (usrJSON[0].AvatarPath === null ? "../../image/avatar/temp/flower.jpg" : usrJSON[0].AvatarPath));
+                $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("img").attr("src", (usrJSON[0].AvatarPath === null ? "../image/avatar/temp/flower.jpg" : usrJSON[0].AvatarPath));
                 $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrID").attr("placeholder", usrJSON[0].UsrID);
                 $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrName").attr("placeholder", usrJSON[0].UsrName);
                 $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrGen").append("<option value='male'>男</option><option value='female'>女</option>");
@@ -595,13 +595,6 @@ $("body").on("click", "#updtAvatarDiv #updtAvatarFrm #updtAvatarTbl #cnlUpdtAvat
     $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").empty();
 
     queryCurrUsrInfo(usrID);
-});
-
-/*实现更新用户头像的函数*/
-$("body").on("click", "#updtAvatarDiv #updtAvatarFrm #updtAvatarTbl #updtAvatarBtn", function (event) {
-    let usrID = $(event.target).attr("name");
-
-    alert(usrID);
 });
 
 /*取消编辑用户信息*/
