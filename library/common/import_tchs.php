@@ -73,10 +73,10 @@ for ($indx = 0; $indx < $dataRows; $indx++, $begnRows++) {
     $newTchUsrsInfoAray[$indx]["UsrGen"] = ($newTchUsrsInfoAray[$indx]["UsrGen"] === "男" ? "male" : "female");
     $newTchUsrsInfoAray[$indx]["UsrRole"] = "tch";
     $newTchUsrsInfoAray[$indx]["UsrEmail"] = $newTchUsrsInfo->getCellByColumnAndRow(4, $begnRows)->getValue();
-    $newTchUsrsInfoAray[$indx]["UsrAdms"] = null;
+    $newTchUsrsInfoAray[$indx]["UsrAdms"] = NULL;
     $newTchUsrsInfoAray[$indx]["ColgAbrv"] = $newTchUsrsInfo->getCellByColumnAndRow(5, $begnRows)->getValue();
     $newTchUsrsInfoAray[$indx]["MjrAbrv"] = $newTchUsrsInfo->getCellByColumnAndRow(6, $begnRows)->getValue();
-    $newTchUsrsInfoAray[$indx]["AvatarPath"] = null;
+    $newTchUsrsInfoAray[$indx]["AvatarPath"] = NULL;
 }
 
 //将数据保存为JSON格式并写入文件
