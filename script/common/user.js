@@ -558,6 +558,52 @@ $("#content").on("focusout", "#usrMgtDiv #usrMgtFrm, .qryUsrRecsDiv .currUsrInfo
     else $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrID").removeAttr("placeholder");
 });
 
+/*显示更新用户头像的弹窗*/
+$("#content").on("click", "#usrMgtDiv #usrMgtFrm .qryUsrRecsDiv .currUsrInfoTbl #updtAvatar", function (event) {
+    let usrID = $(event.target).attr("name");
+
+    $("#mask").attr("style", "visibility: visible;");
+    $("body").append(
+        "<div id='updtAvatarDiv' name='updtAvatarDiv'>" +
+        "<form id='updtAvatarFrm' name='updtAvatarFrm' enctype='multipart/form-data' " +
+        "action='../../library/common/update_avatar.php' method='post' target='doNotRefresh' onsubmit='return checkAvatar()'>" +
+        "<table id='updtAvatarTbl' name='updtAvatarTbl'><tr><th colspan='2'><span>上传头像</span></th></tr>" +
+        "<tr><td><label>头像文件</label></td><td><input type='file' id='newAvatar' name='newAvatar' /></td></tr>" +
+        "<tr><td><input type='button' id='cnlUpdtAvatarBtn' name='" + usrID + "' value='取消' /></td>" +
+        "<td><input type='submit' id='updtAvatarBtn' name='" + usrID + "' value='上传' /></td></tr></table></form>" +
+        "<iframe id='doNotRefresh' name='doNotRefresh' title='doNotRefresh' style='display: none;'></iframe></div>"
+    );
+});
+
+/*实现检查上传头像的函数*/
+function checkAvatar() {
+    let newAvatar = $("body").find("#updtAvatarDiv").find("#updtAvatarFrm").find("#updtAvatarTbl").find("#newAvatar").val();
+
+    if (newAvatar == "") { alert("请选择待上传的头像图片文件后再执行上传操作"); return false; }
+
+    return true;
+}
+
+/*实现取消上传头像的函数*/
+$("body").on("click", "#updtAvatarDiv #updtAvatarFrm #updtAvatarTbl #cnlUpdtAvatarBtn", function (event) {
+    let usrID = $(event.target).attr("name");
+
+    $("#mask").attr("style", "visibility: hidden;");
+
+    $("body").find("#updtAvatarDiv").remove();
+
+    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").empty();
+
+    queryCurrUsrInfo(usrID);
+});
+
+/*实现更新用户头像的函数*/
+$("body").on("click", "#updtAvatarDiv #updtAvatarFrm #updtAvatarTbl #updtAvatarBtn", function (event) {
+    let usrID = $(event.target).attr("name");
+
+    alert(usrID);
+});
+
 /*取消编辑用户信息*/
 $("#content").on("click", "#usrMgtDiv #usrMgtFrm .qryUsrRecsDiv .currUsrInfoTbl #cnlUpdtUsrInfoBtn", function (event) {
     let usrID = $(event.target).attr("name");
@@ -580,8 +626,6 @@ $("#content").on("click", "#usrMgtDiv #usrMgtFrm .qryUsrRecsDiv .currUsrInfoTbl 
     let colgAbrv = $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#colgAbrv").val();
     let mjrAbrv = $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#mjrAbrv").val();
 
-    // alert(usrID + "," + usrName + "," + usrGen + "," + usrPasswd + "," + usrEmail + "," + usrAdms + "," + colgAbrv + "," + mjrAbrv);
-
     if (usrID != "" && usrName != "" && usrGen != "" && usrPasswd != "" && usrEmail != "" && colgAbrv != "" && mjrAbrv) {
         $.ajax({
             url: "../../library/common/update_usrinfo.php",
@@ -601,6 +645,4 @@ $("#content").on("click", "#usrMgtDiv #usrMgtFrm .qryUsrRecsDiv .currUsrInfoTbl 
             }
         });
     } else alert("请完善待更改的用户信息后再执行更新操作");
-
-
 });
