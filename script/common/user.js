@@ -421,7 +421,7 @@ function queryCurrUsrInfo(currUsrID) {
                     "<td><label>用户ID</label></td><td><input type='text' id='usrID' name='" + usrJSON[0].UsrID + "' maxlength='15' disabled='disabled' /></td></tr>" +
                     "<tr><td><label>姓名</label></td><td><input type='text' id='usrName' name='usrName' maxlength='10' disabled='disabled' /></td></tr>" +
                     "<tr><td><label>性别</label></td><td><select id='usrGen' name='usrGen' disabled='disabled'></select></td></tr>" +
-                    "<tr><td><label>密码</label></td><td><input type='text' id='usrPasswd' name='usrPasswd' maxlength='18' disabled='disabled' /></td></tr>" +
+                    "<tr><td><label>密码</label></td><td><input type='text' id='usrPasswd' name='usrPasswd' maxlength='18' disabled='disabled' title='密码由6~18位的英文字母、数字和特殊字符组成' /></td></tr>" +
                     "<tr><td><label>电子邮箱</label></td><td><input type='email' id='usrEmail' name='" + usrJSON[0].UsrEmail + "' maxlength='100' disabled='disabled' /></td></tr>" +
                     "<tr><td><label>入学年份</label></td><td><select id='usrAdms' name='usrAdms' disabled='disabled'></select></td></tr>" +
                     "<tr><td><label>隶属学院</label></td><td><select id='colgAbrv' name='colgAbrv' disabled='disabled'></select></td></tr>" +
@@ -532,6 +532,30 @@ $("#content").on("change", "#usrMgtDiv #usrMgtFrm .qryUsrRecsDiv .currUsrInfoTbl
             }
         }
     });
+});
+
+/*检查用户ID完整性*/
+$("#content").on("focusout", "#usrMgtDiv #usrMgtFrm, .qryUsrRecsDiv .currUsrInfoTbl #usrID", function () {
+    let usrID = $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrID").val();
+
+    if (usrID == "") $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrID").attr("placeholder", "请输入用户ID");
+    else $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrID").removeAttr("placeholder");
+});
+
+/*检查姓名完整性*/
+$("#content").on("focusout", "#usrMgtDiv #usrMgtFrm, .qryUsrRecsDiv .currUsrInfoTbl #usrName", function () {
+    let usrName = $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrName").val();
+
+    if (usrName == "") $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrName").attr("placeholder", "请输入姓名");
+    else $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrName").removeAttr("placeholder");
+});
+
+/*检查密码完整性*/
+$("#content").on("focusout", "#usrMgtDiv #usrMgtFrm, .qryUsrRecsDiv .currUsrInfoTbl #usrPasswd", function () {
+    let usrPasswd = $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrPasswd").val();
+
+    if (usrPasswd == "") $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrPasswd").attr("placeholder", "请输入6~18位密码");
+    else $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").find("#usrID").removeAttr("placeholder");
 });
 
 /*取消编辑用户信息*/
