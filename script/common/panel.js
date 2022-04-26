@@ -75,13 +75,15 @@ $(".usrNav").on("click", "#basInfo", function () {
     $("#content").empty();
     $("#content").append(
         "<div id='basInfoDiv'><form id='basInfoFrm' name='basInfoFrm'><table id='basInfoTbl'>" +
-        "<tr><td><label>ID</label></td><td><input type='text' id='usrID' name='usrID' disabled='disabled' maxlength='15' /></td></tr>" +
+        "<tr><td rowspan='6'><img src='../image/avatar/temp/flower.jpg' /></td>" +
+        "<td><label>ID</label></td><td><input type='text' id='usrID' name='usrID' disabled='disabled' maxlength='15' /></td></tr>" +
         "<tr><td><label>姓名</label></td><td><input type='text' id='usrName' name='usrName' disabled='disabled' maxlength='10' /></td></tr>" +
         "<tr><td><label>性别</label></td><td><select id='usrGen' name='usrGen' disabled='disabled'></select></td></tr>" +
         "<tr><td><label>入学年份</label></td><td><select id='usrAdms' name='usrAdms' disabled='disabled'></select></td></tr>" +
         "<tr><td><label>隶属学院</label></td><td><select id='colgAbrv' name='colgAbrv' disabled='disabled'></select></td></tr>" +
         "<tr><td><label>所在专业</label></td><td><select id='mjrAbrv' name='mjrAbrv' disabled='disabled'></select></td></tr>" +
-        "<tr><td><input type='button' id='editBasInfoBtn' name='editBasInfoBtn' value='编辑'/></td>" +
+        "<tr><td><input type='button' id='updtAvatar' name='updtAvatar' value='更新头像' /></td>" +
+        "<td><input type='button' id='editBasInfoBtn' name='editBasInfoBtn' value='编辑'/></td>" +
         "<td><input type='button' id='cnlEditInfoBtn' name='cnlEditInfoBtn' value='取消'/>" +
         "<input type='button' id='updtBasInfoBtn' name='updtBasInfoBtn' value='更新'/></td></tr></table></form></div>"
     );
