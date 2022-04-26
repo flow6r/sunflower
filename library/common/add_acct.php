@@ -43,7 +43,6 @@ if ($stmt->num_rows()) {
     $usrPasswd = $trgtRole . $usrID;
     $usrPasswd = password_hash($usrPasswd, PASSWORD_BCRYPT);
     $usrAdms = ($usrAdms === null ? null : intval($usrAdms));
-    $AvatarPath = null;
     $query = "INSERT INTO User VALUES (?,?,?,?,?,?,?,?,?,NULL)";
     $stmt = $db->prepare($query);
     $stmt->bind_param(
