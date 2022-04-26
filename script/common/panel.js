@@ -75,7 +75,7 @@ $(".usrNav").on("click", "#basInfo", function () {
     $("#content").empty();
     $("#content").append(
         "<div id='basInfoDiv'><form id='basInfoFrm' name='basInfoFrm'><table id='basInfoTbl'>" +
-        "<tr><td rowspan='6'><img src='../image/avatar/temp/flower.jpg' /></td>" +
+        "<tr><td rowspan='6'><img src='' /></td>" +
         "<td><label>ID</label></td><td><input type='text' id='usrID' name='usrID' disabled='disabled' maxlength='15' /></td></tr>" +
         "<tr><td><label>姓名</label></td><td><input type='text' id='usrName' name='usrName' disabled='disabled' maxlength='10' /></td></tr>" +
         "<tr><td><label>性别</label></td><td><select id='usrGen' name='usrGen' disabled='disabled'></select></td></tr>" +
@@ -88,6 +88,7 @@ $(".usrNav").on("click", "#basInfo", function () {
         "<input type='button' id='updtBasInfoBtn' name='updtBasInfoBtn' value='更新'/></td></tr></table></form></div>"
     );
 
+    $("#content").find("#basInfoDiv").find("img").attr("src", (usrInfo["AvatarPath"] == null ? "../image/avatar/temp/flower.jpg" : usrInfo["AvatarPath"]));
     $("#content").find("#basInfoDiv").find("#usrID").attr("placeholder", usrInfo["UsrID"]);
     $("#content").find("#basInfoDiv").find("#usrName").attr("placeholder", usrInfo["UsrName"]);
     $("#content").find("#basInfoDiv").find("#usrGen").append("<option value='male'>男</option><option value='female'>女</option>");
