@@ -1,5 +1,62 @@
+/*显示更新头像的弹窗*/
+$("#content").on("click", "#basInfoDiv #updtAvatar", function () {
+    $("#mask").attr("style", "visibility: visible;");
+    $("body").append(
+        "<div id='updtMyAvatarDiv' name='updtMyAvatarDiv'>" +
+        "<form id='updtMyAvatarFrm' name='updtMyAvatarFrm' enctype='multipart/form-data' " +
+        "action='../../library/common/update_myavatar.php' method='post' target='doNotRefresh' onsubmit='return checkMyAvatar()'>" +
+        "<table id='updtMyAvatarTbl' name='updtMyAvatarTbl'><tr><th colspan='2'><span>上传头像</span></th></tr>" +
+        "<tr><td><label>头像文件</label></td><td><input type='file' id='newAvatar' name='newAvatar' /></td></tr>" +
+        "<tr><td><input type='button' id='cnlUpdtMyAvatarBtn' value='取消' /></td>" +
+        "<td><input type='submit' id='updtMyAvatarBtn' value='上传' /></td></tr></table></form>" +
+        "<iframe id='doNotRefresh' name='doNotRefresh' title='doNotRefresh' style='display: none;'></iframe></div>"
+    );
+});
+
+/*检查上传头像文件的函数*/
+function checkMyAvatar() {
+    let newAvatar = $("body").find("#updtMyAvatarDiv").find("#updtMyAvatarFrm").find("#updtMyAvatarTbl").find("#newAvatar").val();
+
+    if (newAvatar == "") { alert("请选择待上传的头像图片文件后再执行上传操作"); return false; }
+
+    return true;
+}
+
+/*取消更新头像*/
+$("body").on("click", "#updtMyAvatarDiv #updtMyAvatarFrm #updtMyAvatarTbl #cnlUpdtMyAvatarBtn", function () {
+    $("#mask").attr("style", "visibility: hidden;");
+    $("body").find("#updtMyAvatarDiv").remove();
+
+    $.ajax({
+        url: "../../library/common/obtain_info.php",
+        type: "POST",
+        async: false,
+        data: { usrID: usrInfo["UsrID"], usrRole: usrInfo["UsrRole"] },
+        error: function () { alert("查询用户信息失败，请联系管理员并反馈问题"); },
+        success: function (status) {
+            if (status === "successful") {
+                $.ajax({
+                    url: "../../library/session/check_sessn.php",
+                    type: "GET",
+                    async: false,
+                    dataType: "json",
+                    error: function () { alert("启动会话时发生错误，请联系管理员并反馈问题"); },
+                    success: function (usrInfoJSON) {
+                        if (usrInfoJSON["error"] === "启动会话时发生错误，请联系管理员并反馈问题")
+                            alert("启动会话时发生错误，请联系管理员并反馈问题");
+                        else usrInfo = usrInfoJSON;
+
+                        cnlUpdtInfo();
+                    }
+                });
+            } else alert(status);
+        }
+    });
+});
+
 /*编辑个人信息*/
 $("#content").on("click", "#basInfoDiv #editBasInfoBtn", function () {
+    $("#content").find("#basInfoDiv").find("#updtAvatar").attr("disabled", "disabled");
     $("#content").find("#basInfoDiv").find("#editBasInfoBtn").attr("style", "visibility: hidden;");
     $("#content").find("#basInfoDiv").find("#cnlEditInfoBtn").attr("style", "visibility: visible;");
     $("#content").find("#basInfoDiv").find("#updtBasInfoBtn").attr("style", "visibility: visible;");
@@ -9,6 +66,7 @@ $("#content").on("click", "#basInfoDiv #editBasInfoBtn", function () {
     $("#content").find("#basInfoDiv").find("#usrAdms").removeAttr("disabled").empty();
     let currYear = new Date();
     let yyyy = Number(currYear.getFullYear());
+    if (usrInfo["UsrRole"] != "std") $("#content").find("#basInfoDiv").find("#usrAdms").append("<option value='null'>暂无</option>");
     for (let lower = yyyy - 4; lower <= yyyy; lower++) {
         $("#content").find("#basInfoDiv").find("#usrAdms").append("<option value='" + lower + "'>" + lower + "</option>");
     }
@@ -42,6 +100,7 @@ $("#content").on("click", "#basInfoDiv #cnlEditInfoBtn", function () {
 
 /*实现取消更新信息后恢复页面的函数*/
 function cnlUpdtInfo() {
+    $("#content").find("#basInfoDiv").find("#updtAvatar").removeAttr("disabled");
     $("#content").find("#basInfoDiv").find("#editBasInfoBtn").attr("style", "visibility: visible;");
     $("#content").find("#basInfoDiv").find("#cnlEditInfoBtn").attr("style", "visibility: hidden;");
     $("#content").find("#basInfoDiv").find("#updtBasInfoBtn").attr("style", "visibility: hidden;");
