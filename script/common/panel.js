@@ -195,6 +195,46 @@ function printUsrMgtPanel() {
     );
 }
 
+/*课程查询/管理*/
+$(".usrNav").on("click", "#crseQry", function () {
+    printCrseMgtPanel();
+});
+
+$(".usrNav").on("click", "#crseMgt", function () {
+    printCrseMgtPanel();
+});
+
+/*实现打印课程管理面板的函数*/
+function printCrseMgtPanel() {
+    $("#content").empty();
+    $("#content").append(
+        "<div id='crseMgtDiv' class='mgtDiv'><form id='crseMgtFrm' name='crseMgtFrm' class='mgtFrm'>" +
+        "<table id='qryCrseMenuTbl' class='qryMenuTbl'>" +
+        "<tr><td><input type='text' id='qryCrseItem' name='qryCrseItem' class='searchItem' placeholder='请输入待查询的关键词'/></td>" +
+        "<td><select id='qryCrseType' name='qryCrseType' class='searchType'></select></td>" +
+        "<td><input type='button' id='qryCrseRecsBtn' name='qryCrseRecsBtn' class='searchButton' value='查询' /></td>" +
+        "<td><input type='button' id='addRecBtn' name='addRecBtn' class='otherOpBtn' value='新增课程' /></td>" +
+        "<td><input type='button' id='impRecsBtn' name='impRecsBtn' class='otherOpBtn' value='批量导入' /></td>" +
+        "<td><input type='button' id='delRecsBtn' name='delRecsBtn' class='otherOpBtn' value='批量删除' /></td></tr></table>" +
+        "<table id='qryCrseBarTbl' class='qryBarTbl'><tr><td><span><a id='qryCrseAnchor' href='#'>课程记录&gt;</a></span></td></tr></table>" +
+        "<div class='qryCrseRecsDiv'><table class='qryRecsLstTbl'></table></div><table id='crseRecsPageCtlTbl' class='recsPageCtlTbl'>" +
+        "<tr><td><input type='button' id='prevPage' name='prevPage' class='pageCtlBtn' value='&lt;' /></td><td id='pageOpts'></td>" +
+        "<td><input type='button' id='nextPage' name='nextPage' class='pageCtlBtn' value='&gt;' /></td></tr></table></form></div>"
+    );
+
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find("#qryCrseMenuTbl").find("#qryCrseType").append(
+        "<option value='CrseID'>课程ID</option><option value='CrseName'>课程名称</option><option value='UsrID'>课程讲师ID</option>" +
+        "<option value='UsrName'>课程讲师姓名</option>"
+    );
+
+    if (usrInfo["UsrRole"] === "tch") $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find("#qryCrseMenuTbl").find("#qryCrseType").find("option[value='UsrName']").remove();
+    if (usrInfo["UsrRole"] === "tch") $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find("#qryCrseMenuTbl").find("#qryCrseType").find("option[value='UsrID']").remove();
+
+    if (usrInfo["UsrRole"] === "std") $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find("#qryCrseMenuTbl").find(".otherOpBtn").remove();
+
+    queryCrses(usrInfo["UsrID"], usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], "", "CrseName");
+}
+
 /*退出登录*/
 $(".usrNav").on("click", "#logout", function () {
     $.ajax({
