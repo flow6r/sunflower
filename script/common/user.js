@@ -2,7 +2,7 @@ var usrsInfo = null;
 var usrsLstLimt = 20;
 var usrsTotPages = null;
 var usrsCurrPage = null;
-var recsPageLimt = 5;
+var usrPageOptLimt = 5;
 var usrIDAray = new Array();
 var usrIDIndx = null;
 
@@ -58,8 +58,8 @@ function queryUsrs(usrRole, colgAbrv, mjrAbrv, trgtRole, searchItem, searchType)
             if (usrsInfo.length === 0) {
                 alert("共0条用户记录");
 
-                $("#content").find("#usrMgtDiv").find("#usrRecsPageCtlTbl").find("#prevPage").attr("disabled", "disabled");
-                $("#content").find("#usrMgtDiv").find("#usrRecsPageCtlTbl").find("#nextPage").attr("disabled", "disabled");
+                $("#content").find("#usrMgtDiv").find(".recsPageCtlTbl").find("#prevPage").attr("disabled", "disabled");
+                $("#content").find("#usrMgtDiv").find(".recsPageCtlTbl").find("#nextPage").attr("disabled", "disabled");
             } else if (usrsInfo.length <= usrsLstLimt) {
                 usrsTotPages = 1;
                 usrsCurrPage = 1;
@@ -101,43 +101,43 @@ function printPageOpts(currPage) {
     let begnPage = null;
     let endPage = null;
 
-    if (usrsTotPages < recsPageLimt) {
+    if (usrsTotPages < usrPageOptLimt) {
         begnPage = 1;
         endPage = usrsTotPages;
     } else {
-        if (currPage < recsPageLimt) {
+        if (currPage < usrPageOptLimt) {
             begnPage = 1;
             endPage = 5;
         } else {
-            let pageMod = parseInt(currPage % recsPageLimt);
-            let pageQuot = parseInt(currPage / recsPageLimt);
-            begnPage = (pageMod === 0 ? (((pageQuot - 1) * recsPageLimt) + 1) : ((pageQuot * recsPageLimt) + 1))
-            endPage = (pageMod === 0 ? (pageQuot * recsPageLimt) : (((pageQuot + 1) * recsPageLimt)))
+            let pageMod = parseInt(currPage % usrPageOptLimt);
+            let pageQuot = parseInt(currPage / usrPageOptLimt);
+            begnPage = (pageMod === 0 ? (((pageQuot - 1) * usrPageOptLimt) + 1) : ((pageQuot * usrPageOptLimt) + 1))
+            endPage = (pageMod === 0 ? (pageQuot * usrPageOptLimt) : (((pageQuot + 1) * usrPageOptLimt)))
         }
     }
 
-    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find("#usrRecsPageCtlTbl").attr("style", "visibility: visible;");
-    $("#content").find("#usrMgtDiv").find("#usrRecsPageCtlTbl").find("#pageOpts").empty();
+    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".recsPageCtlTbl").attr("style", "visibility: visible;");
+    $("#content").find("#usrMgtDiv").find(".recsPageCtlTbl").find("#pageOpts").empty();
 
     for (; begnPage <= endPage; begnPage++) {
-        $("#content").find("#usrMgtDiv").find("#usrRecsPageCtlTbl").find("#pageOpts").append(
+        $("#content").find("#usrMgtDiv").find(".recsPageCtlTbl").find("#pageOpts").append(
             "<input type='button' class='pageOpt' value='" + begnPage + "'>"
         );
     }
 
-    $("#content").find("#usrMgtDiv").find("#usrRecsPageCtlTbl").find("#pageOpts").find(".currPageOpt").attr("class", "pageOpt");
+    $("#content").find("#usrMgtDiv").find(".recsPageCtlTbl").find("#pageOpts").find(".currPageOpt").attr("class", "pageOpt");
 
-    $("#content").find("#usrMgtDiv").find("#usrRecsPageCtlTbl").find("#pageOpts").find("input[type='button'][value='" + currPage + "']").attr("class", "currPageOpt");
+    $("#content").find("#usrMgtDiv").find(".recsPageCtlTbl").find("#pageOpts").find("input[type='button'][value='" + currPage + "']").attr("class", "currPageOpt");
 
-    if (currPage === 1) $("#content").find("#usrMgtDiv").find("#usrRecsPageCtlTbl").find("#prevPage").attr("disabled", "disabled");
-    else $("#content").find("#usrMgtDiv").find("#usrRecsPageCtlTbl").find("#prevPage").removeAttr("disabled");
+    if (currPage === 1) $("#content").find("#usrMgtDiv").find(".recsPageCtlTbl").find("#prevPage").attr("disabled", "disabled");
+    else $("#content").find("#usrMgtDiv").find(".recsPageCtlTbl").find("#prevPage").removeAttr("disabled");
 
-    if (currPage === usrsTotPages) $("#content").find("#usrMgtDiv").find("#usrRecsPageCtlTbl").find("#nextPage").attr("disabled", "disabled");
-    else $("#content").find("#usrMgtDiv").find("#usrRecsPageCtlTbl").find("#nextPage").removeAttr("disabled");
+    if (currPage === usrsTotPages) $("#content").find("#usrMgtDiv").find(".recsPageCtlTbl").find("#nextPage").attr("disabled", "disabled");
+    else $("#content").find("#usrMgtDiv").find(".recsPageCtlTbl").find("#nextPage").removeAttr("disabled");
 }
 
 /*上一页*/
-$("#content").on("click", "#usrMgtDiv #usrMgtFrm #usrRecsPageCtlTbl #prevPage", function () {
+$("#content").on("click", "#usrMgtDiv #usrMgtFrm .recsPageCtlTbl #prevPage", function () {
     if (usrsCurrPage != 1) {
         usrsCurrPage--;
         printUsrLsts(usrsCurrPage);
@@ -146,14 +146,14 @@ $("#content").on("click", "#usrMgtDiv #usrMgtFrm #usrRecsPageCtlTbl #prevPage", 
 });
 
 /*页码跳转*/
-$("#content").on("click", "#usrMgtDiv #usrMgtFrm #usrRecsPageCtlTbl .pageOpt", function (event) {
+$("#content").on("click", "#usrMgtDiv #usrMgtFrm .recsPageCtlTbl .pageOpt", function (event) {
     usrsCurrPage = $(event.target).val();
     printUsrLsts(usrsCurrPage);
     printPageOpts(usrsCurrPage);
 });
 
 /*下一页*/
-$("#content").on("click", "#usrMgtDiv #usrMgtFrm #usrRecsPageCtlTbl #nextPage", function () {
+$("#content").on("click", "#usrMgtDiv #usrMgtFrm .recsPageCtlTbl #nextPage", function () {
     if (usrsCurrPage != usrsTotPages) {
         usrsCurrPage++;
         printUsrLsts(usrsCurrPage);
@@ -418,7 +418,7 @@ function queryCurrUsrInfo(currUsrID) {
                 $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find("#qryUsrBarTbl").find("#qryUsrAnchor").siblings().remove();
                 $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find("#qryUsrBarTbl").find("#qryUsrAnchor").after("<a href='#'>用户信息&gt;</a>");
                 $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".qryRecsLstTbl").empty();
-                $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find("#usrRecsPageCtlTbl").attr("style", "visibility: hidden;");
+                $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".recsPageCtlTbl").attr("style", "visibility: hidden;");
                 $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".qryRecsLstTbl").attr("class", "currUsrInfoTbl")
 
                 $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find(".qryUsrRecsDiv").find(".currUsrInfoTbl").append(
