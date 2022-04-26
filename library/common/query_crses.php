@@ -1,10 +1,10 @@
 <?php
 /*查询课程信息的脚本*/
 //获取GET请求的数据
-$usrID = $_GET["UsrID"];
-$usrRole = $_GET["UsrRole"];
-$colgAbrv = $_GET["ColgAbrv"];
-$mjrAbrv = $_GET["MjrAbrv"];
+$usrID = $_GET["usrID"];
+$usrRole = $_GET["usrRole"];
+$colgAbrv = $_GET["colgAbrv"];
+$mjrAbrv = $_GET["mjrAbrv"];
 $searchItem = $_GET["searchItem"];
 $searchType = $_GET["searchType"];
 
@@ -65,7 +65,7 @@ $crsesJSON = json_encode($crses, JSON_UNESCAPED_UNICODE);
 echo $crsesJSON;
 
 //将JSON数据写入文件
-file_put_contents("crses.json", $crsesJSON);
+// file_put_contents("crses.json", $crsesJSON);
 
 //释放结果集并关闭链接
 $stmt->free_result();
