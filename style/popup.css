@@ -345,3 +345,77 @@
     cursor: pointer;
     background-color: #278b44;
 }
+
+#updtAvatarDiv {
+    position: relative;
+    padding: 0px;
+    margin: 0px auto;
+    top: 100px;
+    width: 475px;
+    height: 220px;
+    border-radius: 7px;
+    border: 2px solid #d8dee4;
+    background-color: #f6f8fa;
+    z-index: 10;
+}
+
+#updtAvatarDiv #updtAvatarFrm {
+    position: absolute;
+    padding: 0px;
+    margin: 0px auto;
+    width: 475px;
+    height: 220px;
+}
+
+#updtAvatarDiv #updtAvatarFrm #updtAvatarTbl {
+    position: relative;
+    padding: 0px;
+    margin: 10px auto;
+    width: 90%;
+    text-align: center;
+    border-spacing: 20px;
+}
+
+#updtAvatarDiv #updtAvatarFrm #updtAvatarTbl th {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #2c974b;
+}
+
+#updtAvatarDiv #updtAvatarFrm #updtAvatarTbl label {
+    float: left;
+    font-size: 1.3em;
+    color: #2c974b;
+}
+
+#updtAvatarDiv #updtAvatarFrm #updtAvatarTbl #cnlUpdtAvatarBtn {
+    float: left;
+    width: 120px;
+    height: 36px;
+    font-size: 1.2em;
+    color: #ffffff;
+    border-radius: 7px;
+    background-color: #2c974b;
+    border: 2px solid #298545;
+}
+
+#updtAvatarDiv #updtAvatarFrm #updtAvatarTbl #cnlUpdtAvatarBtn:hover {
+    cursor: pointer;
+    background-color: #278b44;
+}
+
+#updtAvatarDiv #updtAvatarFrm #updtAvatarTbl #updtAvatarBtn {
+    float: right;
+    width: 120px;
+    height: 36px;
+    font-size: 1.2em;
+    color: #ffffff;
+    border-radius: 7px;
+    background-color: #2c974b;
+    border: 2px solid #298545;
+}
+
+#updtAvatarDiv #updtAvatarFrm #updtAvatarTbl #updtAvatarBtn:hover {
+    cursor: pointer;
+    background-color: #278b44;
+}
