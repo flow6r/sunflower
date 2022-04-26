@@ -5,7 +5,7 @@ $usrID = $_POST["usrID"];
 $usrName = $_POST["usrName"];
 $usrGen = $_POST["usrGen"];
 $usrRole = $_POST["usrRole"];
-$usrAdms = intval($_POST["usrAdms"]);
+$usrAdms = $_POST["usrAdms"];
 $colgAbrv = $_POST["colgAbrv"];
 $mjrAbrv = $_POST["mjrAbrv"];
 
@@ -28,6 +28,9 @@ if (mysqli_connect_error()) {
     echo "连接数据库失败，请联系管理员并反馈问题";
     exit;
 }
+
+if ($usrAdms != "null") $usrAdms = intval($usrAdms);
+else $usrAdms = null;
 
 //查询数据库
 $query = "SELECT UsrID FROM User WHERE UsrID = ?";
