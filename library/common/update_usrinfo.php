@@ -45,7 +45,7 @@ if ($usrAdms == "null") {
             $stmt->free_result();
             $db->close();
             exit;
-        } else $usrAdms = null;
+        } else $usrAdms = NULL;
     } else {
         echo "查询用户失败，请联系管理员并反馈问题";
         $stmt->free_result();
