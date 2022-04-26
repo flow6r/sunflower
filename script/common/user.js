@@ -30,6 +30,8 @@ $("#content").on("click", "#usrMgtDiv #qryUsrBarTbl #qryUsrAnchor", function () 
 /*实现查询用户的函数*/
 function queryUsrs(usrRole, colgAbrv, mjrAbrv, trgtRole, searchItem, searchType) {
     $("#content").find("#usrMgtDiv").find("#qryUsrMenuTbl").find("#qryUsrItem").val("");
+    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find("#qryUsrMenuTbl").find("input").removeAttr("disabled");
+    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find("#qryUsrMenuTbl").find("select").removeAttr("disabled");
 
     $.ajax({
         url: "../../library/common/query_usrs.php",
@@ -392,6 +394,9 @@ function ReQueryUsrs() {
 /*进入用户详情页*/
 $("#content").on("click", "#usrMgtDiv #usrMgtFrm .qryUsrRecsDiv .qryRecsLstTbl .usrDetlAnchor", function (event) {
     let usrID = $(event.target).attr("id");
+
+    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find("#qryUsrMenuTbl").find("input").attr("disabled", "disabled");
+    $("#content").find("#usrMgtDiv").find("#usrMgtFrm").find("#qryUsrMenuTbl").find("select").attr("disabled", "disabled");
 
     queryCurrUsrInfo(usrID);
 });
