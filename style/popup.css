@@ -346,7 +346,8 @@
     background-color: #278b44;
 }
 
-#updtAvatarDiv {
+#updtAvatarDiv,
+#updtMyAvatarDiv {
     position: relative;
     padding: 0px;
     margin: 0px auto;
@@ -359,7 +360,8 @@
     z-index: 10;
 }
 
-#updtAvatarDiv #updtAvatarFrm {
+#updtAvatarDiv #updtAvatarFrm,
+#updtMyAvatarDiv #updtMyAvatarFrm {
     position: absolute;
     padding: 0px;
     margin: 0px auto;
@@ -367,7 +369,8 @@
     height: 220px;
 }
 
-#updtAvatarDiv #updtAvatarFrm #updtAvatarTbl {
+#updtAvatarDiv #updtAvatarFrm #updtAvatarTbl,
+#updtMyAvatarDiv #updtMyAvatarFrm #updtMyAvatarTbl {
     position: relative;
     padding: 0px;
     margin: 10px auto;
@@ -376,19 +379,22 @@
     border-spacing: 20px;
 }
 
-#updtAvatarDiv #updtAvatarFrm #updtAvatarTbl th {
+#updtAvatarDiv #updtAvatarFrm #updtAvatarTbl th,
+#updtMyAvatarDiv #updtMyAvatarFrm #updtMyAvatarTbl th {
     font-size: 1.5em;
     font-weight: bold;
     color: #2c974b;
 }
 
-#updtAvatarDiv #updtAvatarFrm #updtAvatarTbl label {
+#updtAvatarDiv #updtAvatarFrm #updtAvatarTbl label,
+#updtMyAvatarDiv #updtMyAvatarFrm #updtMyAvatarTbl label {
     float: left;
     font-size: 1.3em;
     color: #2c974b;
 }
 
-#updtAvatarDiv #updtAvatarFrm #updtAvatarTbl #cnlUpdtAvatarBtn {
+#updtAvatarDiv #updtAvatarFrm #updtAvatarTbl #cnlUpdtAvatarBtn,
+#updtMyAvatarDiv #updtMyAvatarFrm #updtMyAvatarTbl #cnlUpdtMyAvatarBtn {
     float: left;
     width: 120px;
     height: 36px;
@@ -399,12 +405,14 @@
     border: 2px solid #298545;
 }
 
-#updtAvatarDiv #updtAvatarFrm #updtAvatarTbl #cnlUpdtAvatarBtn:hover {
+#updtAvatarDiv #updtAvatarFrm #updtAvatarTbl #cnlUpdtAvatarBtn:hover,
+#updtMyAvatarDiv #updtMyAvatarFrm #updtMyAvatarTbl #cnlUpdtMyAvatarBtn:hover {
     cursor: pointer;
     background-color: #278b44;
 }
 
-#updtAvatarDiv #updtAvatarFrm #updtAvatarTbl #updtAvatarBtn {
+#updtAvatarDiv #updtAvatarFrm #updtAvatarTbl #updtAvatarBtn,
+#updtMyAvatarDiv #updtMyAvatarFrm #updtMyAvatarTbl #updtMyAvatarBtn {
     float: right;
     width: 120px;
     height: 36px;
@@ -415,7 +423,8 @@
     border: 2px solid #298545;
 }
 
-#updtAvatarDiv #updtAvatarFrm #updtAvatarTbl #updtAvatarBtn:hover {
+#updtAvatarDiv #updtAvatarFrm #updtAvatarTbl #updtAvatarBtn:hover,
+#updtMyAvatarDiv #updtMyAvatarFrm #updtMyAvatarTbl #updtMyAvatarBtn:hover {
     cursor: pointer;
     background-color: #278b44;
 }
