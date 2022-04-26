@@ -21,6 +21,16 @@
     border-spacing: 10px;
 }
 
+#basInfoDiv #basInfoFrm #basInfoTbl img {
+    width: 300px;
+    height: 300px;
+    position: relative;
+    padding: 0px;
+    margin: 0px auto;
+    border-radius: 180px;
+    border: 3px solid #298545;
+}
+
 #basInfoDiv #basInfoFrm #basInfoTbl label {
     font-size: 1.2em;
     font-weight: bold;
@@ -60,9 +70,24 @@
     border-radius: 7px;
 }
 
+#basInfoDiv #basInfoFrm #basInfoTbl #updtAvatar {
+    width: 100%;
+    height: 36px;
+    font-size: 1.2em;
+    color: #ffffff;
+    border-radius: 7px;
+    background-color: #2c974b;
+    border: 2px solid #298545;
+}
+
+#basInfoDiv #basInfoFrm #basInfoTbl #updtAvatar:hover {
+    cursor: pointer;
+    background-color: #278b44;
+}
+
 #basInfoDiv #basInfoFrm #basInfoTbl #editBasInfoBtn {
     float: left;
-    width: 60px;
+    width: 100%;
     height: 36px;
     font-size: 1.2em;
     color: #ffffff;
