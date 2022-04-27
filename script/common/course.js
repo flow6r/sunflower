@@ -74,7 +74,7 @@ function printCrseLsts(currPage) {
     let endIndx = null;
     crseIDAray = new Array();
     crseIDIndx = null;
-    
+
     $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find(".qryRecsLstTbl").find("#crseRecsHead").siblings().remove();
     begnIndx = (currPage - 1) * usrsLstLimt;
     endIndx = (currPage * usrsLstLimt) - 1;
@@ -169,22 +169,102 @@ $("#content").on("click", "#crseMgtDiv .qryCrseRecsDiv .qryRecsLstTbl .crseCheck
     }
 });
 
+/*显示添加课程的弹窗*/
+$("#content").on("click", "#crseMgtDiv #qryCrseMenuTbl #addRecBtn", function () {
+    $("#mask").attr("style", "visibility: visible;");
+    $("body").append(
+        "<div id='addCrseRecDiv' class='crseMgtPopup'><form id='addCrseRecFrm' action='../../library/common/add_crse.php' " +
+        "target='doNotRefresh' method='post' enctype='multipart/form-data' onsubmit='return checkCrseInfo()'>" +
+        "<table id='addCrseRecTbl'>" +
+        "<tr><th colspan='2'><span id='addCrseRecTitl'>新增课程记录</span></th></tr>" +
+        "<tr><td><label>课程名称</label></td><td><input type='text' id='crseName' name='crseName' maxlength='20' /></td></tr>" +
+        "<tr><td><label>课程封面</label></td><td><input type='file' id='crseFrntImg' name='crseFrntImg' /></td></tr>" +
+        "<tr><td><label>课程描述</label></td><td><textarea id='crseDesc' name='crseDesc' class='textareaPopup'></textarea></td></tr>" +
+        "<tr><td><input type='button' class='cnlBtn' value='取消' /></td>" +
+        "<td><input type='submit' id='addNewRecBtn' name='addNewRecBtn' value='新增' /></td></tr></table></form>" +
+        "<iframe id='doNotRefresh' name='doNotRefresh' title='doNotRefresh' style='display: none;'></iframe></div>"
+    );
+});
+
+/*检查表单数据的函数*/
+function checkCrseInfo() {
+    let crseName = $("body").find("#addCrseRecDiv").find("#addCrseRecFrm").find("#addCrseRecTbl").find("#crseName").val();
+    let crseFrntImg = $("body").find("#addCrseRecDiv").find("#addCrseRecFrm").find("#addCrseRecTbl").find("#crseFrntImg").val();
+    let crseDesc = $("body").find("#addCrseRecDiv").find("#addCrseRecFrm").find("#addCrseRecTbl").find("#crseDesc").val();
+
+    if (crseName === "" || crseFrntImg === "" || crseDesc === "") { alert("请完善课程信息后再添加课程记录"); return false; }
+
+    return true;
+}
+
+/*显示批量添加课程的弹窗*/
+$("#content").on("click", "#crseMgtDiv #qryCrseMenuTbl #impRecsBtn", function () {
+    $("#mask").attr("style", "visibility: visible;");
+    $("body").append(
+        "<div id='impCrseRecsDiv' name='impCrseRecsDiv' class='crseMgtPopup'>" +
+        "<form id='impCrseRecsFrm' name='impCrseRecsFrm' enctype='multipart/form-data' " +
+        "action='../../library/common/import_crses.php' method='post' target='doNotRefresh' onsubmit='return checkCrsesFile()'>" +
+        "<table id='impCrseRecsTbl' name='impCrseRecsTbl'><tr><th colspan='2'><span>批量导入课程记录</span></th></tr>" +
+        "<tr><th colspan='2'><a href='http://localhost/data/tmpl/CrseInfoTmpl.xlsx'>下载模板文件</a></th></tr>" +
+        "<tr><td><label>课程信息文件</label></td><td><input type='file' id='crseInfoFile' name='crseInfoFile' /></td></tr>" +
+        "<tr><td><input type='button' class='cnlBtn' value='取消' /></td>" +
+        "<td><input type='submit' name='' class='impNewRecsBtn' value='导入' /></td></tr></table></form>" +
+        "<iframe id='doNotRefresh' name='doNotRefresh' title='doNotRefresh' style='display: none;'></iframe></div>"
+    );
+});
+
+
+/*实现检查模板文件的函数*/
+function checkCrsesFile() {
+    let crseInfoFile = $("body").find("#impCrseRecsDiv").find("#impCrseRecsFrm").find("#impCrseRecsTbl").find("#crseInfoFile").val();
+
+    if (crseInfoFile == "") { alert("请选择待导入的课程记录文件后再执行导入操作"); return false; }
+
+    return true;
+}
+
+
 /*批量删除课程记录*/
 $("#content").on("click", "#crseMgtDiv #qryCrseMenuTbl #delRecsBtn", function () {
     if (crseIDAray.length != 0) {
-        // $.ajax({
-        //     url: "../../library/common/delete_crses.php",
-        //     type: "POST",
-        //     async: false,
-        //     data: { usrRole: usrInfo["UsrRole"], crseIDAray: crseIDAray },
-        //     error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
-        //     success: function (status) {
-        //         if (status === "successful") alert("成功删除" + crseIDAray.length + "条用户记录");
-        //         else alert(status);
+        $.ajax({
+            url: "../../library/common/delete_crses.php",
+            type: "POST",
+            async: false,
+            data: { usrRole: usrInfo["UsrRole"], crseIDAray: crseIDAray },
+            error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+            success: function (status) {
+                if (status === "successful") alert("成功删除" + crseIDAray.length + "条课程记录");
+                else alert(status);
 
-        //         ReQueryCrses();
-        //     }
-        // });
-        alert("成功删除" + crseIDAray.length + "条用户记录");
+                ReQueryCrses();
+            }
+        });
     } else alert("您选择了0条课程记录，请选择至少一条记录后再执行批量删除操作");
 });
+
+/*关闭弹窗*/
+$("body").on("click", ".crseMgtPopup .cnlBtn", function () {
+    ReQueryCrses();
+});
+
+/*实现重新查询课程记录的函数*/
+function ReQueryCrses() {
+    $("#mask").attr("style", "visibility: hidden;");
+
+    $("body").find(".crseMgtPopup").remove();
+    $("body").find(".crseMgtPopupTips").remove();
+
+    let searchItem = $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find("#qryCrseMenuTbl").find("#qryCrseItem").val();
+    let searchType = $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find("#qryCrseMenuTbl").find("#qryCrseType").val();
+
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find("#qryCrseBarTbl").find("#qryCrseAnchor").siblings().remove();
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find(".qryRecsLstTbl").empty();
+
+    if (searchItem === "") {
+        searchItem = "";
+        searchType = "CrseName";
+    }
+
+    queryCrses(usrInfo["UsrID"], usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], searchItem, searchType);
+}
