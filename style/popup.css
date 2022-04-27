@@ -264,7 +264,8 @@
     color: #db2828;
 }
 
-#impRecsDiv {
+#impRecsDiv,
+#impCrseRecsDiv {
     position: relative;
     padding: 0px;
     margin: 0 auto;
@@ -277,7 +278,8 @@
     z-index: 10;
 }
 
-#impRecsDiv #impRecsFrm {
+#impRecsDiv #impRecsFrm,
+#impCrseRecsDiv #impCrseRecsFrm {
     position: absolute;
     padding: 0px;
     margin: 0 auto;
@@ -285,7 +287,8 @@
     height: 220px;
 }
 
-#impRecsDiv #impRecsFrm #impRecsTbl {
+#impRecsDiv #impRecsFrm #impRecsTbl,
+#impCrseRecsDiv #impCrseRecsFrm #impCrseRecsTbl {
     position: relative;
     padding: 0px;
     margin: 0 auto;
@@ -293,28 +296,33 @@
     border-spacing: 15px;
 }
 
-#impRecsDiv #impRecsFrm #impRecsTbl th {
+#impRecsDiv #impRecsFrm #impRecsTbl th,
+#impCrseRecsDiv #impCrseRecsFrm #impCrseRecsTbl th {
     font-size: 1.5em;
     font-weight: bold;
     color: #2c974b;
 }
 
-#impRecsDiv #impRecsFrm #impRecsTbl a {
+#impRecsDiv #impRecsFrm #impRecsTbl a,
+#impCrseRecsDiv #impCrseRecsFrm #impCrseRecsTbl a {
     text-decoration: none;
     font-size: 0.8em;
     color: #2c974b;
 }
 
-#impRecsDiv #impRecsFrm #impRecsTbl a:hover {
+#impRecsDiv #impRecsFrm #impRecsTbl a:hover,
+#impCrseRecsDiv #impCrseRecsFrm #impCrseRecsTbl a:hover {
     color: #58c473;
 }
 
-#impRecsDiv #impRecsFrm #impRecsTbl label {
+#impRecsDiv #impRecsFrm #impRecsTbl label,
+#impCrseRecsDiv #impCrseRecsFrm #impCrseRecsTbl label {
     font-size: 1.3em;
     color: #2c974b;
 }
 
-#impRecsDiv #impRecsFrm #impRecsTbl .cnlBtn {
+#impRecsDiv #impRecsFrm #impRecsTbl .cnlBtn,
+#impCrseRecsDiv #impCrseRecsFrm #impCrseRecsTbl .cnlBtn {
     float: left;
     width: 120px;
     height: 36px;
@@ -325,12 +333,14 @@
     border: 2px solid #298545;
 }
 
-#impRecsDiv #impRecsFrm #impRecsTbl .cnlBtn:hover {
+#impRecsDiv #impRecsFrm #impRecsTbl .cnlBtn:hover,
+#impCrseRecsDiv #impCrseRecsFrm #impCrseRecsTbl .cnlBtn:hover {
     cursor: pointer;
     background-color: #278b44;
 }
 
-#impRecsDiv #impRecsFrm #impRecsTbl .impNewRecsBtn {
+#impRecsDiv #impRecsFrm #impRecsTbl .impNewRecsBtn,
+#impCrseRecsDiv #impCrseRecsFrm #impCrseRecsTbl .impNewRecsBtn {
     float: right;
     width: 120px;
     height: 36px;
@@ -341,7 +351,8 @@
     border: 2px solid #298545;
 }
 
-#impRecsDiv #impRecsFrm #impRecsTbl .impNewRecsBtn:hover {
+#impRecsDiv #impRecsFrm #impRecsTbl .impNewRecsBtn:hover,
+#impCrseRecsDiv #impCrseRecsFrm #impCrseRecsTbl .impNewRecsBtn:hover {
     cursor: pointer;
     background-color: #278b44;
 }
@@ -394,7 +405,8 @@
 }
 
 #updtAvatarDiv #updtAvatarFrm #updtAvatarTbl #cnlUpdtAvatarBtn,
-#updtMyAvatarDiv #updtMyAvatarFrm #updtMyAvatarTbl #cnlUpdtMyAvatarBtn {
+#updtMyAvatarDiv #updtMyAvatarFrm #updtMyAvatarTbl #cnlUpdtMyAvatarBtn,
+#addCrseRecDiv #addCrseRecFrm #addCrseRecTbl .cnlBtn {
     float: left;
     width: 120px;
     height: 36px;
@@ -406,13 +418,15 @@
 }
 
 #updtAvatarDiv #updtAvatarFrm #updtAvatarTbl #cnlUpdtAvatarBtn:hover,
-#updtMyAvatarDiv #updtMyAvatarFrm #updtMyAvatarTbl #cnlUpdtMyAvatarBtn:hover {
+#updtMyAvatarDiv #updtMyAvatarFrm #updtMyAvatarTbl #cnlUpdtMyAvatarBtn:hover,
+#addCrseRecDiv #addCrseRecFrm #addCrseRecTbl .cnlBtn:hover {
     cursor: pointer;
     background-color: #278b44;
 }
 
 #updtAvatarDiv #updtAvatarFrm #updtAvatarTbl #updtAvatarBtn,
-#updtMyAvatarDiv #updtMyAvatarFrm #updtMyAvatarTbl #updtMyAvatarBtn {
+#updtMyAvatarDiv #updtMyAvatarFrm #updtMyAvatarTbl #updtMyAvatarBtn,
+#addCrseRecDiv #addCrseRecFrm #addCrseRecTbl #addNewRecBtn {
     float: right;
     width: 120px;
     height: 36px;
@@ -424,7 +438,72 @@
 }
 
 #updtAvatarDiv #updtAvatarFrm #updtAvatarTbl #updtAvatarBtn:hover,
-#updtMyAvatarDiv #updtMyAvatarFrm #updtMyAvatarTbl #updtMyAvatarBtn:hover {
+#updtMyAvatarDiv #updtMyAvatarFrm #updtMyAvatarTbl #updtMyAvatarBtn:hover,
+#addCrseRecDiv #addCrseRecFrm #addCrseRecTbl #addNewRecBtn:hover {
     cursor: pointer;
     background-color: #278b44;
+}
+
+#addCrseRecDiv {
+    position: relative;
+    padding: 0px;
+    margin: 0px auto;
+    top: 100px;
+    width: 475px;
+    height: 345px;
+    border-radius: 7px;
+    border: 2px solid #d8dee4;
+    background-color: #f6f8fa;
+    z-index: 10;
+}
+
+#addCrseRecDiv #addCrseRecFrm {
+    position: absolute;
+    padding: 0px;
+    margin: 0px auto;
+    width: 475px;
+    height: 345px;
+}
+
+#addCrseRecDiv #addCrseRecFrm #addCrseRecTbl {
+    position: relative;
+    padding: 0px;
+    margin: 10px auto;
+    width: 90%;
+    text-align: center;
+    border-spacing: 15px;
+}
+
+#addCrseRecDiv #addCrseRecFrm #addCrseRecTbl th {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #2c974b;
+}
+
+#addCrseRecDiv #addCrseRecFrm #addCrseRecTbl label {
+    float: left;
+    font-size: 1.3em;
+    color: #2c974b;
+}
+
+#addCrseRecDiv #addCrseRecFrm #addCrseRecTbl #crseName {
+    float: right;
+    width: 270px;
+    height: 30px;
+    outline: none;
+    font-size: 1.3em;
+    border: 2px solid #d8dee4;
+    border-radius: 7px;
+}
+
+.textareaPopup {
+    float: right;
+    font-size: 1.3em;
+    width: 270px;
+    height: 80px;
+    resize: none;
+    outline: none;
+    overflow-y: scroll;
+    border: 2px solid #d8dee4;
+    border-radius: 7px;
 }
