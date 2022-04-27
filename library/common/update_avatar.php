@@ -18,6 +18,21 @@ switch ($_FILES["newAvatar"]["type"]) {
     default: echo "<script>alert('您上传的图片格式不符合要求，请上传bmp、gif、jpg或png格式的图片文件');</script>"; exit;
 }
 
+//将图片文件移动至指定位置
+$trgtPath = $docRoot. "/image/avatar/" . $usrID . $extName;
+
+if (is_uploaded_file($_FILES["newAvatar"]["tmp_name"])) {
+    $imgPath = dir("../../image/avatar/");
+    while (($fileName = $imgPath->read()) != false) {
+        if (strstr($fileName, $usrID)) unlink("../../image/avatar/" . $fileName);
+    }
+
+    if (!move_uploaded_file($_FILES["newAvatar"]["tmp_name"], $trgtPath)) {
+        echo "<script>alert('移动头像图片文件时发生错误，请联系管理员并反馈问题');</script>";
+        exit;
+    }
+}
+
 //获取当前用户的ID和角色信息
 session_start();
 $usrID = $_SESSION["currUsr"]["UsrID"];
@@ -41,21 +56,6 @@ $db = mysqli_connect($dbServer, $dbUser, $dbUserPasswd, $dbName);
 if (mysqli_connect_error()) {
     echo "<script>alert('连接数据库失败，请联系管理员并反馈问题');</script>";
     exit;
-}
-
-//将图片文件移动至指定位置
-$trgtPath = $docRoot. "/image/avatar/" . $usrID . $extName;
-
-if (is_uploaded_file($_FILES["newAvatar"]["tmp_name"])) {
-    $imgPath = dir("../../image/avatar/");
-    while (($fileName = $imgPath->read()) != false) {
-        if (strstr($fileName, $usrID)) unlink("../../image/avatar/" . $fileName);
-    }
-
-    if (!move_uploaded_file($_FILES["newAvatar"]["tmp_name"], $trgtPath)) {
-        echo "<script>alert('移动头像图片文件时发生错误，请联系管理员并反馈问题');</script>";
-        exit;
-    }
 }
 
 //更新用户头像路径信息
