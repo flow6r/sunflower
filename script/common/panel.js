@@ -246,4 +246,4 @@ $(".usrNav").on("click", "#logout", function () {
         error: function () { alert("启动会话时发生错误，请联系管理员并反馈问题"); },
         success: function () { window.location.href = "../../index.html" }
     });
-})
+});
