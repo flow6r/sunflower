@@ -33,7 +33,7 @@ switch ($_FILES["crseFrntImg"]["type"]) {
 }
 
 //将图片文件移动至指定位置
-$trgtPath = $docRoot. "/image/crsefront/" . $crseName . $usrName . $currDateTime . $extName;
+$trgtPath = $docRoot. "/image/crsefront/" . $crseName . "_" . $usrName . $currDateTime . $extName;
 
 if (is_uploaded_file($_FILES["crseFrntImg"]["tmp_name"])) {
     if (!move_uploaded_file($_FILES["crseFrntImg"]["tmp_name"], $trgtPath)) {
@@ -60,7 +60,7 @@ if (mysqli_connect_error()) {
 }
 
 //插入课程信息
-$coverPath = "../image/crsefront/" . $crseName . $usrName . $currDateTime . $extName;
+$coverPath = "../image/crsefront/" . $crseName . "_" . $usrName . $currDateTime . $extName;
 $query = "INSERT INTO Course VALUES (NULL, ?, ?, ?, ?)";
 $stmt = $db->prepare($query);
 $stmt->bind_param("ssss", $crseName, $crseDesc, $coverPath, $usrID);
