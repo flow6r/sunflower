@@ -38,6 +38,7 @@ function addStdOpt() {
 
 /*完善教师用户导航栏*/
 function addTchOpt() {
+    $("#nav").find("#workQry").remove();
     $("#nav").find("#usrInfo").after(
         "<li id='stdMgt' name='stdMgt'><label><span>学生管理</span><a href='#'></a></label></li>"
     );
@@ -49,6 +50,7 @@ function addTchOpt() {
 
 /*完善管理员用户导航栏*/
 function addAdminOpt() {
+    $("#nav").find("#workQry").remove();
     $("#nav").find("#usrInfo").after(
         "<li id='usrMgt' name='usrMgt'><label><span>用户管理</span><a href='#'></a></label><ul id='usrMgtSubNav' name='usrMgtSubNav'>" +
         "<li id='stdMgt' name='stdMgt'><label><span style='float: right;'>学生用户</span><a href='#'></a></label></li>" +
