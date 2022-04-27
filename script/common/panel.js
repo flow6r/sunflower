@@ -219,7 +219,7 @@ function printCrseMgtPanel() {
         "<td><input type='button' id='impRecsBtn' name='impRecsBtn' class='otherOpBtn' value='批量导入' /></td>" +
         "<td><input type='button' id='delRecsBtn' name='delRecsBtn' class='otherOpBtn' value='批量删除' /></td></tr></table>" +
         "<table id='qryCrseBarTbl' class='qryBarTbl'><tr><td><span><a id='qryCrseAnchor' href='#'>课程记录&gt;</a></span></td></tr></table>" +
-        "<div class='qryCrseRecsDiv'><table class='qryRecsLstTbl'></table></div><table id='crseRecsPageCtlTbl' class='recsPageCtlTbl'>" +
+        "<div class='qryCrseRecsDiv'></div><table id='crseRecsPageCtlTbl' class='recsPageCtlTbl'>" +
         "<tr><td><input type='button' id='prevPage' name='prevPage' class='pageCtlBtn' value='&lt;' /></td><td id='pageOpts'></td>" +
         "<td><input type='button' id='nextPage' name='nextPage' class='pageCtlBtn' value='&gt;' /></td></tr></table></form></div>"
     );
