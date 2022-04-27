@@ -42,8 +42,8 @@ function queryCrses(usrID, usrRole, colgAbrv, mjrAbrv, searchItem, searchType) {
 
             $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find("#qryCrseBarTbl").find("#qryCrseAnchor").siblings().remove();
 
-            $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find(".currCrseInfoTbl").empty();
-            $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find(".currCrseInfoTbl").attr("class", "qryRecsLstTbl")
+            $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").empty();
+            $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").append("<table class='qryRecsLstTbl'></table>");
 
             $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find(".qryRecsLstTbl").append(
                 "<tr id='crseRecsHead'><th width='50px'></th><th>课程ID</th><th>课程名称</th><th>讲师姓名</th><th>其他</th></tr>"
@@ -223,7 +223,6 @@ function checkCrsesFile() {
     return true;
 }
 
-
 /*批量删除课程记录*/
 $("#content").on("click", "#crseMgtDiv #qryCrseMenuTbl #delRecsBtn", function () {
     if (crseIDAray.length != 0) {
@@ -258,9 +257,6 @@ function ReQueryCrses() {
     let searchItem = $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find("#qryCrseMenuTbl").find("#qryCrseItem").val();
     let searchType = $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find("#qryCrseMenuTbl").find("#qryCrseType").val();
 
-    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find("#qryCrseBarTbl").find("#qryCrseAnchor").siblings().remove();
-    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find(".qryRecsLstTbl").empty();
-
     if (searchItem === "") {
         searchItem = "";
         searchType = "CrseName";
@@ -268,3 +264,4 @@ function ReQueryCrses() {
 
     queryCrses(usrInfo["UsrID"], usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], searchItem, searchType);
 }
+
