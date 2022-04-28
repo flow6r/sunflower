@@ -412,7 +412,8 @@
 #updtAvatarDiv #updtAvatarFrm #updtAvatarTbl #cnlUpdtAvatarBtn,
 #updtMyAvatarDiv #updtMyAvatarFrm #updtMyAvatarTbl #cnlUpdtMyAvatarBtn,
 #addCrseRecDiv #addCrseRecFrm #addCrseRecTbl .cnlBtn,
-#updtCoverDiv #updtCoverFrm #updtCoverTbl #cnlUpdtCoverBtn {
+#updtCoverDiv #updtCoverFrm #updtCoverTbl #cnlUpdtCoverBtn,
+#addMSRecDiv #addMSRecFrm #addMSRecTbl #cnlAddNewMSBtn {
     float: left;
     width: 120px;
     height: 36px;
@@ -426,7 +427,8 @@
 #updtAvatarDiv #updtAvatarFrm #updtAvatarTbl #cnlUpdtAvatarBtn:hover,
 #updtMyAvatarDiv #updtMyAvatarFrm #updtMyAvatarTbl #cnlUpdtMyAvatarBtn:hover,
 #addCrseRecDiv #addCrseRecFrm #addCrseRecTbl .cnlBtn:hover,
-#updtCoverDiv #updtCoverFrm #updtCoverTbl #cnlUpdtCoverBtn:hover {
+#updtCoverDiv #updtCoverFrm #updtCoverTbl #cnlUpdtCoverBtn:hover,
+#addMSRecDiv #addMSRecFrm #addMSRecTbl #cnlAddNewMSBtn:hover {
     cursor: pointer;
     background-color: #278b44;
 }
@@ -434,7 +436,8 @@
 #updtAvatarDiv #updtAvatarFrm #updtAvatarTbl #updtAvatarBtn,
 #updtMyAvatarDiv #updtMyAvatarFrm #updtMyAvatarTbl #updtMyAvatarBtn,
 #addCrseRecDiv #addCrseRecFrm #addCrseRecTbl #addNewRecBtn,
-#updtCoverDiv #updtCoverFrm #updtCoverTbl #updtCoverBtn {
+#updtCoverDiv #updtCoverFrm #updtCoverTbl #updtCoverBtn,
+#addMSRecDiv #addMSRecFrm #addMSRecTbl #addNewRecBtn {
     float: right;
     width: 120px;
     height: 36px;
@@ -448,7 +451,8 @@
 #updtAvatarDiv #updtAvatarFrm #updtAvatarTbl #updtAvatarBtn:hover,
 #updtMyAvatarDiv #updtMyAvatarFrm #updtMyAvatarTbl #updtMyAvatarBtn:hover,
 #addCrseRecDiv #addCrseRecFrm #addCrseRecTbl #addNewRecBtn:hover,
-#updtCoverDiv #updtCoverFrm #updtCoverTbl #updtCoverBtn:hover {
+#updtCoverDiv #updtCoverFrm #updtCoverTbl #updtCoverBtn:hover,
+#addMSRecDiv #addMSRecFrm #addMSRecTbl #addNewRecBtn:hover {
     cursor: pointer;
     background-color: #278b44;
 }
@@ -505,7 +509,8 @@
     border-radius: 7px;
 }
 
-.textareaPopup {
+.textareaPopup,
+#addMSRecDiv #addMSRecFrm #addMSRecTbl #msDesc {
     float: right;
     font-size: 1.3em;
     width: 270px;
@@ -513,6 +518,58 @@
     resize: none;
     outline: none;
     overflow-y: scroll;
+    border: 2px solid #d8dee4;
+    border-radius: 7px;
+}
+
+#addMSRecDiv {
+    position: relative;
+    padding: 0px;
+    margin: 0px auto;
+    top: 60px;
+    width: 475px;
+    height: 350px;
+    border-radius: 7px;
+    border: 2px solid #d8dee4;
+    background-color: #f6f8fa;
+    z-index: 10;
+}
+
+#addMSRecDiv #addMSRecFrm {
+    position: absolute;
+    padding: 0px;
+    margin: 0px auto;
+    width: 475px;
+    height: 350px;
+}
+
+#addMSRecDiv #addMSRecFrm #addMSRecTbl {
+    position: relative;
+    padding: 0px;
+    margin: 10px auto;
+    width: 90%;
+    text-align: center;
+    border-spacing: 15px;
+}
+
+#addMSRecDiv #addMSRecFrm #addMSRecTbl th {
+    font-size: 1.5em;
+    color: #2c974b;
+    font-weight: bold;
+}
+
+#addMSRecDiv #addMSRecFrm #addMSRecTbl label {
+    float: left;
+    color: #2c974b;
+    font-size: 1.3em;
+}
+
+#addMSRecDiv #addMSRecFrm #addMSRecTbl #msName {
+    float: right;
+    width: 270px;
+    height: 30px;
+    outline: none;
+    font-size: 1.3em;
     border: 2px solid #d8dee4;
     border-radius: 7px;
 }
