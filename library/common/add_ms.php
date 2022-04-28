@@ -93,7 +93,7 @@ if ($stmt->num_rows()) {
         $stmt->bind_param("iss", $msID, $usrs[$indx]["UsrID"], $msStat);
         $stmt->execute();
     }
-    
+
     echo "<script>alert('成功新增课程任务记录');</script>";
 } else {
     echo "<script>alert('查询课程记录失败，请联系管理员并反馈问题');</script>";
