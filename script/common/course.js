@@ -457,8 +457,6 @@ $("#content").on("click", "#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv #currCrseInfo
 
     let stdRecsTblWidth = $("#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv").innerWidth();
     let stdRecsTblHeight = $("#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv").innerHeight();
-    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#crseStdRecsDiv").attr("style", "width: " + stdRecsTblWidth + "px;");
-    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#crseStdRecsDiv").attr("style", "height: " + stdRecsTblHeight + "px;");
     $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find("#qryCrseBarTbl").find("#crseInfoAnchor").nextAll().remove();
     $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find("#qryCrseBarTbl").find("#crseInfoAnchor").after("<a href='#'>选课学生&gt;</a>");
     $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#currCrseInfoTbl").remove();
@@ -466,6 +464,8 @@ $("#content").on("click", "#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv #currCrseInfo
         "<div id='crseStdRecsDiv'><table id='crseStdRecsTbl'>" +
         "<tr><th>学号</th><th>姓名</th><th>性别</th><th>电子邮箱</th><th class='otherOpts'>其他操作</th></tr></table></div>"
     );
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#crseStdRecsDiv").attr("style", "width: " + stdRecsTblWidth + "px;");
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#crseStdRecsDiv").attr("style", "height: " + stdRecsTblHeight + "px;");
 
     $.ajax({
         url: "../../library/common/query_crse_stds.php",
@@ -475,7 +475,7 @@ $("#content").on("click", "#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv #currCrseInfo
         dataType: "json",
         error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
         success: function (crseStdsJSON) {
-            if (crseStdsJSON.length === 0) alert("该课程共0各学生选择");
+            if (crseStdsJSON.length === 0) alert("该课程共0个学生选择");
             else {
                 for (let indx = 0; indx < crseStdsJSON.length; indx++)
                     $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#crseStdRecsDiv").find("#crseStdRecsTbl").append(
@@ -550,3 +550,41 @@ $("body").on("click", "#addMSRecDiv #addMSRecFrm #addMSRecTbl #cnlAddNewMSBtn", 
 });
 
 /*查询课程任务*/
+$("#content").on("click", "#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv #currCrseInfoTbl #qryMss", function (event) {
+    let crseID = $(event.target).attr("class");
+
+    let msRecsTblWidth = $("#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv").innerWidth();
+    let msRecsTblHeight = $("#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv").innerHeight();
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find("#qryCrseBarTbl").find("#crseInfoAnchor").nextAll().remove();
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find("#qryCrseBarTbl").find("#crseInfoAnchor").after("<a href='#'>选课学生&gt;</a>");
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#currCrseInfoTbl").remove();
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").append(
+        "<div id='crseMsRecsDiv'><table id='crseMsRecsTbl'>" +
+        "<tr><th>任务ID</th><th>任务名称</th><th>创建者</th><th class='otherOpts'>其他操作</th></tr></table></div>"
+    );
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#crseMsRecsDiv").attr("style", "width: " + msRecsTblWidth + "px;");
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#crseMsRecsDiv").attr("style", "height: " + msRecsTblHeight + "px;");
+
+    $.ajax({
+        url: "../../library/common/query_crse_ms.php",
+        type: "GET",
+        async: false,
+        data: { crseID: crseID, usrRole: usrInfo["UsrRole"] },
+        dataType: "json",
+        error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+        success: function (crseMsJSON) {
+            if (crseMsJSON.length === 0) alert("该课程共0条课程任务记录");
+            else {
+                for (let indx = 0; indx < crseMsJSON.length; indx++)
+                    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#crseMsRecsDiv").find("#crseMsRecsTbl").append(
+                        "<tr><td>" + crseMsJSON[indx].MsID + "</td><td>" + crseMsJSON[indx].MsName + "</td>" +
+                        "<td>" + crseMsJSON[indx].UsrName + "</td><td class='otherOpts'><a id='" + crseMsJSON[indx].UsrID + "' class='delStd' href='#'>" + "详情" + "</a></td></tr>"
+                    );
+                if (usrInfo["UsrRole"] === "std") {
+                    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#crseMsRecsTbl").find("th[class='otherOpts']").remove();
+                    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#crseMsRecsTbl").find("td[class='otherOpts']").remove();
+                }
+            }
+        }
+    });
+});
