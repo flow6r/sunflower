@@ -402,7 +402,6 @@ $("#content").on("focusout", "#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv #currCrseI
     else $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#currCrseInfoTbl").find("#usrName").removeAttr("placeholder");
 });
 
-
 /*更新课程信息时检查讲师描述完整性*/
 $("#content").on("focusout", "#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv #currCrseInfoTbl #crseDesc", function () {
     let crseDesc = $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#currCrseInfoTbl").find("#crseDesc").val();
@@ -465,7 +464,7 @@ $("#content").on("click", "#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv #currCrseInfo
     $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#currCrseInfoTbl").remove();
     $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").append(
         "<div id='crseStdRecsDiv'><table id='crseStdRecsTbl'>" +
-        "<tr><th>学号</th><th>姓名</th><th>性别</th><th>电子邮箱</th><th>其他操作</th></tr></table></div>"
+        "<tr><th>学号</th><th>姓名</th><th>性别</th><th>电子邮箱</th><th class='otherOpts'>其他操作</th></tr></table></div>"
     );
 
     $.ajax({
@@ -481,13 +480,19 @@ $("#content").on("click", "#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv #currCrseInfo
                 for (let indx = 0; indx < crseStdsJSON.length; indx++)
                     $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#crseStdRecsDiv").find("#crseStdRecsTbl").append(
                         "<tr><td>" + crseStdsJSON[indx].UsrID + "</td><td>" + crseStdsJSON[indx].UsrName + "</td>" +
-                        "<td>" + (crseStdsJSON[indx].UsrGen === "male" ? "男" : "女") + 
+                        "<td>" + (crseStdsJSON[indx].UsrGen === "male" ? "男" : "女") +
                         "</td><td><a href='mailto:" + crseStdsJSON[indx].UsrEmail + "'>" + crseStdsJSON[indx].UsrEmail
-                        + "</a></td><td><a id='" + crseStdsJSON[indx].UsrID + "' class='delStd' href='#'>" + "移除" + "</a></td></tr>"
+                        + "</a></td><td class='otherOpts'><a id='" + crseStdsJSON[indx].UsrID + "' class='delStd' href='#'>" + "移除" + "</a></td></tr>"
                     );
+                if (usrInfo["UsrRole"] === "std") {
+                    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#crseStdRecsTbl").find("th[class='otherOpts']").remove();
+                    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#crseStdRecsTbl").find("td[class='otherOpts']").remove();
+                }
             }
         }
     });
-
-
 });
+
+/*添加课程任务*/
+
+/*查询课程任务*/
