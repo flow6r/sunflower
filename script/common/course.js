@@ -295,7 +295,7 @@ function queryCurrCrseInfo(crseID) {
                     "<td><label>课程名称</label></td><td><input type='text' id='crseName' name='crseName' maxlength='20' disabled='disabled' /></td>" +
                     "</tr><tr><td><label>讲师</label></td><td><input type='text' id='usrName' name='usrName' maxlength='20' disabled='disabled' /></td>" +
                     "</tr><tr><td><label>课程描述</label></td><td><textarea id='crseDesc' placeholder='' disabled='disabled'></textarea></td>" +
-                    "</tr><tr><td colspan='2'><a id='qryStds' href='#'>选课学生</a>&nbsp;<a id='qryMss' href='#'>课程作业</a>&nbsp;" +
+                    "</tr><tr><td colspan='2'><a id='qryStds' class='" + crseJSON[0].CrseID + "' href='#'>选课学生</a>&nbsp;<a id='qryMss' class='" + crseJSON[0].CrseID + "' href='#'>课程作业</a>&nbsp;" +
                     "<a id='addMss' href='#'>布置作业</a></td></tr><tr><td><input type='button' id='updtCover' name='" + crseJSON[0].CrseID + "' value='更新封面' /></td>" +
                     "<td><input type='button' id='editCrseInfoBtn' name='editCrseInfoBtn' value='编辑' /></td>" +
                     "<td colspan='2'><input type='button' id='cnlEditCrseInfoBtn' name='" + crseJSON[0].CrseID + "' value='取消' />" +
@@ -450,4 +450,44 @@ $("#content").on("click", "#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv #currCrseInfo
             else alert(status);
         }
     });
+});
+
+/*查询选课学生*/
+$("#content").on("click", "#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv #currCrseInfoTbl #qryStds", function (event) {
+    let crseID = $(event.target).attr("class");
+
+    let stdRecsTblWidth = $("#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv").innerWidth();
+    let stdRecsTblHeight = $("#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv").innerHeight();
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#crseStdRecsDiv").attr("style", "width: " + stdRecsTblWidth + "px;");
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#crseStdRecsDiv").attr("style", "height: " + stdRecsTblHeight + "px;");
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find("#qryCrseBarTbl").find("#crseInfoAnchor").nextAll().remove();
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find("#qryCrseBarTbl").find("#crseInfoAnchor").after("<a href='#'>选课学生&gt;</a>");
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#currCrseInfoTbl").remove();
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").append(
+        "<div id='crseStdRecsDiv'><table id='crseStdRecsTbl'>" +
+        "<tr><th>学号</th><th>姓名</th><th>性别</th><th>电子邮箱</th><th>其他操作</th></tr></table></div>"
+    );
+
+    $.ajax({
+        url: "../../library/common/query_crse_stds.php",
+        type: "GET",
+        async: false,
+        data: { crseID: crseID, usrRole: usrInfo["UsrRole"] },
+        dataType: "json",
+        error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+        success: function (crseStdsJSON) {
+            if (crseStdsJSON.length === 0) alert("该课程共0各学生选择");
+            else {
+                for (let indx = 0; indx < crseStdsJSON.length; indx++)
+                    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#crseStdRecsDiv").find("#crseStdRecsTbl").append(
+                        "<tr><td>" + crseStdsJSON[indx].UsrID + "</td><td>" + crseStdsJSON[indx].UsrName + "</td>" +
+                        "<td>" + (crseStdsJSON[indx].UsrGen === "male" ? "男" : "女") + 
+                        "</td><td><a href='mailto:" + crseStdsJSON[indx].UsrEmail + "'>" + crseStdsJSON[indx].UsrEmail
+                        + "</a></td><td><a id='" + crseStdsJSON[indx].UsrID + "' class='delStd' href='#'>" + "移除" + "</a></td></tr>"
+                    );
+            }
+        }
+    });
+
+
 });
