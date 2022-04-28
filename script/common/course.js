@@ -296,7 +296,7 @@ function queryCurrCrseInfo(crseID) {
                     "</tr><tr><td><label>讲师</label></td><td><input type='text' id='usrName' name='usrName' maxlength='20' disabled='disabled' /></td>" +
                     "</tr><tr><td><label>课程描述</label></td><td><textarea id='crseDesc' placeholder='' disabled='disabled'></textarea></td>" +
                     "</tr><tr><td colspan='2'><a id='qryStds' class='" + crseJSON[0].CrseID + "' href='#'>选课学生</a>&nbsp;<a id='qryMss' class='" + crseJSON[0].CrseID + "' href='#'>课程作业</a>&nbsp;" +
-                    "<a id='addMss' href='#'>布置作业</a></td></tr><tr><td><input type='button' id='updtCover' name='" + crseJSON[0].CrseID + "' value='更新封面' /></td>" +
+                    "<a id='addMss' class='" + crseJSON[0].CrseID + "' href='#'>布置作业</a></td></tr><tr><td><input type='button' id='updtCover' name='" + crseJSON[0].CrseID + "' value='更新封面' /></td>" +
                     "<td><input type='button' id='editCrseInfoBtn' name='editCrseInfoBtn' value='编辑' /></td>" +
                     "<td colspan='2'><input type='button' id='cnlEditCrseInfoBtn' name='" + crseJSON[0].CrseID + "' value='取消' />" +
                     "<input type='button' id='updtCrseInfoBtn' name='" + crseJSON[0].CrseID + "' value='更新' /></td></tr></table>"
@@ -494,5 +494,59 @@ $("#content").on("click", "#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv #currCrseInfo
 });
 
 /*添加课程任务*/
+$("#content").on("click", "#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv #currCrseInfoTbl #addMss", function (event) {
+    let crseID = $(event.target).attr("class");
+
+    $("#mask").attr("style", "visibility: visible;");
+    $("body").append(
+        "<div id='addMSRecDiv'><form id='addMSRecFrm' action='../../library/common/add_ms.php' " +
+        "target='doNotRefresh' method='post' enctype='multipart/form-data' onsubmit='return checkMSPkg()'>" +
+        "<table id='addMSRecTbl'>" +
+        "<tr><th colspan='2'><span id='addMSRecTitl'>新增课程任务</span></th></tr>" +
+        "<tr><td><label>任务名称</label></td><td><input type='text' id='msName' name='msName' maxlength='100' /></td></tr>" +
+        "<tr><td><label>任务描述</label></td><td><textarea id='msDesc' name='msDesc' class='msDesc'></textarea></td></tr>" +
+        "<tr><td><label>.zip资源包</label></td><td><input type='file' id='newMSPkg' name='newMSPkg' /></td></tr>" +
+        "<tr><td><input type='button' id='cnlAddNewMSBtn' name='" + crseID + "' value='取消' /></td>" +
+        "<td><input type='submit' id='addNewRecBtn' name='addNewRecBtn' value='新增' /></td></tr></table></form>" +
+        "<iframe id='doNotRefresh' name='doNotRefresh' title='doNotRefresh' style='display: none;'></iframe></div>"
+    );
+});
+
+/*上传资源时检查任务名称完整性*/
+$("body").on("focusout", "#addMSRecDiv #addMSRecFrm #addMSRecTbl #msName", function () {
+    let msName = $("body").find("#addMSRecDiv").find("#addMSRecFrm").find("#addMSRecTbl").find("#msName").val();
+
+    if (msName == "") $("body").find("#addMSRecDiv").find("#addMSRecFrm").find("#addMSRecTbl").find("#msName").attr("placeholder", "请输入任务名称");
+    else $("body").find("#addMSRecDiv").find("#addMSRecFrm").find("#addMSRecTbl").find("#msName").removeAttr("placeholder");
+});
+
+/*上传资源时检查任务描述完整性*/
+$("body").on("focusout", "#addMSRecDiv #addMSRecFrm #addMSRecTbl #msDesc", function () {
+    let msDesc = $("body").find("#addMSRecDiv").find("#addMSRecFrm").find("#addMSRecTbl").find("#msDesc").val();
+
+    if (msDesc == "") $("body").find("#addMSRecDiv").find("#addMSRecFrm").find("#addMSRecTbl").find("#msDesc").attr("placeholder", "请输入任务描述");
+    else $("body").find("#addMSRecDiv").find("#addMSRecFrm").find("#addMSRecTbl").find("#msDesc").removeAttr("placeholder");
+});
+
+/*检查上传文件的函数*/
+function checkMSPkg() {
+    let msName = $("body").find("#addMSRecDiv").find("#addMSRecFrm").find("#addMSRecTbl").find("#msName").val();
+    let msDesc = $("body").find("#addMSRecDiv").find("#addMSRecFrm").find("#addMSRecTbl").find("#msDesc").val();
+    let newMSPkg = $("body").find("#addMSRecDiv").find("#addMSRecFrm").find("#addMSRecTbl").find("#newMSPkg").val();
+
+    if (msName == "" || msDesc == "" || newMSPkg == "") { alert("请选择待上传的资源包后再执行上传操作"); return false; }
+
+    return true;
+}
+
+/*取消上传任务资源*/
+$("body").on("click", "#addMSRecDiv #addMSRecFrm #addMSRecTbl #cnlAddNewMSBtn", function (event) {
+    let crseID = $(event.target).attr("name");
+
+    $("#mask").attr("style", "visibility: hidden;");
+    $("body").find("#addMSRecDiv").remove();
+
+    queryCurrCrseInfo(crseID);
+});
 
 /*查询课程任务*/
