@@ -547,12 +547,17 @@ $("body").on("click", "#addMSRecDiv #addMSRecFrm #addMSRecTbl #cnlAddNewMSBtn", 
 /*查询课程任务*/
 $("#content").on("click", "#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv #currCrseInfoTbl #qryMss", function (event) {
     let crseID = $(event.target).attr("class");
+    
+    queryCrseMs(crseID);
+});
 
+/*实现查询课程任务记录的函数*/
+function queryCrseMs(crseID) {
     let msRecsTblWidth = $("#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv").innerWidth();
     let msRecsTblHeight = $("#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv").innerHeight();
     $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find("#qryCrseBarTbl").find("#crseInfoAnchor").nextAll().remove();
     $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find("#qryCrseBarTbl").find("#crseInfoAnchor").after("<a id='crseMsAnchor' class='" + crseID + "' href='#'>课程任务&gt;</a>");
-    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#currCrseInfoTbl").remove();
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").empty();
     $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").append(
         "<div id='crseMsRecsDiv'><table id='crseMsRecsTbl'>" +
         "<tr><th>任务ID</th><th>任务名称</th><th>创建者</th><th class='otherOpts'>其他操作</th></tr></table></div>"
@@ -582,4 +587,11 @@ $("#content").on("click", "#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv #currCrseInfo
             }
         }
     });
+}
+
+/*通过导航栏实现查询课程任务记录*/
+$("#content").on("click", "#crseMgtDiv #crseMgtFrm #qryCrseBarTbl #crseMsAnchor", function (event) {
+    let crseID = $(event.target).attr("class");
+
+    queryCrseMs(crseID);
 });
