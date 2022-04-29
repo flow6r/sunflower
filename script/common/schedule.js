@@ -6,11 +6,6 @@ var schedPageOptLimt = 5;
 var schedIDAray = new Array();
 var schedIDIndx = null;
 
-var mbrFrst = null;
-var mbrScnd = null;
-var mbrThrd = null;
-var mbrFrth = null;
-
 /*查询课程*/
 $("#content").on("click", "#schedMgtDiv #schedMgtFrm #qrySchedMenuTbl #qrySchedRecsBtn", function () {
     let searchItem = $("#content").find("#schedMgtDiv").find("#schedMgtFrm").find("#qrySchedMenuTbl").find("#qrySchedItem").val();
@@ -228,19 +223,18 @@ $("#content").on("click", "#schedMgtDiv #schedMgtFrm .qrySchedRecsDiv #currSched
                     "<tr><td><label>成员</label></td><td><label>职务</label></td></tr>" +
                     "<tr><td><input type='text' id='leader' name='leader' class='leader' value='" + usrInfo["UsrID"] + "' disabled='disabled' maxlength='15' /></td>" +
                     "<td><input type='text' id='leaderResp' name='leaderResp' class='leader' maxlength='15' /></td></tr>" +
-                    "<tr><td><select id='mbr1' name='" + crseID +"' class='mbrID'></select></se></td>" +
-                    "<td><input type='text' id='mbr1Resp' name='mbr1Resp' class='mbrResp' disabled='disabled' /></td></tr>" +
-                    "<tr><td><select id='mbr2' name='" + crseID +"' class='mbrID'></select></se></td>" +
-                    "<td><input type='text' id='mbr2Resp' name='mbr2Resp' class='mbrResp' disabled='disabled' /></td></tr>" +
-                    "<tr><td><select id='mbr3' name='" + crseID +"' class='mbrID'></select></se></td>" +
-                    "<td><input type='text' id='mbr3Resp' name='mbr3Resp' class='mbrResp' disabled='disabled' /></td></tr>" +
-                    "<tr><td><select id='mbr4' name='" + crseID +"' class='mbrID'></select></se></td>" +
-                    "<td><input type='text' id='mbr4Resp' name='mbr4Resp' class='mbrResp' disabled='disabled' /></td></tr>" +
+                    "<tr><td><select id='mbr1' name='" + crseID + "' class='mbrID'></select></se></td>" +
+                    "<td><input type='text' id='mbr1Resp' name='mbr1Resp' class='mbrResp' /></td></tr>" +
+                    "<tr><td><select id='mbr2' name='" + crseID + "' class='mbrID'></select></se></td>" +
+                    "<td><input type='text' id='mbr2Resp' name='mbr2Resp' class='mbrResp' /></td></tr>" +
+                    "<tr><td><select id='mbr3' name='" + crseID + "' class='mbrID'></select></se></td>" +
+                    "<td><input type='text' id='mbr3Resp' name='mbr3Resp' class='mbrResp' /></td></tr>" +
+                    "<tr><td><select id='mbr4' name='" + crseID + "' class='mbrID'></select></se></td>" +
+                    "<td><input type='text' id='mbr4Resp' name='mbr4Resp' class='mbrResp' /></td></tr>" +
                     "<tr><td><input type='button' id='cnlCreGrpBtn' name='" + crseID + "' value='取消' /></td>" +
                     "<td><input type='button' id='creGrpBtn' name='" + crseID + "' value='创建' /></td></tr></table></form></div>"
                 );
-            }
-            else alert("抱歉，您无法创建小组");
+            } else alert("抱歉，您无法创建小组");
         }
     })
 });
@@ -253,19 +247,84 @@ $("body").on("click", "#createGrpDiv #createGrpFrm #createGrpTbl #cnlCreGrpBtn",
 
 /*查询可用ID*/
 $("body").on("focusin", "#createGrpDiv #createGrpFrm #createGrpTbl .mbrID", function (event) {
+    let crseID = $(event.target).attr("name");
+
     $.ajax({
         url: "../../library/common/query_avlid.php",
         type: "GET",
         async: false,
-        data: { crseID: $(event.target).attr("name") },
+        data: { crseID: crseID },
+        dataType: "json",
         error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
         success: function (usrIDJSON) {
-            usrIDs = usrIDJSON;
             $(event.target).empty();
             for (let indx = 0; indx < usrIDJSON.length; indx++)
                 $(event.target).append("<option value='" + usrIDJSON[indx].UsrID + "'>" + usrIDJSON[indx].UsrID + "</option>");
+            $(event.target).find("option[value='" + usrInfo["UsrID"] + "']").remove();
         }
-    })
+    });
+});
+
+/*检查小组名称完整性*/
+$("body").on("focusout", "#createGrpDiv #createGrpFrm #createGrpTbl #ptyName", function () {
+    let ptyName = $("body").find("#createGrpDiv").find("#createGrpFrm").find("#createGrpTbl").find("#ptyName").val();
+
+    if (ptyName == "") $("body").find("#createGrpDiv").find("#createGrpFrm").find("#createGrpTbl").find("#ptyName").attr("placeholder", "请输入小组名称");
+    else $("body").find("#createGrpDiv").find("#createGrpFrm").find("#createGrpTbl").find("#ptyName").removeAttr("placehodler");
+});
+
+/*检查组长职务完整性*/
+$("body").on("focusout", "#createGrpDiv #createGrpFrm #createGrpTbl #leaderResp", function () {
+    let leaderResp = $("body").find("#createGrpDiv").find("#createGrpFrm").find("#createGrpTbl").find("#leaderResp").val();
+
+    if (leaderResp == "") $("body").find("#createGrpDiv").find("#createGrpFrm").find("#createGrpTbl").find("#leaderResp").attr("placeholder", "请输入组长职务");
+    else $("body").find("#createGrpDiv").find("#createGrpFrm").find("#createGrpTbl").find("#leaderResp").removeAttr("placehodler");
+});
+
+/*检查组员职务完整性*/
+$("body").on("focusout", "#createGrpDiv #createGrpFrm #createGrpTbl .mbrResp", function (event) {
+    let ptyName = $(event.target).val();
+
+    if (ptyName == "") $(event.target).attr("placeholder", "请输入组员职务");
+    else $(event.target).removeAttr("placeholder");
+});
+
+/*实现创建小组的函数*/
+$("body").on("click", "#createGrpDiv #createGrpFrm #createGrpTbl #creGrpBtn", function (event) {
+    let crseID = $(event.target).attr("name");
+    let ptyName = $("body").find("#createGrpDiv").find("#createGrpFrm").find("#createGrpTbl").find("#ptyName").val();
+    let leaderID = $("body").find("#createGrpDiv").find("#createGrpFrm").find("#createGrpTbl").find("#leader").val();
+    let leaderResp = $("body").find("#createGrpDiv").find("#createGrpFrm").find("#createGrpTbl").find("#leaderResp").val();
+    let mbr1ID = $("body").find("#createGrpDiv").find("#createGrpFrm").find("#createGrpTbl").find("select[id='mbr1']").val();
+    let mbr2ID = $("body").find("#createGrpDiv").find("#createGrpFrm").find("#createGrpTbl").find("select[id='mbr2']").val();
+    let mbr3ID = $("body").find("#createGrpDiv").find("#createGrpFrm").find("#createGrpTbl").find("select[id='mbr3']").val();
+    let mbr4ID = $("body").find("#createGrpDiv").find("#createGrpFrm").find("#createGrpTbl").find("select[id='mbr4']").val();
+    let mbr1Resp = $("body").find("#createGrpDiv").find("#createGrpFrm").find("#createGrpTbl").find("input[id='mbr1Resp']").val();
+    let mbr2Resp = $("body").find("#createGrpDiv").find("#createGrpFrm").find("#createGrpTbl").find("input[id='mbr2Resp']").val();
+    let mbr3Resp = $("body").find("#createGrpDiv").find("#createGrpFrm").find("#createGrpTbl").find("input[id='mbr3Resp']").val();
+    let mbr4Resp = $("body").find("#createGrpDiv").find("#createGrpFrm").find("#createGrpTbl").find("input[id='mbr4Resp']").val();
+
+    if (ptyName != "" && leaderResp != "" && mbr1ID != "" && mbr2ID != "" && mbr3ID != "" && mbr4ID != "" &&
+        mbr1Resp != "" && mbr2Resp != "" && mbr3Resp != "" && mbr4Resp != "") {
+        $.ajax({
+            url: "../../library/common/create_pty.php",
+            type: "POST",
+            async: false,
+            data: {
+                crseID: crseID, ptyName: ptyName, leaderID: leaderID, leaderResp: leaderResp,
+                mbr1ID: mbr1ID, mbr2ID: mbr2ID, mbr3ID: mbr3ID, mbr4ID: mbr4ID,
+                mbr1Resp: mbr1Resp, mbr2Resp: mbr2Resp, mbr3Resp: mbr3Resp, mbr4Resp: mbr4Resp
+            },
+            error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+            success: function (status) {
+                if (status === "successful") {
+                    alert("成功创建小组");
+                    $("#mask").attr("style", "visibility: hidden;");
+                    $("body").find("#createGrpDiv").remove();
+                } else alert(status);
+            }
+        });
+    } else alert("请完善小组信息");
 });
 
 /*查询选课学生*/
