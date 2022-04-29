@@ -573,3 +573,81 @@
     border: 2px solid #d8dee4;
     border-radius: 7px;
 }
+
+#createGrpDiv {
+    position: relative;
+    padding: 0px;
+    margin: 0px auto;
+    top: 95px;
+    width: 850px;
+    height: 500px;
+    border-radius: 7px;
+    border: 2px solid #d8dee4;
+    background-color: #f6f8fa;
+    z-index: 10;
+}
+
+#createGrpDiv #createGrpFrm {
+    position: absolute;
+    padding: 0px;
+    margin: 0 auto;
+    width: 850px;
+    height: 500px;
+}
+
+#createGrpDiv #createGrpFrm #createGrpTbl {
+    position: relative;
+    padding: 0px;
+    margin: 10px auto;
+    width: 100%;
+    text-align: center;
+    border-spacing: 15px;
+}
+
+#createGrpDiv #createGrpFrm #createGrpTbl th {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #2c974b;
+}
+
+#createGrpDiv #createGrpFrm #createGrpTbl label {
+    font-size: 1.3em;
+    color: #2c974b;
+}
+
+#createGrpDiv #createGrpFrm #createGrpTbl #ptyName,
+#createGrpDiv #createGrpFrm #createGrpTbl .leader,
+#createGrpDiv #createGrpFrm #createGrpTbl .mbrResp {
+    width: 270px;
+    height: 30px;
+    outline: none;
+    font-size: 1.3em;
+    border: 2px solid #d8dee4;
+    border-radius: 7px;
+}
+
+#createGrpDiv #createGrpFrm #createGrpTbl .mbrID {
+    width: 278px;
+    height: 36px;
+    outline: none;
+    font-size: 1.3em;
+    border: 2px solid #d8dee4;
+    border-radius: 7px;
+}
+
+#createGrpDiv #createGrpFrm #createGrpTbl #cnlCreGrpBtn,
+#createGrpDiv #createGrpFrm #createGrpTbl #creGrpBtn {
+    width: 278px;
+    height: 36px;
+    font-size: 1.2em;
+    color: #ffffff;
+    border-radius: 7px;
+    background-color: #2c974b;
+    border: 2px solid #298545;
+}
+
+#createGrpDiv #createGrpFrm #createGrpTbl #cnlCreGrpBtn:hover,
+#createGrpDiv #createGrpFrm #createGrpTbl #creGrpBtn:hover {
+    cursor: pointer;
+    background-color: #278b44;
+}
