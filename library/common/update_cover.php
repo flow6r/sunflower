@@ -30,7 +30,7 @@ $trgtPath = $docRoot. "/image/crsefront/" . $crseID . $extName;
 if (is_uploaded_file($_FILES["newCover"]["tmp_name"])) {
     $imgPath = dir("../../image/crsefront/");
     while (($fileName = $imgPath->read()) != false) {
-        if (strstr($fileName, strval($crseID))) unlink($docRoot. "/image/crsefront/" . $fileName);
+        if (strstr($fileName, strval($crseID))) unlink($docRoot . "/image/crsefront/" . $fileName);
     }
 
     if (!move_uploaded_file($_FILES["newCover"]["tmp_name"], $trgtPath)) {
