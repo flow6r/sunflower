@@ -547,7 +547,7 @@ $("body").on("click", "#addMSRecDiv #addMSRecFrm #addMSRecTbl #cnlAddNewMSBtn", 
 /*查询课程任务*/
 $("#content").on("click", "#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv #currCrseInfoTbl #qryMss", function (event) {
     let crseID = $(event.target).attr("class");
-    
+
     queryCrseMs(crseID);
 });
 
@@ -578,12 +578,8 @@ function queryCrseMs(crseID) {
                 for (let indx = 0; indx < crseMsJSON.length; indx++)
                     $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#crseMsRecsDiv").find("#crseMsRecsTbl").append(
                         "<tr><td>" + crseMsJSON[indx].MsID + "</td><td>" + crseMsJSON[indx].MsName + "</td>" +
-                        "<td>" + crseMsJSON[indx].UsrName + "</td><td class='otherOpts'><a id='" + crseMsJSON[indx].UsrID + "' class='delStd' href='#'>" + "详情" + "</a></td></tr>"
+                        "<td>" + crseMsJSON[indx].UsrName + "</td><td><a class='" + crseMsJSON[indx].MsID + "' href='#'>" + "详情" + "</a></td></tr>"
                     );
-                if (usrInfo["UsrRole"] === "std") {
-                    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#crseMsRecsTbl").find("th[class='otherOpts']").remove();
-                    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#crseMsRecsTbl").find("td[class='otherOpts']").remove();
-                }
             }
         }
     });
@@ -595,3 +591,41 @@ $("#content").on("click", "#crseMgtDiv #crseMgtFrm #qryCrseBarTbl #crseMsAnchor"
 
     queryCrseMs(crseID);
 });
+
+/*显示课程任务详情*/
+$("#content").on("click", "#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv #crseMsRecsDiv #crseMsRecsTbl a", function (event) {
+    let msID = $(event.target).attr("class");
+
+    queryMissionDelt(msID);
+});
+
+/*实现查询任务详情的函数*/
+function queryMissionDelt(msID) {
+    $.ajax({
+        url: "../../library/common/query_msinfo.php",
+        type: "GET",
+        async: false,
+        data: { msID: msID, usrRole: usrInfo["UsrRole"] },
+        dataType: "json",
+        error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+        success: function (msJSON) {
+            if (msJSON["error"] === "查询任务详情失败，请联系管理员并反馈问题") alert("查询任务详情失败，请联系管理员并反馈问题");
+            else {
+                $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find("#qryCrseBarTbl").find("#crseMsAnchor").nextAll().remove();
+                $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find("#qryCrseBarTbl").find("#crseMsAnchor").after("<a id='msDeltAnchor' class='" + msID + "' href='#'>任务详情&gt;</a>");
+                $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").empty();
+                $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").append(
+                    "<table id='msDeltTbl'>" +
+                    "<tr><td><label>任务名称</label></td><td><input type='text' id='msName' name='msName' disabled='disabled' placeholder='" + msJSON[0].MsName + "' maxlength='100' /></td></tr>" +
+                    "<tr><td><label>任务描述</label></td><td><textarea id='msDesc' name='msDesc' placeholder='" + msJSON[0].MsDesc + "' disabled='disabled'></textarea></td></tr>" +
+                    "<tr><td colspan='2' style='text-align: center;'><a href='" + msJSON[0].PkgPath + "'>" + "下载任务资源包" + "</td></a><tr>" +
+                    "<tr><td><input type='button' id='editMsInfoBtn' name='editMsInfoBtn' value='编辑' /></td><td><input type='button' id='cnlEditMsInfoBtn' name='" + msJSON[0].MsID + "' value='取消'/>" +
+                    "<input type='button' id='updtMsInfoBtn' name='" + msJSON[0].MsID + "' value='更新' /><input type='button' id='delMsBtn' name='" + msJSON[0].MsID + "' value='删除任务' /></td></tr>" +
+                    "</table>"
+                );
+            }
+        }
+    });
+}
+
+/*通过导航栏查询课程任务详情*/
