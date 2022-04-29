@@ -237,6 +237,33 @@ function printCrseMgtPanel() {
     queryCrses(usrInfo["UsrID"], usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], "", "CrseName");
 }
 
+/*学生所选课程查询*/
+$(".usrNav").on("click", "#schedMgt", function () {
+    $("#content").empty();
+    $("#content").append(
+        "<div id='schedMgtDiv' class='mgtDiv'><form id='schedMgtFrm' name='schedMgtFrm' class='mgtFrm'>" +
+        "<table id='qrySchedMenuTbl' class='qryMenuTbl'>" +
+        "<tr><td><input type='text' id='qrySchedItem' name='qrySchedItem' class='searchItem' placeholder='请输入待查询的关键词'/></td>" +
+        "<td><select id='qrySchedType' name='qrySchedType' class='searchType'></select></td>" +
+        "<td><input type='button' id='qrySchedRecsBtn' name='qrySchedRecsBtn' class='searchButton' value='查询' /></td>" +
+        "<td><input type='button' id='addRecBtn' name='addRecBtn' class='otherOpBtn' value='新增课程' /></td>" +
+        "<td><input type='button' id='impRecsBtn' name='impRecsBtn' class='otherOpBtn' value='批量导入' /></td>" +
+        "<td><input type='button' id='delRecsBtn' name='delRecsBtn' class='otherOpBtn' value='批量删除' /></td></tr></table>" +
+        "<table id='qrySchedBarTbl' class='qryBarTbl'><tr><td><span><a id='qrySchedAnchor' href='#'>我的课程&gt;</a></span></td></tr></table>" +
+        "<div class='qrySchedRecsDiv'></div><table id='schedRecsPageCtlTbl' class='recsPageCtlTbl'>" +
+        "<tr><td><input type='button' id='prevPage' name='prevPage' class='pageCtlBtn' value='&lt;' /></td><td id='pageOpts'></td>" +
+        "<td><input type='button' id='nextPage' name='nextPage' class='pageCtlBtn' value='&gt;' /></td></tr></table></form></div>"
+    );
+
+    $("#content").find("#schedMgtDiv").find("#schedMgtFrm").find("#qrySchedMenuTbl").find("#qrySchedType").append(
+        "<option value='CrseID'>课程ID</option><option value='CrseName'>课程名称</option><option value='UsrID'>课程讲师ID</option>" +
+        "<option value='UsrName'>课程讲师姓名</option>"
+    );
+    $("#content").find("#schedMgtDiv").find("#schedMgtFrm").find("#qrySchedMenuTbl").find(".otherOpBtn").remove();
+
+    queryScheduleRecs(usrInfo["UsrID"], "", "CrseID");
+});
+
 /*退出登录*/
 $(".usrNav").on("click", "#logout", function () {
     $.ajax({
