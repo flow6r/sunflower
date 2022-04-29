@@ -623,9 +623,90 @@ function queryMissionDelt(msID) {
                     "<input type='button' id='updtMsInfoBtn' name='" + msJSON[0].MsID + "' value='更新' /><input type='button' id='delMsBtn' name='" + msJSON[0].MsID + "' value='删除任务' /></td></tr>" +
                     "</table>"
                 );
+
+                if (usrInfo["UsrRole"] === "std")     $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#msDeltTbl").find("input[type='button']").remove();
             }
         }
     });
 }
 
 /*通过导航栏查询课程任务详情*/
+$("#content").on("click", "#crseMgtDiv #crseMgtFrm #qryCrseBarTbl #msDeltAnchor", function (event) {
+    let msID = $(event.target).attr("class");
+
+    queryMissionDelt(msID);
+});
+
+/*更新课程任务详情*/
+$("#content").on("click", "#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv #msDeltTbl #editMsInfoBtn", function () {
+    let msName = $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#msDeltTbl").find("#msName").attr("placeholder");
+    let msDesc = $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#msDeltTbl").find("#msDesc").attr("placeholder");
+
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#msDeltTbl").find("#msName").removeAttr("placeholder").removeAttr("disabled").val(msName);
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#msDeltTbl").find("#msDesc").removeAttr("placeholder").removeAttr("disabled").val(msDesc);
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#msDeltTbl").find("#editMsInfoBtn").attr("style", "visibility: hidden;");
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#msDeltTbl").find("#delMsBtn").attr("style", "visibility: hidden;");
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#msDeltTbl").find("#cnlEditMsInfoBtn").attr("style", "visibility: visible;");
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#msDeltTbl").find("#updtMsInfoBtn").attr("style", "visibility: visible;");
+});
+
+/*更新课程任务详情时检查任务名称完整性*/
+$("#content").on("focusout", "#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv #msDeltTbl #msName", function () {
+    let msName = $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#msDeltTbl").find("#msName").val();
+
+    if (msName == "") $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#msDeltTbl").find("#msName").attr("placeholder", "请输入任务名称");
+    else $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#msDeltTbl").find("#msName").removeAttr("placeholder");
+});
+
+/*更新课程任务详情时检查任务描述完整性*/
+$("#content").on("focusout", "#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv #msDeltTbl #msDesc", function () {
+    let msDesc = $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#msDeltTbl").find("#msDesc").val();
+
+    if (msDesc == "") $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#msDeltTbl").find("#msDesc").attr("placeholder", "请输入任务名称");
+    else $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#msDeltTbl").find("#msDesc").removeAttr("placeholder");
+});
+
+/*实现更新课程任务详情的函数*/
+$("#content").on("click", "#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv #msDeltTbl #updtMsInfoBtn", function (event) {
+    let msName = $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#msDeltTbl").find("#msName").val();
+    let msDesc = $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#msDeltTbl").find("#msDesc").val();
+    let msID = $(event.target).attr("name");
+
+    if (msName == "" || msDesc == "") alert("请完善任务信息后再执行更新操作");
+    else $.ajax({
+        url: "../../library/common/update_msinfo.php",
+        type: "POST",
+        async: false,
+        data: { msID: msID, msName: msName, msDesc: msDesc, usrRole: usrInfo["UsrRole"] },
+        error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+        success: function (status) {
+            if (status === "successful") { alert("成功更新任务详情"); queryMissionDelt(msID); }
+            else alert(status);
+        }
+    });
+});
+
+/*取消更新课程任务详情*/
+$("#content").on("click", "#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv #msDeltTbl #cnlEditMsInfoBtn", function (event) {
+    let msID = $(event.target).attr("name");
+
+    queryMissionDelt(msID);
+});
+
+/*删除课程任务*/
+$("#content").on("click", "#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv #msDeltTbl #delMsBtn", function (event) {
+    let msID = $(event.target).attr("name");
+    let crseID = $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find("#qryCrseBarTbl").find("#crseMsAnchor").attr("class");
+
+    $.ajax({
+        url: "../../library/common/delete_ms.php",
+        type: "POST",
+        async: false,
+        data: { msID: msID, usrRole: usrInfo["UsrRole"] },
+        error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+        success: function (status) {
+            if (status === "successful") { alert("成功删除课程任务"); queryCrseMs(crseID); }
+            else alert(status);
+        }
+    });
+});
