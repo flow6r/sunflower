@@ -18,6 +18,7 @@ if (mysqli_connect_error()) {
 //设置查询关键词
 $searchItem = "%" . $searchItem . "%";
 
+//查询数据库
 if ($searchType === "UsrName") $query = "SELECT C.CrseID, C.CrseName, U.UsrName FROM User AS U, Course AS C, Schedule AS S " .
 "WHERE U.UsrID = C.UsrID AND C.CrseID = S.CrseID AND S.UsrID = ? AND U.UsrName LIKE ? ORDER BY C.CrseID";
 else $query = "SELECT C.CrseID, C.CrseName, U.UsrName FROM User AS U, Course AS C, Schedule AS S " .
