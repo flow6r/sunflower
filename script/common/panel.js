@@ -264,6 +264,30 @@ $(".usrNav").on("click", "#schedMgt", function () {
     queryScheduleRecs(usrInfo["UsrID"], "", "CrseID");
 });
 
+/*查询学生作业*/
+$(".usrNav").on("click", "#workQry", function () {
+    $("#content").empty();
+    $("#content").append("<div id='msMgtDiv' class='mgtDiv'><form id='msMgtFrm' name='msMgtFrm' class='mgtFrm'>" +
+        "<table id='qryMsMenuTbl' class='qryMenuTbl'>" +
+        "<tr><td><input type='text' id='qryMsItem' name='qryMsItem' class='searchItem' placeholder='请输入待查询的关键词'/></td>" +
+        "<td><select id='qryMsType' name='qryMsType' class='searchType'></select></td>" +
+        "<td><input type='button' id='qryMsRecsBtn' name='qryMsRecsBtn' class='searchButton' value='查询' /></td>" +
+        "<td><input type='button' id='addRecBtn' name='addRecBtn' class='otherOpBtn' value='新增课程' /></td>" +
+        "<td><input type='button' id='impRecsBtn' name='impRecsBtn' class='otherOpBtn' value='批量导入' /></td>" +
+        "<td><input type='button' id='delRecsBtn' name='delRecsBtn' class='otherOpBtn' value='批量删除' /></td></tr></table>" +
+        "<table id='qryMsBarTbl' class='qryBarTbl'><tr><td><span><a id='qryMsAnchor' href='#'>我的作业&gt;</a></span></td></tr></table>" +
+        "<div class='qryMsRecsDiv'></div><table id='msRecsPageCtlTbl' class='recsPageCtlTbl'>" +
+        "<tr><td><input type='button' id='prevPage' name='prevPage' class='pageCtlBtn' value='&lt;' /></td><td id='pageOpts'></td>" +
+        "<td><input type='button' id='nextPage' name='nextPage' class='pageCtlBtn' value='&gt;' /></td></tr></table></form></div>"
+    );
+
+    $("#content").find("#msMgtDiv").find("#msMgtFrm").find("#qryMsMenuTbl").find("#qryMsType").append(
+        "<option value='MsName'>任务名称</option><option value='MsStat'>完成状态</option><option value='UsrName'>发布教师姓名</option>");
+    $("#content").find("#msMgtDiv").find("#msMgtFrm").find("#qryMsMenuTbl").find(".otherOpBtn").remove();
+
+    queryStdMsRecs(usrInfo["UsrID"], "", "MsName");
+});
+
 /*退出登录*/
 $(".usrNav").on("click", "#logout", function () {
     $.ajax({
