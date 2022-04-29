@@ -27,7 +27,7 @@ $usrsJSON = json_encode($usrs, JSON_UNESCAPED_UNICODE);
 echo $usrsJSON;
 
 //将JSON数据写入文件
-file_put_contents("usrs.json", $usrsJSON);
+// file_put_contents("usrs.json", $usrsJSON);
 
 //释放结果集并关闭链接
 $stmt->free_result();
