@@ -1,0 +1,91 @@
+.mgtDiv .mgtFrm .qryMsRecsDiv {
+    width: 99.6%;
+    height: 83%;
+    border: 2px solid #d8dee4;
+    background-color: #f6f8fa;
+    border-radius: 7px;
+}
+
+.mgtDiv .mgtFrm .qryMsRecsDiv .qryRecsLstTbl {
+    width: 100%;
+    text-align: center;
+}
+
+.mgtDiv .mgtFrm .qryMsRecsDiv .qryRecsLstTbl th {
+    font-size: 1.2em;
+    color: #ffffff;
+    background-color: #2c974b;
+}
+
+.mgtDiv .mgtFrm .qryMsRecsDiv .qryRecsLstTbl td {
+    font-size: 1.1em;
+    color: #000000;
+    background-color: #8bcc9e;
+}
+
+.mgtDiv .mgtFrm .qryMsRecsDiv .qryRecsLstTbl a {
+    text-decoration: none;
+}
+
+.mgtDiv .mgtFrm .qryMsRecsDiv .qryRecsLstTbl .msDetlAnchor {
+    color: #0000ee;
+}
+
+.mgtDiv .mgtFrm .qryMsRecsDiv #msDeltTbl {
+    border-spacing: 10px;
+}
+
+.mgtDiv .mgtFrm .qryMsRecsDiv #msDeltTbl label {
+    font-size: 1.3em;
+    color: #2c974b;
+}
+
+.mgtDiv .mgtFrm .qryMsRecsDiv #currMsInfoTbl a {
+    font-size: 1.3em;
+    text-decoration: none;
+    font-weight: bold;
+    color: #2c974b;
+}
+
+.mgtDiv .mgtFrm .qryMsRecsDiv #currMsInfoTbl a:hover {
+    color: #58c473;
+}
+
+.mgtDiv .mgtFrm .qryMsRecsDiv #msDeltTbl a {
+    display: block;
+    text-decoration: none;
+    width: 100%;
+    height: 30px;
+    font-size: 1.3em;
+    color: #ffffff;
+    border-radius: 7px;
+    background-color: #2c974b;
+    border: 2px solid #298545;
+}
+
+.mgtDiv .mgtFrm .qryMsRecsDiv #msDeltTbl a:hover {
+    cursor: pointer;
+    background-color: #278b44;
+}
+
+.mgtDiv .mgtFrm .qryMsRecsDiv #msDeltTbl #msName {
+    float: right;
+    width: 270px;
+    height: 30px;
+    outline: none;
+    font-size: 1.2em;
+    border: 2px solid #d8dee4;
+    border-radius: 7px;
+}
+
+.mgtDiv .mgtFrm .qryMsRecsDiv #msDeltTbl #msDesc {
+    float: right;
+    font-size: 1.3em;
+    width: 270px;
+    height: 80px;
+    resize: none;
+    outline: none;
+    overflow-y: scroll;
+    border: 2px solid #d8dee4;
+    border-radius: 7px;
+}
