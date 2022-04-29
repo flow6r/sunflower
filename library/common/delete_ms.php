@@ -34,6 +34,7 @@ if ($stmt->num_rows()) {
     $stmt->bind_result($pkgPath);
     $stmt->fetch();
     $query = "DELETE FROM Mission WHERE MsID = ?";
+    $stmt = $db->prepare($query);
     $stmt->bind_param("i", $msID);
     $stmt->execute();
     $pkgPath = substr($pkgPath, 2);
