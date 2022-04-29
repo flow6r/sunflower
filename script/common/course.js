@@ -618,7 +618,7 @@ function queryMissionDelt(msID) {
                     "<table id='msDeltTbl'>" +
                     "<tr><td><label>任务名称</label></td><td><input type='text' id='msName' name='msName' disabled='disabled' placeholder='" + msJSON[0].MsName + "' maxlength='100' /></td></tr>" +
                     "<tr><td><label>任务描述</label></td><td><textarea id='msDesc' name='msDesc' placeholder='" + msJSON[0].MsDesc + "' disabled='disabled'></textarea></td></tr>" +
-                    "<tr><td colspan='2' style='text-align: center;'><a href='" + msJSON[0].PkgPath + "'>" + "下载任务资源包" + "</td></a><tr>" +
+                    "<tr><td colspan='2' style='text-align: center;'><a href='" + msJSON[0].PkgPath + "'>" + "下载任务资源包" + "</td></a></tr>" +
                     "<tr><td><input type='button' id='editMsInfoBtn' name='editMsInfoBtn' value='编辑' /></td><td><input type='button' id='cnlEditMsInfoBtn' name='" + msJSON[0].MsID + "' value='取消'/>" +
                     "<input type='button' id='updtMsInfoBtn' name='" + msJSON[0].MsID + "' value='更新' /><input type='button' id='delMsBtn' name='" + msJSON[0].MsID + "' value='删除任务' /></td></tr>" +
                     "</table>"
