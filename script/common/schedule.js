@@ -6,6 +6,11 @@ var schedPageOptLimt = 5;
 var schedIDAray = new Array();
 var schedIDIndx = null;
 
+var mbrFrst = null;
+var mbrScnd = null;
+var mbrThrd = null;
+var mbrFrth = null;
+
 /*查询课程*/
 $("#content").on("click", "#schedMgtDiv #schedMgtFrm #qrySchedMenuTbl #qrySchedRecsBtn", function () {
     let searchItem = $("#content").find("#schedMgtDiv").find("#schedMgtFrm").find("#qrySchedMenuTbl").find("#qrySchedItem").val();
@@ -184,7 +189,7 @@ function querySchedCrseInfo(crseID) {
                     "</tr><tr><td><label>讲师</label></td><td><input type='text' id='usrName' name='usrName' maxlength='20' disabled='disabled' /></td>" +
                     "</tr><tr><td><label>课程描述</label></td><td><textarea id='crseDesc' placeholder='' disabled='disabled'></textarea></td>" +
                     "</tr><tr><td colspan='2'><a id='qryStds' class='" + crseJSON[0].CrseID + "' href='#'>选课学生</a>&nbsp;<a id='qryMss' class='" + crseJSON[0].CrseID + "' href='#'>课程作业</a>&nbsp;" +
-                    "</td></tr><tr><td><input type='button' id='createGrpBtn' name='createGrpBtn' value='创建小组' /></td></tr></table>"
+                    "</td></tr><tr><td><input type='button' id='createGrpBtn' name='" + crseJSON[0].CrseID + "' value='创建小组' /></td></tr></table>"
                 );
                 $("#content").find("#schedMgtDiv").find("#schedMgtFrm").find(".qrySchedRecsDiv").find("#currSchedInfoTbl").find("img").attr(
                     "src", (crseJSON[0].CoverPath === null ? "../image/crsefront/temp/meerkat.jpg" : crseJSON[0].CoverPath));
@@ -203,6 +208,65 @@ $("#content").on("click", "#schedMgtDiv #schedMgtFrm #qrySchedBarTbl #crseInfoAn
     querySchedCrseInfo(crseID);
 });
 
+/*创建小组*/
+$("#content").on("click", "#schedMgtDiv #schedMgtFrm .qrySchedRecsDiv #currSchedInfoTbl #createGrpBtn ", function (event) {
+    let crseID = $(event.target).attr("name");
+
+    $.ajax({
+        url: "../../library/common/check_member.php",
+        type: "POST",
+        async: false,
+        data: { crseID: crseID, usrID: usrInfo["UsrID"] },
+        error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+        success: function (status) {
+            if (status != "exist") {
+                $("#mask").attr("style", "visibility: visible;");
+                $("body").append(
+                    "<div id='createGrpDiv' name='createGrpDiv'><form id='createGrpFrm' name='createGrpFrm'><table id='createGrpTbl' name='createGrpFrm'>" +
+                    "<tr><th colspan='4'>创建小组</th></tr>" +
+                    "<tr><td colspan='1'><label>小组名称</label></td><td colspan='3'><input type='text' id='ptyName' name='ptyName' maxlength='50' /></td></tr>" +
+                    "<tr><td><label>成员</label></td><td><label>职务</label></td></tr>" +
+                    "<tr><td><input type='text' id='leader' name='leader' class='leader' value='" + usrInfo["UsrID"] + "' disabled='disabled' maxlength='15' /></td>" +
+                    "<td><input type='text' id='leaderResp' name='leaderResp' class='leader' maxlength='15' /></td></tr>" +
+                    "<tr><td><select id='mbr1' name='" + crseID +"' class='mbrID'></select></se></td>" +
+                    "<td><input type='text' id='mbr1Resp' name='mbr1Resp' class='mbrResp' disabled='disabled' /></td></tr>" +
+                    "<tr><td><select id='mbr2' name='" + crseID +"' class='mbrID'></select></se></td>" +
+                    "<td><input type='text' id='mbr2Resp' name='mbr2Resp' class='mbrResp' disabled='disabled' /></td></tr>" +
+                    "<tr><td><select id='mbr3' name='" + crseID +"' class='mbrID'></select></se></td>" +
+                    "<td><input type='text' id='mbr3Resp' name='mbr3Resp' class='mbrResp' disabled='disabled' /></td></tr>" +
+                    "<tr><td><select id='mbr4' name='" + crseID +"' class='mbrID'></select></se></td>" +
+                    "<td><input type='text' id='mbr4Resp' name='mbr4Resp' class='mbrResp' disabled='disabled' /></td></tr>" +
+                    "<tr><td><input type='button' id='cnlCreGrpBtn' name='" + crseID + "' value='取消' /></td>" +
+                    "<td><input type='button' id='creGrpBtn' name='" + crseID + "' value='创建' /></td></tr></table></form></div>"
+                );
+            }
+            else alert("抱歉，您无法创建小组");
+        }
+    })
+});
+
+/*取消创建小组*/
+$("body").on("click", "#createGrpDiv #createGrpFrm #createGrpTbl #cnlCreGrpBtn", function (event) {
+    $("#mask").attr("style", "visibility: hidden;");
+    $("body").find("#createGrpDiv").remove();
+});
+
+/*查询可用ID*/
+$("body").on("focusin", "#createGrpDiv #createGrpFrm #createGrpTbl .mbrID", function (event) {
+    $.ajax({
+        url: "../../library/common/query_avlid.php",
+        type: "GET",
+        async: false,
+        data: { crseID: $(event.target).attr("name") },
+        error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+        success: function (usrIDJSON) {
+            usrIDs = usrIDJSON;
+            $(event.target).empty();
+            for (let indx = 0; indx < usrIDJSON.length; indx++)
+                $(event.target).append("<option value='" + usrIDJSON[indx].UsrID + "'>" + usrIDJSON[indx].UsrID + "</option>");
+        }
+    })
+});
 
 /*查询选课学生*/
 $("#content").on("click", "#schedMgtDiv #schedMgtFrm .qrySchedRecsDiv #currSchedInfoTbl #qryStds", function (event) {
