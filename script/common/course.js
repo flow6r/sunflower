@@ -133,24 +133,24 @@ function printCrsePageOpts(currPage) {
 $("#content").on("click", "#crseMgtDiv #crseMgtFrm #crseRecsPageCtlTbl #prevPage", function () {
     if (crsesCurrPage != 1) {
         crsesCurrPage--;
-        printUsrLsts(crsesCurrPage);
-        printPageOpts(crsesCurrPage);
+        printCrseLsts(crsesCurrPage);
+        printCrsePageOpts(crsesCurrPage);
     }
 });
 
 /*页码跳转*/
 $("#content").on("click", "#crseMgtDiv #crseMgtFrm #crseRecsPageCtlTbl .pageOpt", function (event) {
     crsesCurrPage = $(event.target).val();
-    printUsrLsts(crsesCurrPage);
-    printPageOpts(crsesCurrPage);
+    printCrseLsts(crsesCurrPage);
+    printCrsePageOpts(crsesCurrPage);
 });
 
 /*下一页*/
 $("#content").on("click", "#crseMgtDiv #crseMgtFrm #crseRecsPageCtlTbl #nextPage", function () {
     if (crsesCurrPage != crsesTotPages) {
         crsesCurrPage++;
-        printUsrLsts(crsesCurrPage);
-        printPageOpts(crsesCurrPage);
+        printCrseLsts(crsesCurrPage);
+        printCrsePageOpts(crsesCurrPage);
     }
 });
 
