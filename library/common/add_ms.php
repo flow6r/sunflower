@@ -87,7 +87,7 @@ if ($stmt->num_rows()) {
     $stmt->free_result();
 
     for ($indx = 0; $indx < count($usrs); $indx++) {
-        $msStat = "cmpled";
+        $msStat = "incmpl";
         $query = "INSERT INTO Progress VALUES (?, ?, ?, NULL, NULL)";
         $stmt = $db->prepare($query);
         $stmt->bind_param("iss", $msID, $usrs[$indx]["UsrID"], $msStat);
