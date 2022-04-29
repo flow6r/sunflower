@@ -25,7 +25,8 @@ if (mysqli_connect_error()) {
 }
 
 //查询课程任务信息
-$query = "SELECT * FROM Mission WHERE MsID = ?";
+$query = "SELECT M.MsID, M.MsName, M.MsDesc, M.CrseID, M.UsrID, M.PkgPath, P.MsStat " .
+"FROM Mission AS M, Progress AS P WHERE M.MsID = P.MsID AND M.MsID = ?";
 $stmt = $db->prepare($query);
 $stmt->bind_param("i", $msID);
 $stmt->execute();
