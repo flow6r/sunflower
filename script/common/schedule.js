@@ -28,6 +28,7 @@ $("#content").on("click", "#schedMgtDiv #schedMgtFrm #qrySchedBarTbl #qrySchedAn
 function queryScheduleRecs(usrID, searchItem, searchType) {
     $("#content").find("#schedMgtDiv").find("#schedMgtFrm").find("#qrySchedMenuTbl").find("#qrySchedItem").val();
     $("#content").find("#schedMgtDiv").find("#schedMgtFrm").find("#qrySchedMenuTbl").find("input").removeAttr("disabled");
+    $("#content").find("#schedMgtDiv").find("#schedMgtFrm").find("#qrySchedMenuTbl").find("select").removeAttr("disabled");
 
     $.ajax({
         url: "../../library/common/query_scheds.php",
@@ -172,6 +173,7 @@ function querySchedCrseInfo(crseID) {
             if (crseJSON["error"] === "查询课程失败，请联系管理员并反馈问题") alert("查询课程失败，请联系管理员并反馈问题");
             else {
                 $("#content").find("#schedMgtDiv").find("#schedMgtFrm").find("#qrySchedMenuTbl").find("input").attr("disabled", "disabled");
+                $("#content").find("#schedMgtDiv").find("#schedMgtFrm").find("#qrySchedMenuTbl").find("select").attr("disabled", "disabled");
                 $("#content").find("#schedMgtDiv").find("#schedMgtFrm").find("#qrySchedBarTbl").find("#qrySchedAnchor").siblings().remove();
                 $("#content").find("#schedMgtDiv").find("#schedMgtFrm").find("#qrySchedBarTbl").find("#qrySchedAnchor").after("<a id='crseInfoAnchor' class='" + crseID + "' href='#'>课程详情&gt;</a>");
                 $("#content").find("#schedMgtDiv").find("#schedMgtFrm").find(".recsPageCtlTbl").attr("style", "visibility: hidden;");
