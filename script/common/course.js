@@ -76,8 +76,8 @@ function printCrseLsts(currPage) {
     crseIDIndx = null;
 
     $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find(".qryRecsLstTbl").find("#crseRecsHead").siblings().remove();
-    begnIndx = (currPage - 1) * usrsLstLimt;
-    endIndx = (currPage * usrsLstLimt) - 1;
+    begnIndx = (currPage - 1) * crsesLstLimt;
+    endIndx = (currPage * crsesLstLimt) - 1;
 
     for (; begnIndx <= endIndx && begnIndx < crsesInfo.length; begnIndx++) {
         $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find(".qryRecsLstTbl").append(
@@ -147,7 +147,7 @@ $("#content").on("click", "#crseMgtDiv #crseMgtFrm #crseRecsPageCtlTbl .pageOpt"
 
 /*下一页*/
 $("#content").on("click", "#crseMgtDiv #crseMgtFrm #crseRecsPageCtlTbl #nextPage", function () {
-    if (crsesCurrPage != usrsTotPages) {
+    if (crsesCurrPage != crsesTotPages) {
         crsesCurrPage++;
         printUsrLsts(crsesCurrPage);
         printPageOpts(crsesCurrPage);
