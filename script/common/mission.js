@@ -173,13 +173,18 @@ function queryStdMsDelt(msID) {
             else {
                 $("#content").find("#msMgtDiv").find("#msMgtFrm").find("#qryMsBarTbl").find("#qryMsAnchor").nextAll().remove();
                 $("#content").find("#msMgtDiv").find("#msMgtFrm").find("#qryMsBarTbl").find("#qryMsAnchor").after("<a class='" + msID + "' href='#'>任务详情&gt;</a>");
+                $("#content").find("#msMgtDiv").find("#msMgtFrm").find(".recsPageCtlTbl").attr("style", "visibility: hidden;");
                 $("#content").find("#msMgtDiv").find("#msMgtFrm").find(".qryMsRecsDiv").empty();
                 $("#content").find("#msMgtDiv").find("#msMgtFrm").find(".qryMsRecsDiv").append(
                     "<table id='msDeltTbl'>" +
                     "<tr><td><label>任务名称</label></td><td><input type='text' id='msName' name='msName' disabled='disabled' placeholder='" + msJSON[0].MsName + "' maxlength='100' /></td></tr>" +
                     "<tr><td><label>任务描述</label></td><td><textarea id='msDesc' name='msDesc' placeholder='" + msJSON[0].MsDesc + "' disabled='disabled'></textarea></td></tr>" +
-                    "<tr><td colspan='2' style='text-align: center;'><a href='" + msJSON[0].PkgPath + "'>" + "下载任务资源包" + "</td></a></tr></table>"
+                    "<tr><td><label>完成状态</label></td><td><input type='text' id='msStat' name='msStat' disabled='disabled' placeholder='" + (msJSON[0].MsStat === "cmpled" ? "已完成" : "未完成") + "' /></td></tr>" +
+                    "<tr><td colspan='2' style='text-align: center;'><a href='" + msJSON[0].PkgPath + "'>" + "下载任务资源包" + "</td></a></tr>" +
+                    "<tr><td colspan='2'><input type='button' id='updtWrkPkgBtn' name='" + msJSON[0].MsID + "' value='上传作业' /></td></a></tr></table>"
                 );
+
+                if (msJSON[0].MsStat === "cmpled") $("#content").find("#msMgtDiv").find("#msMgtFrm").find(".qryMsRecsDiv").find("#msDeltTbl").find("#updtWrkPkgBtn").remove();
             }
         }
     });
