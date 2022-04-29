@@ -24,7 +24,7 @@ $trgtPath = $docRoot. "/image/avatar/" . $usrID . $extName;
 if (is_uploaded_file($_FILES["newAvatar"]["tmp_name"])) {
     $imgPath = dir("../../image/avatar/");
     while (($fileName = $imgPath->read()) != false) {
-        if (strstr($fileName, $usrID)) unlink("../../image/avatar/" . $fileName);
+        if (strstr($fileName, $usrID)) unlink($docRoot . "/image/avatar/" . $fileName);
     }
 
     if (!move_uploaded_file($_FILES["newAvatar"]["tmp_name"], $trgtPath)) {
