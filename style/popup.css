@@ -359,7 +359,8 @@
 
 #updtAvatarDiv,
 #updtMyAvatarDiv,
-#updtCoverDiv {
+#updtCoverDiv,
+#upldWorkDiv {
     position: relative;
     padding: 0px;
     margin: 0px auto;
@@ -374,7 +375,8 @@
 
 #updtAvatarDiv #updtAvatarFrm,
 #updtMyAvatarDiv #updtMyAvatarFrm,
-#updtCoverDiv #updtCoverFrm {
+#updtCoverDiv #updtCoverFrm,
+#upldWorkDiv #upldWorkFrm {
     position: absolute;
     padding: 0px;
     margin: 0px auto;
@@ -384,7 +386,8 @@
 
 #updtAvatarDiv #updtAvatarFrm #updtAvatarTbl,
 #updtMyAvatarDiv #updtMyAvatarFrm #updtMyAvatarTbl,
-#updtCoverDiv #updtCoverFrm #updtCoverTbl {
+#updtCoverDiv #updtCoverFrm #updtCoverTbl,
+#upldWorkDiv #upldWorkFrm #upldWorkTbl {
     position: relative;
     padding: 0px;
     margin: 10px auto;
@@ -395,7 +398,8 @@
 
 #updtAvatarDiv #updtAvatarFrm #updtAvatarTbl th,
 #updtMyAvatarDiv #updtMyAvatarFrm #updtMyAvatarTbl th,
-#updtCoverDiv #updtCoverFrm #updtCoverTbl th {
+#updtCoverDiv #updtCoverFrm #updtCoverTbl th,
+#upldWorkDiv #upldWorkFrm #upldWorkTbl th {
     font-size: 1.5em;
     font-weight: bold;
     color: #2c974b;
@@ -403,7 +407,8 @@
 
 #updtAvatarDiv #updtAvatarFrm #updtAvatarTbl label,
 #updtMyAvatarDiv #updtMyAvatarFrm #updtMyAvatarTbl label,
-#updtCoverDiv #updtCoverFrm #updtCoverTbl label {
+#updtCoverDiv #updtCoverFrm #updtCoverTbl label,
+#upldWorkDiv #upldWorkFrm #upldWorkTbl label {
     float: left;
     font-size: 1.3em;
     color: #2c974b;
@@ -413,7 +418,8 @@
 #updtMyAvatarDiv #updtMyAvatarFrm #updtMyAvatarTbl #cnlUpdtMyAvatarBtn,
 #addCrseRecDiv #addCrseRecFrm #addCrseRecTbl .cnlBtn,
 #updtCoverDiv #updtCoverFrm #updtCoverTbl #cnlUpdtCoverBtn,
-#addMSRecDiv #addMSRecFrm #addMSRecTbl #cnlAddNewMSBtn {
+#addMSRecDiv #addMSRecFrm #addMSRecTbl #cnlAddNewMSBtn,
+#upldWorkDiv #upldWorkFrm #upldWorkTbl #cnlUpldWorkBtn {
     float: left;
     width: 120px;
     height: 36px;
@@ -428,7 +434,8 @@
 #updtMyAvatarDiv #updtMyAvatarFrm #updtMyAvatarTbl #cnlUpdtMyAvatarBtn:hover,
 #addCrseRecDiv #addCrseRecFrm #addCrseRecTbl .cnlBtn:hover,
 #updtCoverDiv #updtCoverFrm #updtCoverTbl #cnlUpdtCoverBtn:hover,
-#addMSRecDiv #addMSRecFrm #addMSRecTbl #cnlAddNewMSBtn:hover {
+#addMSRecDiv #addMSRecFrm #addMSRecTbl #cnlAddNewMSBtn:hover,
+#upldWorkDiv #upldWorkFrm #upldWorkTbl #cnlUpldWorkBtn:hover {
     cursor: pointer;
     background-color: #278b44;
 }
@@ -437,7 +444,8 @@
 #updtMyAvatarDiv #updtMyAvatarFrm #updtMyAvatarTbl #updtMyAvatarBtn,
 #addCrseRecDiv #addCrseRecFrm #addCrseRecTbl #addNewRecBtn,
 #updtCoverDiv #updtCoverFrm #updtCoverTbl #updtCoverBtn,
-#addMSRecDiv #addMSRecFrm #addMSRecTbl #addNewRecBtn {
+#addMSRecDiv #addMSRecFrm #addMSRecTbl #addNewRecBtn,
+#upldWorkDiv #upldWorkFrm #upldWorkTbl #upldWorkBtn {
     float: right;
     width: 120px;
     height: 36px;
@@ -452,7 +460,8 @@
 #updtMyAvatarDiv #updtMyAvatarFrm #updtMyAvatarTbl #updtMyAvatarBtn:hover,
 #addCrseRecDiv #addCrseRecFrm #addCrseRecTbl #addNewRecBtn:hover,
 #updtCoverDiv #updtCoverFrm #updtCoverTbl #updtCoverBtn:hover,
-#addMSRecDiv #addMSRecFrm #addMSRecTbl #addNewRecBtn:hover {
+#addMSRecDiv #addMSRecFrm #addMSRecTbl #addNewRecBtn:hover,
+#upldWorkDiv #upldWorkFrm #upldWorkTbl #upldWorkBtn:hover {
     cursor: pointer;
     background-color: #278b44;
 }
