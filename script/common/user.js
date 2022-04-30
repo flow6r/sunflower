@@ -68,8 +68,10 @@ function queryUsrs(usrRole, colgAbrv, mjrAbrv, trgtRole, searchItem, searchType)
                 if (usrsInfo.length % usrsLstLimt) usrsTotPages++;
                 usrsCurrPage = 1;
             }
-            printUsrLsts(usrsCurrPage);
-            printPageOpts(usrsCurrPage);
+            if (usrsInfo.length != 0) {
+                printUsrLsts(usrsCurrPage);
+                printPageOpts(usrsCurrPage);
+            }
         }
     });
 }
