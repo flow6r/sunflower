@@ -243,3 +243,143 @@ $("#content").on("click", "#achvMgtDiv #achvMgtFrm #qryAchvMenuTbl #delRecsBtn",
         });
     } else alert("您选择了0条成就记录，请选择至少一条记录后再执行批量删除操作");
 });
+
+/*进入成就详情页面*/
+$("#content").on("click", "#achvMgtDiv #achvMgtFrm .qryAchvRecsDiv .qryRecsLstTbl .achvDetlAnchor", function (event) {
+    let achvID = $(event.target).attr("id");
+
+    queryAchvDetlInfo(achvID);
+});
+
+/*实现查询成就详情的函数*/
+function queryAchvDetlInfo(achvID) {
+    $.ajax({
+        url: "../../library/common/query_achvinfo.php",
+        type: "GET",
+        async: false,
+        data: { achvID: achvID, usrRole: usrInfo["UsrRole"] },
+        dataType: "json",
+        error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+        success: function (achvJSON) {
+            if (achvJSON.length === 0) alert("查询成就详情失败，请联系管理员并反馈问题");
+            else {
+                achvIDAray = new Array();
+                achvIDIndx = null;
+                // $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find("#qryAchvMenuTbl").find("input").attr("disabled", "disabled");
+                // $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find("#qryAchvMenuTbl").find("select").attr("disabled", "disabled");
+                $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find("#qryAchvBarTbl").find("#qryAchvAnchor").nextAll().remove();
+                $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find("#qryAchvBarTbl").find("#qryAchvAnchor").after("<a class='" + achvID + "' href='#'>成就详情&gt;</a>");
+                $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".recsPageCtlTbl").attr("style", "visibility: hidden;");
+                $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").empty();
+                $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").append(
+                    "<table id='achvInfoTbl'><tr><td><label>成就名称</label></td><td id='achvFile' rowspan='4' width='65%'></td></tr>" +
+                    "<tr><td><input type='text' id='achvTitl' name='achvTitl' value='" + achvJSON[0].AchvTitl + "' class='editable' /></td></tr>" +
+                    "<tr><td><label>成就描述</label></td></tr>" +
+                    "<tr><td><textarea id='achvDesc' name='achvDesc' class='editable'>" + achvJSON[0].AchvDesc + "</textarea></td></tr>" +
+                    "<tr><td><input type='button' id='editAchvInfoBtn' name='editAchvInfoBtn' value='编辑' />" +
+                    "<input type='button' id='cnlEditAchvInfoBtn' name='" + achvJSON[0].AchvID + "' value='取消' />" +
+                    "<input type='button' id='updtAchvInfoBtn' name='" + achvJSON[0].AchvID + "' value='更新' /></td>" +
+                    "<td><input type='button' id='delAchvBtn' name='" + achvJSON[0].AchvID + "' value='删除成就' /></td></tr></table>"
+                );
+
+                $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("input[type='text']").attr("disabled", "disabled");
+                $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("textarea").attr("disabled", "disabled");
+
+                switch (achvJSON[0].AchvFmt) {
+                    case "bmp":
+                    case "gif":
+                    case "jpg":
+                    case "png":
+                        $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#achvFile").
+                            append("<img src='" + achvJSON[0].AchvPath + "' />"); break;
+                    case "mp3":
+                    case "m4a":
+                        $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#achvFile").
+                            append("<audio controls><source src='" + achvJSON[0].AchvPath + "' type='audio/mpeg'>" +
+                                "抱歉！您的浏览器不支持audio标签。</audio>"); break;
+                    case "mp4":
+                    case "mkv":
+                        $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#achvFile").
+                            append("<video controls><source src='" + achvJSON[0].AchvPath + "' type='video/mp4'>" +
+                                "抱歉！您的浏览器不支持video标签。</video>"); break;
+                }
+            }
+        }
+    });
+}
+
+/*编辑成就信息*/
+$("#content").on("click", "#achvMgtDiv #achvMgtFrm .qryAchvRecsDiv #achvInfoTbl #editAchvInfoBtn", function () {
+    $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("input[type='text']").removeAttr("disabled");
+    $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("textarea").removeAttr("disabled");
+    $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#cnlEditAchvInfoBtn").attr("style", "visibility: visible");
+    $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#updtAchvInfoBtn").attr("style", "visibility: visible");
+    $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#editAchvInfoBtn").remove();
+    $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#delAchvBtn").remove();
+});
+
+
+/*编辑时检查成就名称完整性*/
+$("#content").on("click", "#achvMgtDiv #achvMgtFrm .qryAchvRecsDiv #achvInfoTbl #achvTitl", function (event) {
+    let achvTitl = $(event.target).val();
+
+    if (achvTitl != "") $(event.target).attr("placeholder", "请输入成就名称");
+    else $(event.target).removeAttr("placeholder");
+});
+
+/*编辑时检查成就描述完整性*/
+$("#content").on("click", "#achvMgtDiv #achvMgtFrm .qryAchvRecsDiv #achvInfoTbl #achvDesc", function (event) {
+    let achvDesc = $(event.target).val();
+
+    if (achvDesc != "") $(event.target).attr("placeholder", "请输入成就名称");
+    else $(event.target).removeAttr("placeholder");
+});
+
+/*取消更新成就信息*/
+$("#content").on("click", "#achvMgtDiv #achvMgtFrm .qryAchvRecsDiv #achvInfoTbl #cnlEditAchvInfoBtn", function (event) {
+    let achvID = $(event.target).attr("name");
+
+    queryAchvDetlInfo(achvID);
+});
+
+/*更新成就信息*/
+$("#content").on("click", "#achvMgtDiv #achvMgtFrm .qryAchvRecsDiv #achvInfoTbl #updtAchvInfoBtn", function (event) {
+    let achvID = $(event.target).attr("name");
+    let achvTitl = $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#achvTitl").val();
+    let achvDesc = $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#achvDesc").val();
+
+    if (achvTitl != "" && achvDesc != "") {
+        $.ajax({
+            url: "../../library/common/update_achv.php",
+            type: "POST",
+            async: false,
+            data: { achvID: achvID, achvTitl: achvTitl, achvDesc: achvDesc, usrRole: usrInfo["UsrRole"] },
+            error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+            success: function (status) {
+                if (status === "successful") {
+                    alert("成功更新成就信息");
+                    queryAchvDetlInfo(achvID);
+                } else alert(status);
+            }
+        });
+    }
+});
+
+/*删除成就*/
+$("#content").on("click", "#achvMgtDiv #achvMgtFrm .qryAchvRecsDiv #achvInfoTbl #delAchvBtn", function (event) {
+    let achvID = $(event.target).attr("name");
+
+    $.ajax({
+        url: "../../library/common/delete_achv.php",
+        type: "POST",
+        async: false,
+        data: { achvID: achvID, usrRole: usrInfo["UsrRole"] },
+        error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+        success: function (status) {
+            if (status === "successful") {
+                alert("成功删除成就记录");
+                queryAchvResc(usrInfo["UsrID"], usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], "", "AchvTitl");
+            } else alert(status);
+        }
+    });
+});
