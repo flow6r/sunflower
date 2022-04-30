@@ -288,6 +288,33 @@ $(".usrNav").on("click", "#workQry", function () {
     queryStdMsRecs(usrInfo["UsrID"], "", "MsName");
 });
 
+/*小组管理面板*/
+$(".usrNav").on("click", "#grpMgt", function () {
+    $("#content").empty();
+    $("#content").append(
+        "<div id='ptyMgtDiv' class='mgtDiv'><form id='ptyMgtFrm' name='ptyMgtFrm' class='mgtFrm'>" +
+        "<table id='qryPtyMenuTbl' class='qryMenuTbl'>" +
+        "<tr><td><input type='text' id='qryPtyItem' name='qryPtyItem' class='searchItem' placeholder='请输入待查询的关键词'/></td>" +
+        "<td><select id='qryPtyType' name='qryPtyType' class='searchType'></select></td>" +
+        "<td><input type='button' id='qryPtyRecsBtn' name='qryPtyRecsBtn' class='searchButton' value='查询' /></td>" +
+        "<td><input type='button' id='addRecBtn' name='addRecBtn' class='otherOpBtn' value='新增课程' /></td>" +
+        "<td><input type='button' id='impRecsBtn' name='impRecsBtn' class='otherOpBtn' value='批量导入' /></td>" +
+        "<td><input type='button' id='delRecsBtn' name='delRecsBtn' class='otherOpBtn' value='批量删除' /></td></tr></table>" +
+        "<table id='qryPtyBarTbl' class='qryBarTbl'><tr><td><span><a id='qryPtyAnchor' href='#'>小组管理&gt;</a></span></td></tr></table>" +
+        "<div class='qryPtyRecsDiv'></div><table id='ptyRecsPageCtlTbl' class='recsPageCtlTbl'>" +
+        "<tr><td><input type='button' id='prevPage' name='prevPage' class='pageCtlBtn' value='&lt;' /></td><td id='pageOpts'></td>" +
+        "<td><input type='button' id='nextPage' name='nextPage' class='pageCtlBtn' value='&gt;' /></td></tr></table></form></div>"
+    );
+    $("#content").find("#ptyMgtDiv").find("#ptyMgtFrm").find("#qryPtyMenuTbl").find("#qryPtyType").append(
+        "<option value='PtyName'>小组名称</option><option value='UsrName'>组长姓名</option>");
+    $("#content").find("#ptyMgtDiv").find("#ptyMgtFrm").find("#qryPtyMenuTbl").find("#impRecsBtn").remove();
+    $("#content").find("#ptyMgtDiv").find("#ptyMgtFrm").find("#qryPtyMenuTbl").find("#delRecsBtn").remove();
+    if (usrInfo["UsrRole"] != "std") $("#content").find("#ptyMgtDiv").find("#ptyMgtFrm").find("#qryPtyMenuTbl").find("#addRecBtn").attr("id", "delRecsBtn").attr("class", "otherOpBtn").attr("value", "批量删除");
+    else $("#content").find("#ptyMgtDiv").find("#ptyMgtFrm").find("#qryPtyMenuTbl").find(".otherOpBtn").remove();
+
+    queryPartyRecs(usrInfo["UsrID"], usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], "", "PtyName");
+});
+
 /*退出登录*/
 $(".usrNav").on("click", "#logout", function () {
     $.ajax({
