@@ -189,3 +189,39 @@ function queryStdMsDelt(msID) {
         }
     });
 }
+
+/*显示上传作业的弹窗*/
+$("#content").on("click", "#msMgtDiv #msMgtFrm .qryMsRecsDiv #msDeltTbl #updtWrkPkgBtn", function (event) {
+    let msID = $(event.target).attr("name");
+
+    $("#mask").attr("style", "visibility: visible;");
+    $("body").append(
+        "<div id='upldWorkDiv' name='upldWorkDiv'>" +
+        "<form id='upldWorkFrm' name='upldWorkFrm' enctype='multipart/form-data' " +
+        "action='../../library/common/upload_work.php' method='post' target='doNotRefresh' onsubmit='return checkWork()'>" +
+        "<table id='upldWorkTbl' name='upldWorkTbl'><tr><th colspan='2'><span>上传作业</span></th></tr>" +
+        "<tr><td><label>作业文件</label></td><td><input type='file' id='newWork' name='newWork' /></td></tr>" +
+        "<tr><td><input type='button' id='cnlUpldWorkBtn' name='" + msID + "' value='取消' /></td>" +
+        "<td><input type='submit' id='upldWorkBtn' name='" + msID + "' value='上传' /></td></tr></table></form>" +
+        "<iframe id='doNotRefresh' name='doNotRefresh' title='doNotRefresh' style='display: none;'></iframe></div>"
+    );
+});
+
+/*检查上传作业的文件*/
+function checkWork() {
+    let newWork = $("body").find("#upldWorkDiv").find("#upldWorkFrm").find("#upldWorkTbl").find("#newWork").val();
+
+    if (newWork == "") { alert("请选择待上传的作业文件再执行上传操作"); return false; }
+
+    return true;
+}
+
+/*取消上传作业*/
+$("body").on("click", "#upldWorkDiv #upldWorkFrm #upldWorkTbl #cnlUpldWorkBtn", function (event) {
+    let msID = $(event.target).attr("name");
+
+    $("#mask").attr("style", "visibility: hidden;");
+    $("body").find("#upldWorkDiv").remove();
+
+    queryStdMsDelt(msID);
+});
