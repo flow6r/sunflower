@@ -62,8 +62,10 @@ function queryScheduleRecs(usrID, searchItem, searchType) {
                 if (schedInfo.length % schedLstLimt) schedTotPages++;
                 schedCurrPage = 1;
             }
-            printSchedLsts(schedCurrPage);
-            printSchedPageOpts(schedCurrPage);
+            if (schedInfo.length != 0) {
+                printSchedLsts(schedCurrPage);
+                printSchedPageOpts(schedCurrPage);
+            }
         }
     });
 }
