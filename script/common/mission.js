@@ -61,8 +61,10 @@ function queryStdMsRecs(usrID, searchItem, searchType) {
                 if (msInfo.length % msLstLimt) msTotPages++;
                 msCurrPage = 1;
             }
-            printMsLsts(msCurrPage);
-            printMsPageOpts(msCurrPage);
+            if (msInfo.length != 0) {
+                printMsLsts(msCurrPage);
+                printMsPageOpts(msCurrPage);
+            }
         }
     });
 }
