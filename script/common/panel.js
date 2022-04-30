@@ -316,6 +316,32 @@ $(".usrNav").on("click", "#grpMgt", function () {
     queryPartyRecs(usrInfo["UsrID"], usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], "", "PtyName");
 });
 
+/*成就管理页面*/
+$(".usrNav").on("click", "#achvMgt", function () {
+    $("#content").empty();
+    $("#content").append(
+        "<div id='achvMgtDiv' class='mgtDiv'><form id='achvMgtFrm' name='achvMgtFrm' class='mgtFrm'>" +
+        "<table id='qryAchvMenuTbl' class='qryMenuTbl'>" +
+        "<tr><td><input type='text' id='qryAchvItem' name='qryAchvItem' class='searchItem' placeholder='请输入待查询的关键词'/></td>" +
+        "<td><select id='qryAchvType' name='qryAchvType' class='searchType'></select></td>" +
+        "<td><input type='button' id='qryAchvRecsBtn' name='qryAchvRecsBtn' class='searchButton' value='查询' /></td>" +
+        "<td><input type='button' id='addRecBtn' name='addRecBtn' class='otherOpBtn' value='新增成就' /></td>" +
+        "<td><input type='button' id='delRecsBtn' name='delRecsBtn' class='otherOpBtn' value='批量删除' /></td><td></td></tr></table>" +
+        "<table id='qryAchvBarTbl' class='qryBarTbl'><tr><td><span><a id='qryAchvAnchor' href='#'>成就管理&gt;</a></span></td></tr></table>" +
+        "<div class='qryAchvRecsDiv'></div><table id='achvRecsPageCtlTbl' class='recsPageCtlTbl'>" +
+        "<tr><td><input type='button' id='prevPage' name='prevPage' class='pageCtlBtn' value='&lt;' /></td><td id='pageOpts'></td>" +
+        "<td><input type='button' id='nextPage' name='nextPage' class='pageCtlBtn' value='&gt;' /></td></tr></table></form></div>"
+    );
+
+    $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find("#qryAchvMenuTbl").find("#qryAchvType").append(
+        "<option value='AchvTitl'>成就名称</option><option value='AchvDesc'>成就描述</option>" +
+        "<option value='AchvFmt'>作品格式</option><option value='UsrID'>作品作者</option>"
+    );
+    if (usrInfo["UsrRole"] === "std") $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find("#qryAchvMenuTbl").find("#qryAchvType").find("option[value='UsrID']").remove();
+
+    queryAchvResc(usrInfo["UsrID"], usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], "", "AchvTitl");
+});
+
 /*退出登录*/
 $(".usrNav").on("click", "#logout", function () {
     $.ajax({
