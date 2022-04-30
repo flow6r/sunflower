@@ -62,8 +62,10 @@ function queryCrses(usrID, usrRole, colgAbrv, mjrAbrv, searchItem, searchType) {
                 if (crsesInfo.length % crsesLstLimt) crsesTotPages++;
                 crsesCurrPage = 1;
             }
-            printCrseLsts(crsesCurrPage);
-            printCrsePageOpts(crsesCurrPage);
+            if (crsesInfo.length != 0) {
+                printCrseLsts(crsesCurrPage);
+                printCrsePageOpts(crsesCurrPage);
+            }
         }
     });
 }
