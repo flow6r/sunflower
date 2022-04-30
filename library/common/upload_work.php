@@ -27,8 +27,8 @@ if ($_FILES["newWork"]["type"] != "application/x-zip-compressed") {
     echo "<script>alert('上传文件格式错误，请上传zip格式文件');</script>";
     exit;
 } else {
-    $achvFmt = $_FILES["newWork"]["type"];
     $extName = ".zip";
+    $achvFmt = substr($extName, 1);
 }
 
 //将文件移动至指定位置
@@ -59,10 +59,10 @@ $stmt->bind_param("ssi", $cmplDt, $wrkPath, $msID);
 $stmt->execute();
 
 //新建成就记录
-$acvhPaht = $wrkPath;
+$achvPath = $wrkPath;
 $query = "INSERT INTO Achievement VALUES (NULL, ?, ?, ?, ?, ?, ?, 0)";
 $stmt = $db->prepare($query);
-$stmt->bind_param("ssssss", $msName, $msDesc, $achvFmt, $usrID, $upldDt, $acvhPaht);
+$stmt->bind_param("ssssss", $msName, $msDesc, $achvFmt, $usrID, $upldDt, $achvPath);
 $stmt->execute();
 
 echo "<script>alert('成功上传作业');</script>";
