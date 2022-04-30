@@ -419,7 +419,8 @@
 #addCrseRecDiv #addCrseRecFrm #addCrseRecTbl .cnlBtn,
 #updtCoverDiv #updtCoverFrm #updtCoverTbl #cnlUpdtCoverBtn,
 #addMSRecDiv #addMSRecFrm #addMSRecTbl #cnlAddNewMSBtn,
-#upldWorkDiv #upldWorkFrm #upldWorkTbl #cnlUpldWorkBtn {
+#upldWorkDiv #upldWorkFrm #upldWorkTbl #cnlUpldWorkBtn,
+#addAchvRecDiv #addAchvRecFrm #addAchvRecTbl .cnlBtn {
     float: left;
     width: 120px;
     height: 36px;
@@ -435,7 +436,8 @@
 #addCrseRecDiv #addCrseRecFrm #addCrseRecTbl .cnlBtn:hover,
 #updtCoverDiv #updtCoverFrm #updtCoverTbl #cnlUpdtCoverBtn:hover,
 #addMSRecDiv #addMSRecFrm #addMSRecTbl #cnlAddNewMSBtn:hover,
-#upldWorkDiv #upldWorkFrm #upldWorkTbl #cnlUpldWorkBtn:hover {
+#upldWorkDiv #upldWorkFrm #upldWorkTbl #cnlUpldWorkBtn:hover,
+#addAchvRecDiv #addAchvRecFrm #addAchvRecTbl .cnlBtn:hover {
     cursor: pointer;
     background-color: #278b44;
 }
@@ -445,7 +447,8 @@
 #addCrseRecDiv #addCrseRecFrm #addCrseRecTbl #addNewRecBtn,
 #updtCoverDiv #updtCoverFrm #updtCoverTbl #updtCoverBtn,
 #addMSRecDiv #addMSRecFrm #addMSRecTbl #addNewRecBtn,
-#upldWorkDiv #upldWorkFrm #upldWorkTbl #upldWorkBtn {
+#upldWorkDiv #upldWorkFrm #upldWorkTbl #upldWorkBtn,
+#addAchvRecDiv #addAchvRecFrm #addAchvRecTbl #addNewRecBtn {
     float: right;
     width: 120px;
     height: 36px;
@@ -461,12 +464,14 @@
 #addCrseRecDiv #addCrseRecFrm #addCrseRecTbl #addNewRecBtn:hover,
 #updtCoverDiv #updtCoverFrm #updtCoverTbl #updtCoverBtn:hover,
 #addMSRecDiv #addMSRecFrm #addMSRecTbl #addNewRecBtn:hover,
-#upldWorkDiv #upldWorkFrm #upldWorkTbl #upldWorkBtn:hover {
+#upldWorkDiv #upldWorkFrm #upldWorkTbl #upldWorkBtn:hover,
+#addAchvRecDiv #addAchvRecFrm #addAchvRecTbl #addNewRecBtn:hover {
     cursor: pointer;
     background-color: #278b44;
 }
 
-#addCrseRecDiv {
+#addCrseRecDiv,
+#addAchvRecDiv {
     position: relative;
     padding: 0px;
     margin: 0px auto;
@@ -479,7 +484,8 @@
     z-index: 10;
 }
 
-#addCrseRecDiv #addCrseRecFrm {
+#addCrseRecDiv #addCrseRecFrm,
+#addAchvRecDiv #addAchvRecFrm {
     position: absolute;
     padding: 0px;
     margin: 0px auto;
@@ -487,7 +493,8 @@
     height: 345px;
 }
 
-#addCrseRecDiv #addCrseRecFrm #addCrseRecTbl {
+#addCrseRecDiv #addCrseRecFrm #addCrseRecTbl,
+#addAchvRecDiv #addAchvRecFrm #addAchvRecTbl {
     position: relative;
     padding: 0px;
     margin: 10px auto;
@@ -496,19 +503,22 @@
     border-spacing: 15px;
 }
 
-#addCrseRecDiv #addCrseRecFrm #addCrseRecTbl th {
+#addCrseRecDiv #addCrseRecFrm #addCrseRecTbl th,
+#addAchvRecDiv #addAchvRecFrm #addAchvRecTbl th {
     font-size: 1.5em;
     font-weight: bold;
     color: #2c974b;
 }
 
-#addCrseRecDiv #addCrseRecFrm #addCrseRecTbl label {
+#addCrseRecDiv #addCrseRecFrm #addCrseRecTbl label,
+#addAchvRecDiv #addAchvRecFrm #addAchvRecTbl label {
     float: left;
     font-size: 1.3em;
     color: #2c974b;
 }
 
-#addCrseRecDiv #addCrseRecFrm #addCrseRecTbl #crseName {
+#addCrseRecDiv #addCrseRecFrm #addCrseRecTbl #crseName,
+#addAchvRecDiv #addAchvRecFrm #addAchvRecTbl #achvTitl {
     float: right;
     width: 270px;
     height: 30px;
@@ -519,7 +529,8 @@
 }
 
 .textareaPopup,
-#addMSRecDiv #addMSRecFrm #addMSRecTbl #msDesc {
+#addMSRecDiv #addMSRecFrm #addMSRecTbl #msDesc,
+#addAchvRecDiv #addAchvRecFrm #addAchvRecTbl #achvDesc {
     float: right;
     font-size: 1.3em;
     width: 270px;
