@@ -309,7 +309,8 @@ $(".usrNav").on("click", "#grpMgt", function () {
         "<option value='PtyName'>小组名称</option><option value='UsrName'>组长姓名</option>");
     $("#content").find("#ptyMgtDiv").find("#ptyMgtFrm").find("#qryPtyMenuTbl").find("#impRecsBtn").remove();
     $("#content").find("#ptyMgtDiv").find("#ptyMgtFrm").find("#qryPtyMenuTbl").find("#delRecsBtn").remove();
-    if (usrInfo["UsrRole"] != "std") $("#content").find("#ptyMgtDiv").find("#ptyMgtFrm").find("#qryPtyMenuTbl").find("#addRecBtn").attr("id", "delRecsBtn").attr("class", "otherOpBtn").attr("value", "批量删除");
+    if (usrInfo["UsrRole"] != "std") $("#content").find("#ptyMgtDiv").find("#ptyMgtFrm").find("#qryPtyMenuTbl").find("#addRecBtn").attr("id", "delRecsBtn").
+        removeAttr("name").attr("class", "otherOpBtn").attr("value", "批量删除");
     else $("#content").find("#ptyMgtDiv").find("#ptyMgtFrm").find("#qryPtyMenuTbl").find(".otherOpBtn").remove();
 
     queryPartyRecs(usrInfo["UsrID"], usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], "", "PtyName");
