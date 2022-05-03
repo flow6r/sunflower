@@ -27,8 +27,8 @@ $("#content").on("click", "#ptyMgtDiv #ptyMgtFrm #qryPtyBarTbl #qryPtyAnchor", f
 /*实现查询小组记录的函数*/
 function queryPartyRecs(usrID, usrRole, colgAbrv, mjrAbrv, searchItem, searchType) {
     $("#content").find("#ptyMgtDiv").find("#ptyMgtFrm").find("#qryPtyMenuTbl").find("#qryPtyItem").val();
-    // $("#content").find("#ptyMgtDiv").find("#ptyMgtFrm").find("#qryPtyMenuTbl").find("input").removeAttr("disabled");
-    // $("#content").find("#ptyMgtDiv").find("#ptyMgtFrm").find("#qryPtyMenuTbl").find("select").removeAttr("disabled");
+    $("#content").find("#ptyMgtDiv").find("#ptyMgtFrm").find("#qryPtyMenuTbl").find("input").removeAttr("disabled");
+    $("#content").find("#ptyMgtDiv").find("#ptyMgtFrm").find("#qryPtyMenuTbl").find("select").removeAttr("disabled");
 
     $.ajax({
         url: "../../library/common/query_ptys.php",
@@ -221,8 +221,8 @@ function queryPtyDetl(ptyID) {
             else {
                 ptyIDAray = new Array();
                 ptyIDIndx = null;
-                // $("#content").find("#ptyMgtDiv").find("#ptyMgtFrm").find("#qryPtyMenuTbl").find("input").attr("disabled", "disabled");
-                // $("#content").find("#ptyMgtDiv").find("#ptyMgtFrm").find("#qryPtyMenuTbl").find("select").attr("disabled", "disabled");
+                $("#content").find("#ptyMgtDiv").find("#ptyMgtFrm").find("#qryPtyMenuTbl").find("input").attr("disabled", "disabled");
+                $("#content").find("#ptyMgtDiv").find("#ptyMgtFrm").find("#qryPtyMenuTbl").find("select").attr("disabled", "disabled");
                 $("#content").find("#ptyMgtDiv").find("#ptyMgtFrm").find("#qryPtyBarTbl").find("#qryPtyAnchor").nextAll().remove();
                 $("#content").find("#ptyMgtDiv").find("#ptyMgtFrm").find("#qryPtyBarTbl").find("#qryPtyAnchor").after("<a class='" + ptyID + "' href='#'>小组详情&gt;</a>");
                 $("#content").find("#ptyMgtDiv").find("#ptyMgtFrm").find(".recsPageCtlTbl").attr("style", "visibility: hidden;");
