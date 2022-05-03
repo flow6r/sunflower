@@ -42,6 +42,11 @@
     height: 90%;
 }
 
+.mgtDiv .mgtFrm .qryAchvRecsDiv #achvInfoTbl #fileImg {
+    width: 25%;
+    height: 25%;
+}
+
 .mgtDiv .mgtFrm .qryAchvRecsDiv #achvInfoTbl label {
     font-size: 1.3em;
     color: #2c974b;
@@ -69,7 +74,9 @@
 
 .mgtDiv .mgtFrm .qryAchvRecsDiv #achvInfoTbl #editAchvInfoBtn,
 .mgtDiv .mgtFrm .qryAchvRecsDiv #achvInfoTbl #updtAchvInfoBtn,
-.mgtDiv .mgtFrm .qryAchvRecsDiv #achvInfoTbl #delAchvBtn {
+.mgtDiv .mgtFrm .qryAchvRecsDiv #achvInfoTbl #delAchvBtn,
+.mgtDiv .mgtFrm .qryAchvRecsDiv #achvInfoTbl #postCmtBtn,
+.mgtDiv .mgtFrm .qryAchvRecsDiv #achvInfoTbl #qryCmtsBtn {
     width: 100px;
     margin-right: 10px;
     height: 36px;
@@ -86,7 +93,9 @@
 
 .mgtDiv .mgtFrm .qryAchvRecsDiv #achvInfoTbl #editAchvInfoBtn:hover,
 .mgtDiv .mgtFrm .qryAchvRecsDiv #achvInfoTbl #updtAchvInfoBtn:hover,
-.mgtDiv .mgtFrm .qryAchvRecsDiv #achvInfoTbl #delAchvBtn:hover {
+.mgtDiv .mgtFrm .qryAchvRecsDiv #achvInfoTbl #delAchvBtn:hover,
+.mgtDiv .mgtFrm .qryAchvRecsDiv #achvInfoTbl #postCmtBtn:hover,
+.mgtDiv .mgtFrm .qryAchvRecsDiv #achvInfoTbl #qryCmtsBtn:hover {
     cursor: pointer;
     background-color: #278b44;
 }
@@ -104,6 +113,46 @@
 }
 
 .mgtDiv .mgtFrm .qryAchvRecsDiv #achvInfoTbl #cnlEditAchvInfoBtn:hover {
+    cursor: pointer;
+    background-color: #f5f5f5;
+}
+
+.mgtDiv .mgtFrm .qryAchvRecsDiv #achvCmtsDiv {
+    overflow-y: scroll;
+    overflow-x: scroll;
+    border-radius: 7px;
+    background-color: #f6f8fa;
+}
+
+.mgtDiv .mgtFrm .qryAchvRecsDiv #achvCmtsDiv #achvCmtsTbl {
+    width: 100%;
+    text-align: center;
+}
+
+.mgtDiv .mgtFrm .qryAchvRecsDiv #achvCmtsDiv #achvCmtsTbl th {
+    font-size: 1.2em;
+    color: #ffffff;
+    background-color: #2c974b;
+}
+
+.mgtDiv .mgtFrm .qryAchvRecsDiv #achvCmtsDiv #achvCmtsTbl td {
+    font-size: 1.1em;
+    color: #000000;
+    background-color: #8bcc9e;
+}
+
+.mgtDiv .mgtFrm .qryAchvRecsDiv #achvCmtsDiv #achvCmtsTbl input {
+    width: 50%;
+    height: 36px;
+    margin-right: 10px;
+    font-size: 1.2em;
+    color: #2c974b;
+    border-radius: 7px;
+    background-color: #ffffff;
+    border: 2px solid #298545;
+}
+
+.mgtDiv .mgtFrm .qryAchvRecsDiv #achvCmtsDiv #achvCmtsTbl input:hover {
     cursor: pointer;
     background-color: #f5f5f5;
 }
