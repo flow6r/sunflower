@@ -53,9 +53,9 @@ if (mysqli_connect_error()) {
 
 //更新任务进度记录数据库
 $wrkPath = "../data/work/" . $usrID . $currDt . $extName;
-$query = "UPDATE Progress SET MsStat = 'cmpled', CmplDt = ?, WrkPath = ? WHERE MsID = ?";
+$query = "UPDATE Progress SET MsStat = 'cmpled', CmplDt = ?, WrkPath = ? WHERE MsID = ? AND UsrID = ?";
 $stmt = $db->prepare($query);
-$stmt->bind_param("ssi", $cmplDt, $wrkPath, $msID);
+$stmt->bind_param("ssi", $cmplDt, $wrkPath, $msID, $usrID);
 $stmt->execute();
 
 //新建成就记录
