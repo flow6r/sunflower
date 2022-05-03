@@ -335,11 +335,13 @@ $(".usrNav").on("click", "#achvMgt", function () {
 
     $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find("#qryAchvMenuTbl").find("#qryAchvType").append(
         "<option value='AchvTitl'>成就名称</option><option value='AchvDesc'>成就描述</option>" +
-        "<option value='AchvFmt'>作品格式</option><option value='UsrID'>作品作者</option>"
+        "<option value='AchvFmt'>作品格式</option><option value='UsrID'>作者ID</option><option value='UsrName'>作者姓名</option>"
     );
-    if (usrInfo["UsrRole"] === "std") $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find("#qryAchvMenuTbl").find("#qryAchvType").find("option[value='UsrID']").remove();
 
-    queryAchvResc(usrInfo["UsrID"], usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], "", "AchvTitl");
+    if (usrInfo["UsrRole"] === "std")
+        queryAchvResc(usrInfo["UsrID"], usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], usrInfo["UsrName"], "UsrName");
+    else
+        queryAchvResc(usrInfo["UsrID"], usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], "", "AchvTitl");
 });
 
 /*退出登录*/
