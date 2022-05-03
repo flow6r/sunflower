@@ -671,3 +671,86 @@
     cursor: pointer;
     background-color: #278b44;
 }
+
+#postCmtDiv,
+#postAchvCmtDiv {
+    position: relative;
+    padding: 0px;
+    margin: 0px auto;
+    top: 100px;
+    width: 380px;
+    height: 290px;
+    border-radius: 7px;
+    border: 2px solid #d8dee4;
+    background-color: #f6f8fa;
+    z-index: 10;
+}
+
+#postCmtDiv #postCmtFrm,
+#postAchvCmtDiv #postAchvCmtFrm {
+    position: absolute;
+    padding: 0px;
+    margin: 0 auto;
+    width: 380px;
+    height: 290px;
+}
+
+#postCmtDiv #postCmtFrm #postCmtTbl,
+#postAchvCmtDiv #postAchvCmtFrm #postAchvCmtTbl {
+    position: relative;
+    padding: 0;
+    margin: 10px auto;
+    text-align: center;
+    border-spacing: 20px;
+}
+
+#postCmtDiv #postCmtFrm #postCmtTbl th,
+#postAchvCmtDiv #postAchvCmtFrm #postAchvCmtTbl th {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #2c974b;
+}
+
+#postCmtDiv #postCmtFrm #postCmtTbl textarea,
+#postAchvCmtDiv #postAchvCmtFrm #postAchvCmtTbl textarea {
+    float: right;
+    font-size: 1.3em;
+    width: 270px;
+    height: 100px;
+    resize: none;
+    outline: none;
+    overflow-y: scroll;
+    border: 2px solid #d8dee4;
+    border-radius: 7px;
+}
+
+#postCmtDiv #postCmtFrm #postCmtTbl .cnlCmtBtn,
+#postAchvCmtDiv #postAchvCmtFrm #postAchvCmtTbl .cnlPostCmtBtn {
+    float: left;
+}
+
+#postCmtDiv #postCmtFrm #postCmtTbl .postCmtBtn,
+#postAchvCmtDiv #postAchvCmtFrm #postAchvCmtTbl .postAchvCmtBtn {
+    float: right;
+}
+
+#postCmtDiv #postCmtFrm #postCmtTbl .cnlCmtBtn:hover,
+#postCmtDiv #postCmtFrm #postCmtTbl .postCmtBtn:hover,
+#postAchvCmtDiv #postAchvCmtFrm #postAchvCmtTbl .cnlPostCmtBtn:hover,
+#postAchvCmtDiv #postAchvCmtFrm #postAchvCmtTbl .postAchvCmtBtn:hover {
+    cursor: pointer;
+    background-color: #278b44;
+}
+
+#postCmtDiv #postCmtFrm #postCmtTbl .cnlCmtBtn,
+#postCmtDiv #postCmtFrm #postCmtTbl .postCmtBtn,
+#postAchvCmtDiv #postAchvCmtFrm #postAchvCmtTbl .cnlPostCmtBtn,
+#postAchvCmtDiv #postAchvCmtFrm #postAchvCmtTbl .postAchvCmtBtn {
+    width: 65%;
+    height: 36px;
+    font-size: 1.2em;
+    color: #ffffff;
+    border-radius: 7px;
+    background-color: #2c974b;
+    border: 2px solid #298545;
+}
