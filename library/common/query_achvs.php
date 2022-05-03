@@ -34,22 +34,26 @@ $searchItem = "%" . $searchItem . "%";
 //查询数据库
 switch ($usrRole) {
     case "std":
-        $query = "SELECT * FROM Achievement WHERE UsrID = ? AND " . $searchType . " LIKE ?";
+        if ($searchType === "UsrName") $query = "SELECT A.*, U.UsrName FROM Achievement AS A, User AS U " .
+        "WHERE A.UsrID = U.UsrID AND U.MjrAbrv = ? AND U.UsrRole = 'std' AND U." . $searchType . " LIKE ?";
+        else $query = "SELECT A.*, U.UsrName FROM Achievement AS A, User AS U " .
+        "WHERE A.UsrID = U.UsrID AND U.MjrAbrv = ? AND U.UsrRole = 'std' AND A." . $searchType . " LIKE ?";
         $stmt = $db->prepare($query);
-        $stmt->bind_param("ss", $usrID, $searchItem);
-        break;
+        $stmt->bind_param("ss", $mjrAbrv, $searchItem); break;
     case "tch":
-        $query = "SELECT * FROM Achievement WHERE UsrID IN (SELECT UsrID FROM User WHERE MjrAbrv = ? AND UsrRole = 'std') " .
-        "AND " . $searchType . " LIKE ?";
+        if ($searchType === "UsrName") $query = "SELECT A.*, U.UsrName FROM Achievement AS A, User AS U " .
+        "WHERE A.UsrID = U.UsrID AND U.MjrAbrv = ? AND U.UsrRole != 'admin' AND U." . $searchType . " LIKE ?";
+        else $query = "SELECT A.*, U.UsrName FROM Achievement AS A, User AS U " .
+        "WHERE A.UsrID = U.UsrID AND U.MjrAbrv = ? AND U.UsrRole != 'admin' AND A." . $searchType . " LIKE ?";
         $stmt = $db->prepare($query);
-        $stmt->bind_param("ss", $mjrAbrv, $searchItem);
-        break;
+        $stmt->bind_param("ss", $mjrAbrv, $searchItem); break;
     case "admin":
-        $query = "SELECT * FROM Achievement WHERE UsrID IN (SELECT UsrID FROM User WHERE ColgAbrv = ? AND UsrRole = 'std') " .
-        "AND " . $searchType . " LIKE ?";
+        if ($searchType === "UsrName") $query = "SELECT A.*, U.UsrName FROM Achievement AS A, User AS U " .
+        "WHERE A.UsrID = U.UsrID AND U.ColgAbrv = ? AND U." . $searchType . " LIKE ?";
+        else $query = "SELECT A.*, U.UsrName FROM Achievement AS A, User AS U " .
+        "WHERE A.UsrID = U.UsrID AND U.ColgAbrv = ? AND A." . $searchType . " LIKE ?";
         $stmt = $db->prepare($query);
-        $stmt->bind_param("ss", $colgAbrv, $searchItem);
-        break;
+        $stmt->bind_param("ss", $colgAbrv, $searchItem); break;
 } $stmt->execute();
 
 //将查询结果以JSON数据格式返回给浏览器
