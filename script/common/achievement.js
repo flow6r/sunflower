@@ -21,14 +21,17 @@ $("#content").on("click", "#achvMgtDiv #achvMgtFrm #qryAchvMenuTbl #qryAchvRecsB
 
 /*通过导航标签查询成就记录*/
 $("#content").on("click", "#achvMgtDiv #achvMgtFrm #qryAchvBarTbl #qryAchvAnchor", function () {
-    queryAchvResc(usrInfo["UsrID"], usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], "", "AchvTitl");
+    if (usrInfo["UsrRole"] === "std")
+        queryAchvResc(usrInfo["UsrID"], usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], usrInfo["UsrName"], "UsrName");
+    else
+        queryAchvResc(usrInfo["UsrID"], usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], "", "AchvTitl");
 });
 
 /*实现查询成就记录的函数*/
 function queryAchvResc(usrID, usrRole, colgAbrv, mjrAbrv, searchItem, searchType) {
     $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find("#qryAchvMenuTbl").find("#qryAchvItem").val();
-    // $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find("#qryAchvMenuTbl").find("input").removeAttr("disabled");
-    // $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find("#qryAchvMenuTbl").find("select").removeAttr("disabled");
+    $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find("#qryAchvMenuTbl").find("input").removeAttr("disabled");
+    $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find("#qryAchvMenuTbl").find("select").removeAttr("disabled");
 
     $.ajax({
         url: "../../library/common/query_achvs.php",
@@ -49,7 +52,7 @@ function queryAchvResc(usrID, usrRole, colgAbrv, mjrAbrv, searchItem, searchType
             $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").append("<table class='qryRecsLstTbl'></table>");
 
             $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find(".qryRecsLstTbl").append(
-                "<tr id='achvRecsHead'><th id='checkboxhead' wdith='50px'></th><th>成就ID</th><th>成就名称</th><th>作品格式</th><th>其他</th></tr>"
+                "<tr id='achvRecsHead'><th id='checkboxhead' wdith='50px'></th><th>成就ID</th><th>成就名称</th><th>作者</th><th>作品格式</th><th>其他</th></tr>"
             );
 
             if (achvInfo.length === 0) {
@@ -87,8 +90,8 @@ function printAchvLsts(currPage) {
     for (; begnIndx <= endIndx && begnIndx < achvInfo.length; begnIndx++) {
         $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find(".qryRecsLstTbl").append(
             "<tr><td class='checkboxtd'><input type='checkbox' class='achvCheckBox' value='" + achvInfo[begnIndx].AchvID + "' /></td>" +
-            "<td>" + achvInfo[begnIndx].AchvID + "</td><td>" + achvInfo[begnIndx].AchvTitl + "</td>" +
-            "<td>" + achvInfo[begnIndx].AchvFmt + "</td>" +
+            "<td>" + achvInfo[begnIndx].AchvID + "</td><td>" + achvInfo[begnIndx].UsrName +
+            "</td><td>" + achvInfo[begnIndx].AchvTitl + "</td><td>" + achvInfo[begnIndx].AchvFmt + "</td>" +
             "<td><a href='#' id='" + achvInfo[begnIndx].AchvID + "' class='achvDetlAnchor'>进入详情页</a></td></tr>"
         );
     }
@@ -195,7 +198,10 @@ $("body").on("click", "#addAchvRecDiv #addAchvRecFrm #addAchvRecTbl #cnlAddNewRe
     $("#mask").attr("style", "visibility: hidden;");
     $("body").find("#addAchvRecDiv").remove();
 
-    queryAchvResc(usrInfo["UsrID"], usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], "", "AchvTitl");
+    if (usrInfo["UsrRole"] === "std")
+        queryAchvResc(usrInfo["UsrID"], usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], usrInfo["UsrName"], "UsrName");
+    else
+        queryAchvResc(usrInfo["UsrID"], usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], "", "AchvTitl");
 });
 
 /*新增成就时检查成就名称的完整性*/
@@ -238,7 +244,10 @@ $("#content").on("click", "#achvMgtDiv #achvMgtFrm #qryAchvMenuTbl #delRecsBtn",
                 if (status === "successful") {
                     alert("成功删除" + achvIDAray.length + "条成就记录");
                 } else alert(status);
-                queryAchvResc(usrInfo["UsrID"], usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], "", "AchvTitl");
+                if (usrInfo["UsrRole"] === "std")
+                    queryAchvResc(usrInfo["UsrID"], usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], usrInfo["UsrName"], "UsrName");
+                else
+                    queryAchvResc(usrInfo["UsrID"], usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], "", "AchvTitl");
             }
         });
     } else alert("您选择了0条成就记录，请选择至少一条记录后再执行批量删除操作");
@@ -247,6 +256,13 @@ $("#content").on("click", "#achvMgtDiv #achvMgtFrm #qryAchvMenuTbl #delRecsBtn",
 /*进入成就详情页面*/
 $("#content").on("click", "#achvMgtDiv #achvMgtFrm .qryAchvRecsDiv .qryRecsLstTbl .achvDetlAnchor", function (event) {
     let achvID = $(event.target).attr("id");
+
+    queryAchvDetlInfo(achvID);
+});
+
+/*通过导航查询成就详情*/
+$("#content").on("click", "#achvMgtDiv #achvMgtFrm #qryAchvBarTbl #qryAchvDetlAnchor", function (event) {
+    let achvID = $(event.target).attr("class");
 
     queryAchvDetlInfo(achvID);
 });
@@ -265,10 +281,10 @@ function queryAchvDetlInfo(achvID) {
             else {
                 achvIDAray = new Array();
                 achvIDIndx = null;
-                // $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find("#qryAchvMenuTbl").find("input").attr("disabled", "disabled");
-                // $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find("#qryAchvMenuTbl").find("select").attr("disabled", "disabled");
+                $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find("#qryAchvMenuTbl").find("input").attr("disabled", "disabled");
+                $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find("#qryAchvMenuTbl").find("select").attr("disabled", "disabled");
                 $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find("#qryAchvBarTbl").find("#qryAchvAnchor").nextAll().remove();
-                $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find("#qryAchvBarTbl").find("#qryAchvAnchor").after("<a class='" + achvID + "' href='#'>成就详情&gt;</a>");
+                $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find("#qryAchvBarTbl").find("#qryAchvAnchor").after("<a id='qryAchvDetlAnchor' class='" + achvID + "' href='#'>成就详情&gt;</a>");
                 $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".recsPageCtlTbl").attr("style", "visibility: hidden;");
                 $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").empty();
                 $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").append(
@@ -276,12 +292,17 @@ function queryAchvDetlInfo(achvID) {
                     "<tr><td><input type='text' id='achvTitl' name='achvTitl' value='" + achvJSON[0].AchvTitl + "' class='editable' /></td></tr>" +
                     "<tr><td><label>成就描述</label></td></tr>" +
                     "<tr><td><textarea id='achvDesc' name='achvDesc' class='editable'>" + achvJSON[0].AchvDesc + "</textarea></td></tr>" +
-                    "<tr><td><input type='button' id='editAchvInfoBtn' name='editAchvInfoBtn' value='编辑' />" +
-                    "<input type='button' id='cnlEditAchvInfoBtn' name='" + achvJSON[0].AchvID + "' value='取消' />" +
-                    "<input type='button' id='updtAchvInfoBtn' name='" + achvJSON[0].AchvID + "' value='更新' /></td>" +
-                    "<td><input type='button' id='delAchvBtn' name='" + achvJSON[0].AchvID + "' value='删除成就' /></td></tr></table>"
+                    "<tr><td><input type='button' id='editAchvInfoBtn' name='editAchvInfoBtn' class='rmableBtn' value='编辑' />" +
+                    "<input type='button' id='cnlEditAchvInfoBtn' name='" + achvJSON[0].AchvID + "' class='rmableBtn' value='取消' />" +
+                    "<input type='button' id='updtAchvInfoBtn' name='" + achvJSON[0].AchvID + "' class='rmableBtn' value='更新' /></td>" +
+                    "<td><input type='button' id='delAchvBtn' name='" + achvJSON[0].AchvID + "' class='rmableBtn' value='删除成就' />" +
+                    "<input type='button' id='postCmtBtn' name='" + achvJSON[0].AchvID + "' value='评论成就' />" +
+                    "<input type='button' id='qryCmtsBtn' name='" + achvJSON[0].AchvID + "' value='查看评论' /></td></tr></table>"
                 );
-
+                if (achvJSON[0].UsrID === usrInfo["UsrID"])
+                    $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#postCmtBtn").remove();
+                else if (achvJSON[0].UsrID != usrInfo["UsrID"] && usrInfo["UsrRole"] === "std")
+                    $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find(".rmableBtn").remove();
                 $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("input[type='text']").attr("disabled", "disabled");
                 $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("textarea").attr("disabled", "disabled");
 
@@ -302,6 +323,29 @@ function queryAchvDetlInfo(achvID) {
                         $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#achvFile").
                             append("<video controls><source src='" + achvJSON[0].AchvPath + "' type='video/mp4'>" +
                                 "抱歉！您的浏览器不支持video标签。</video>"); break;
+                    case "doc":
+                    case "docx":
+                        $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#achvFile").
+                            append("<a href='http://localhost" + (achvJSON[0].AchvPath).substring(2) + "' download='" + achvJSON[0].AchvTitl + "'>" +
+                                "<img id='fileImg' src='../image/icon/word.png' /></a>"); break;
+                    case "xls":
+                    case "xlsx":
+                        $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#achvFile").
+                            append("<a href='http://localhost" + (achvJSON[0].AchvPath).substring(2) + "' download='" + achvJSON[0].AchvTitl + "'>" +
+                                "<img id='fileImg' src='../image/icon/excel.png' /></a>"); break;
+                    case "ppt":
+                    case "pptx":
+                        $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#achvFile").
+                            append("<a href='http://localhost" + (achvJSON[0].AchvPath).substring(2) + "' download='" + achvJSON[0].AchvTitl + "'>" +
+                                "<img id='fileImg' src='../image/icon/ppt.png' /></a>"); break;
+                    case "pdf":
+                        $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#achvFile").
+                            append("<a href='http://localhost" + (achvJSON[0].AchvPath).substring(2) + "' download='" + achvJSON[0].AchvTitl + "'>" +
+                                "<img id='fileImg' src='../image/icon/pdf.png' /></a>"); break;
+                    case "zip":
+                        $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#achvFile").
+                            append("<a href='http://localhost" + (achvJSON[0].AchvPath).substring(2) + "' download='" + achvJSON[0].AchvTitl + "'>" +
+                                "<img id='fileImg' src='../image/icon/zip.png' /></a>"); break;
                 }
             }
         }
@@ -316,6 +360,8 @@ $("#content").on("click", "#achvMgtDiv #achvMgtFrm .qryAchvRecsDiv #achvInfoTbl 
     $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#updtAchvInfoBtn").attr("style", "visibility: visible");
     $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#editAchvInfoBtn").remove();
     $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#delAchvBtn").remove();
+    $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#postCmtBtn").remove();
+    $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#qryCmtsBtn").remove();
 });
 
 
@@ -378,8 +424,120 @@ $("#content").on("click", "#achvMgtDiv #achvMgtFrm .qryAchvRecsDiv #achvInfoTbl 
         success: function (status) {
             if (status === "successful") {
                 alert("成功删除成就记录");
-                queryAchvResc(usrInfo["UsrID"], usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], "", "AchvTitl");
+                if (usrInfo["UsrRole"] === "std")
+                    queryAchvResc(usrInfo["UsrID"], usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], usrInfo["UsrName"], "UsrName");
+                else
+                    queryAchvResc(usrInfo["UsrID"], usrInfo["UsrRole"], usrInfo["ColgAbrv"], usrInfo["MjrAbrv"], "", "AchvTitl");
             } else alert(status);
         }
     });
 });
+
+/*显示评价学生成就的弹窗*/
+$("#content").on("click", "#achvMgtDiv #achvMgtFrm .qryAchvRecsDiv #achvInfoTbl #postCmtBtn", function (event) {
+    let achvID = $(event.target).attr("name");
+
+    $("#mask").attr("style", "visibility: visible;");
+    $("body").append(
+        "<div id='postAchvCmtDiv' name='postAchvCmtDiv'><form id='postAchvCmtFrm' name='postAchvCmtFrm'>" +
+        "<table id='postAchvCmtTbl' name='postAchvCmtTbl'><tr><th colspan='2'><span>发表评论</span></th></tr>" +
+        "<tr><td colspan='2'><textarea id='cmtTxt' name='cmtTxt'></textarea></td></tr>" +
+        "<tr><td><input type='button' name='" + achvID + "' class='cnlPostCmtBtn' value='取消' /></td>" +
+        "<td><input type='button' name='" + achvID + "' class='postAchvCmtBtn' value='评论' />" +
+        "</td></tr></table></form></div>"
+    );
+});
+
+/*检查评价的完整性*/
+$("body").on("focusout", "#postAchvCmtDiv #postAchvCmtFrm #postAchvCmtTbl textarea", function (event) {
+    let cmtTxt = $(event.target).val();
+
+    if (cmtTxt == "") $(event.target).attr("placeholder", "请输入评论");
+    else $(event.target).removeAttr("placeholder");
+});
+
+/*取消评价*/
+$("body").on("click", "#postAchvCmtDiv #postAchvCmtFrm #postAchvCmtTbl .cnlPostCmtBtn", function (event) {
+    let achvID = $(event.target).attr("name");
+
+    $("#mask").attr("style", "visibility: hidden;");
+    $("body").find("#postAchvCmtDiv").remove();
+
+    queryAchvDetlInfo(achvID);
+});
+
+/*实现评价的函数*/
+$("body").on("click", "#postAchvCmtDiv #postAchvCmtFrm #postAchvCmtTbl .postAchvCmtBtn", function (event) {
+    let achvID = $(event.target).attr("name");
+    let cmtTxt = $("body").find("#postAchvCmtDiv").find("#postAchvCmtFrm").find("#postAchvCmtTbl").find("textarea").val();
+
+    if (cmtTxt != "") {
+        $.ajax({
+            url: "../../library/common/post_achv_cmt.php",
+            type: "POST",
+            async: false,
+            data: { achvID: achvID, cmtTxt: cmtTxt, usrID: usrInfo["UsrID"], usrRole: usrInfo["UsrRole"] },
+            error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+            success: function (status) {
+                if (status === "successful") alert("评论成功");
+                else alert(status);
+
+                $("#mask").attr("style", "visibility: hidden;");
+                $("body").find("#postAchvCmtDiv").remove();
+
+                queryAchvDetlInfo(achvID);
+            }
+        });
+    } else $("body").find("#postAchvCmtDiv").find("#postAchvCmtFrm").find("#postAchvCmtTbl").find("textarea").attr("placeholder", "请输入评论");
+});
+
+/*显示成就评论*/
+$("#content").on("click", "#achvMgtDiv #achvMgtFrm .qryAchvRecsDiv #achvInfoTbl #qryCmtsBtn", function (event) {
+    let achvID = $(event.target).attr("name");
+
+    queryAchvCmts(achvID);
+});
+
+/*通过导航栏查询成就评论*/
+$("#content").on("click", "#achvMgtDiv #achvMgtFrm #qryAchvBarTbl #ahcvCmtskAnchor", function (event) {
+    let achvID = $(event.target).attr("class");
+
+    queryAchvCmts(achvID);
+});
+
+/*实现查询成就评论的函数*/
+function queryAchvCmts(achvID) {
+    let cmtRecsTblWidth = $("#achvMgtDiv #achvMgtFrm .qryAchvRecsDiv").innerWidth();
+    let cmtRecsTblHeight = $("#achvMgtDiv #achvMgtFrm .qryAchvRecsDiv").innerHeight();
+    $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find("#qryAchvBarTbl").find("#qryAchvDetlAnchor").nextAll().remove();
+    $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find("#qryAchvBarTbl").find("#qryAchvDetlAnchor").after("<a id='ahcvCmtskAnchor' class='" + achvID + "' href='#'>成就评论&gt;</a>");
+    $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").empty();
+    $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").append(
+        "<div id='achvCmtsDiv'><table id='achvCmtsTbl'>" +
+        "<tr><th>评论人</th><th width='65%'>评论</th><th class='rmableElem'>其他操作</th></tr></table></div>"
+    );
+    $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvCmtsDiv").attr("style", "width: " + cmtRecsTblWidth + "px;");
+    $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvCmtsDiv").attr("style", "height: " + cmtRecsTblHeight + "px;");
+
+    $.ajax({
+        url: "../../library/common/query_cmts.php",
+        type: "GET",
+        async: false,
+        data: { achvID: achvID, usrRole: usrInfo["UsrRole"] },
+        dataType: "json",
+        error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+        success: function (cmtsJSON) {
+            if (cmtsJSON.length === 0) alert("该课程共0条成就评价");
+            else {
+                for (let indx = 0; indx < cmtsJSON.length; indx++)
+                    $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvCmtsDiv").find("#achvCmtsTbl").append(
+                        "<tr><td>" + cmtsJSON[indx].UsrName + "</td><td>" + cmtsJSON[indx].CmtTxt + "</td>" +
+                        "<td class='rmableElem'><input type='button' name='" + cmtsJSON[indx].CmtID + "' class='delCmtBtn' value='删除' /></td></tr>"
+                    );
+
+                if (usrInfo["UsrID"] != cmtsJSON[0].UsrID && usrInfo["UsrRole"] === "std")
+                    $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvCmtsDiv").find("#achvCmtsTbl").find(".rmableElem").remove();
+            }
+        }
+    });
+}
