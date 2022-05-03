@@ -541,3 +541,23 @@ function queryAchvCmts(achvID) {
         }
     });
 }
+
+/*删除评论*/
+$("#content").on("click", "#achvMgtDiv #achvMgtFrm .qryAchvRecsDiv #achvCmtsDiv #achvCmtsTbl .delCmtBtn", function (event) {
+    let cmtID = $(event.target).attr("name");
+    let achvID = $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find("#qryAchvBarTbl").find("#ahcvCmtskAnchor").attr("class");
+
+    $.ajax({
+        url: "../../library/common/delete_cmt.php",
+        type: "POST",
+        async: false,
+        data: { cmtID: cmtID, usrRole: usrInfo["UsrRole"] },
+        error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+        success: function (status) {
+            if (status === "successful") alert("成功删除评论");
+            else alert(status);
+
+            queryAchvCmts(achvID);
+        }
+    })
+});
