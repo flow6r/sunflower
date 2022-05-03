@@ -620,13 +620,14 @@ function queryMissionDelt(msID) {
                     "<table id='msDeltTbl'>" +
                     "<tr><td><label>任务名称</label></td><td><input type='text' id='msName' name='msName' disabled='disabled' placeholder='" + msJSON[0].MsName + "' maxlength='100' /></td></tr>" +
                     "<tr><td><label>任务描述</label></td><td><textarea id='msDesc' name='msDesc' placeholder='" + msJSON[0].MsDesc + "' disabled='disabled'></textarea></td></tr>" +
-                    "<tr><td colspan='2' style='text-align: center;'><a href='" + msJSON[0].PkgPath + "'>" + "下载任务资源包" + "</td></a></tr>" +
+                    "<tr><td colspan='2'><input type='button' id='qryStdWrkRecsBtn' name='" + msJSON[0].MsID + "' value='作业提交情况' /></tr>" +
+                    "<tr><td colspan='2' style='text-align: center;'><a href='" + msJSON[0].PkgPath + "' download='" + msJSON[0].MsName + "'>" + "下载任务资源包" + "</td></a></tr>" +
                     "<tr><td><input type='button' id='editMsInfoBtn' name='editMsInfoBtn' value='编辑' /></td><td><input type='button' id='cnlEditMsInfoBtn' name='" + msJSON[0].MsID + "' value='取消'/>" +
                     "<input type='button' id='updtMsInfoBtn' name='" + msJSON[0].MsID + "' value='更新' /><input type='button' id='delMsBtn' name='" + msJSON[0].MsID + "' value='删除任务' /></td></tr>" +
                     "</table>"
                 );
 
-                if (usrInfo["UsrRole"] === "std")     $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#msDeltTbl").find("input[type='button']").remove();
+                if (usrInfo["UsrRole"] === "std") $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#msDeltTbl").find("input[type='button']").remove();
             }
         }
     });
@@ -711,4 +712,118 @@ $("#content").on("click", "#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv #msDeltTbl #d
             else alert(status);
         }
     });
+});
+
+/*查询学生提交作业的记录*/
+$("#content").on("click", "#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv #msDeltTbl #qryStdWrkRecsBtn", function (event) {
+    let msID = $(event.target).attr("name");
+
+    queryStdWrkRecs(msID);
+});
+
+/*通过导航栏查询学生提交记录*/
+$("#content").on("click", "#crseMgtDiv #crseMgtFrm #qryCrseBarTbl #stdWrkAnchor", function (event) {
+    let msID = $(event.target).attr("class");
+
+    queryStdWrkRecs(msID);
+});
+
+/*实现查询学生提交记录的函数*/
+function queryStdWrkRecs(msID) {
+    let wrkRecsTblWidth = $("#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv").innerWidth();
+    let wrkRecsTblHeight = $("#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv").innerHeight();
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find("#qryCrseBarTbl").find("#msDeltAnchor").nextAll().remove();
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find("#qryCrseBarTbl").find("#msDeltAnchor").after("<a id='stdWrkAnchor' class='" + msID + "' href='#'>提交情况&gt;</a>");
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").empty();
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").append(
+        "<div id='stdWrksDiv'><table id='stdWrksTbl'>" +
+        "<tr><th>学生ID</th><th>学生姓名</th><th>提交时间</th><th>下载</th><th>其他操作</th></tr></table></div>"
+    );
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#stdWrksDiv").attr("style", "width: " + wrkRecsTblWidth + "px;");
+    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#stdWrksDiv").attr("style", "height: " + wrkRecsTblHeight + "px;");
+
+    $.ajax({
+        url: "../../library/common/query_wrks.php",
+        type: "GET",
+        async: false,
+        data: { msID: msID, usrRole: usrInfo["UsrRole"] },
+        dataType: "json",
+        error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+        success: function (wrksJSON) {
+            if (wrksJSON.length === 0) alert("该课程共0条作业提交记录记录");
+            else {
+                for (let indx = 0; indx < wrksJSON.length; indx++)
+                    $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find(".qryCrseRecsDiv").find("#stdWrksDiv").find("#stdWrksTbl").append(
+                        "<tr><td>" + wrksJSON[indx].UsrID + "</td><td>" + wrksJSON[indx].UsrName + "</td>" +
+                        "<td>" + wrksJSON[indx].CmplDt + "</td><td><a href='http://localhost" + (wrksJSON[indx].WrkPath).substring(2) + "' download='" +
+                        wrksJSON[indx].MsName + "'>" + "下载学生作业" + "</a></td>" +
+                        "<td><input type='button' name='" + wrksJSON[indx].UsrID + "' class='" + wrksJSON[indx].CmplDt + "' value='评价' /></td></tr>"
+                    );
+            }
+        }
+    });
+}
+
+/*显示评价学生作业的弹窗*/
+$("#content").on("click", "#crseMgtDiv #crseMgtFrm .qryCrseRecsDiv #stdWrksDiv #stdWrksTbl input", function (event) {
+    let msID = $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find("#qryCrseBarTbl").find("#stdWrkAnchor").attr("class");
+    let usrID = $(event.target).attr("name");
+    let cmplDt = $(event.target).attr("class");
+
+    $("#mask").attr("style", "visibility: visible;");
+    $("body").append(
+        "<div id='postCmtDiv' name='postCmtDiv'><form id='postCmtFrm' name='postCmtFrm'>" +
+        "<table id='postCmtTbl' name='postCmtTbl'><tr><th colspan='2'><span>发表评论</span></th></tr>" +
+        "<tr><td colspan='2'><textarea id='cmtTxt' name='cmtTxt'></textarea></td></tr>" +
+        "<tr><td><input type='button' name='" + msID + "' class='cnlCmtBtn' value='取消' /></td>" +
+        "<td><input type='button' id='" + cmplDt + "' name='" + usrID + "' class='postCmtBtn' value='评论' />" +
+        "</td></tr></table></form></div>"
+    );
+
+});
+
+/*检查评价的完整性*/
+$("body").on("focusout", "#postCmtDiv #postCmtFrm #postCmtTbl textarea", function (event) {
+    let cmtTxt = $(event.target).val();
+
+    if (cmtTxt == "") $(event.target).attr("placeholder", "请输入评论");
+    else $(event.target).removeAttr("placeholder");
+});
+
+/*取消评价*/
+$("body").on("click", "#postCmtDiv #postCmtFrm #postCmtTbl .cnlCmtBtn", function (event) {
+    let msID = $(event.target).attr("name");
+
+    $("#mask").attr("style", "visibility: hidden;");
+    $("body").find("#postCmtDiv").remove();
+
+    queryStdWrkRecs(msID);
+});
+
+/*实现评价的函数*/
+$("body").on("click", "#postCmtDiv #postCmtFrm #postCmtTbl .postCmtBtn", function (event) {
+    let msID = $("#content").find("#crseMgtDiv").find("#crseMgtFrm").find("#qryCrseBarTbl").find("#stdWrkAnchor").attr("class");
+    let cmplDt = $(event.target).attr("id");
+    let usrID = $(event.target).attr("name");
+    let cmtUsr = usrInfo["UsrID"];
+    let cmtTxt = $("body").find("#postCmtDiv").find("#postCmtFrm").find("#postCmtTbl").find("textarea").val();
+
+    if (cmtTxt != "") {
+        $.ajax({
+            url: "../../library/common/post_wrk_cmt.php",
+            type: "POST",
+            async: false,
+            data: { usrID: usrID, cmtUsr: cmtUsr, cmplDt: cmplDt, cmtTxt: cmtTxt, usrRole: usrInfo["UsrRole"] },
+            error: function () { alert("查询数据库失败，请联系管理员并反馈问题"); },
+            success: function (status) {
+                if (status === "successful") alert("评论成功");
+                else alert(status);
+
+                $("#mask").attr("style", "visibility: hidden;");
+                $("body").find("#postCmtDiv").remove();
+
+                queryStdWrkRecs(msID);
+            }
+        });
+    } else $("body").find("#postCmtDiv").find("#postCmtFrm").find("#postCmtTbl").find("textarea").attr("placeholder", "请输入评论");
 });
