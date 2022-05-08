@@ -351,6 +351,7 @@ function queryAchvDetlInfo(achvID) {
                 let elemHeight = $("#achvMgtDiv #achvMgtFrm .qryAchvRecsDiv #achvInfoTbl #achvFile").innerHeight();
                 $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#achvFile").find("video").attr("style", "width: "+ 0.9 * elemWidth+"px;");
                 $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#achvFile").find("img").attr("style", "width: "+ 0.9 * elemWidth+"px;");
+                $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#achvFile").find("img").attr("style", "height: "+ 0.8 * elemHeight+"px;");
                 $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#achvFile").find("#fileImg").attr("style", "width: "+ 0.25 * elemWidth+"px;");
                 $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#achvFile").find("#fileImg").attr("style", "height: "+ 0.25 * elemHeight+"px;");
             }
