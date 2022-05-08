@@ -36,17 +36,6 @@
     border-spacing: 15px;
 }
 
-.mgtDiv .mgtFrm .qryAchvRecsDiv #achvInfoTbl img,
-.mgtDiv .mgtFrm .qryAchvRecsDiv #achvInfoTbl video {
-    width: 90%;
-    height: 90%;
-}
-
-.mgtDiv .mgtFrm .qryAchvRecsDiv #achvInfoTbl #fileImg {
-    width: 25%;
-    height: 25%;
-}
-
 .mgtDiv .mgtFrm .qryAchvRecsDiv #achvInfoTbl label {
     font-size: 1.3em;
     color: #2c974b;
