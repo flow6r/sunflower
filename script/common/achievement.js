@@ -347,6 +347,13 @@ function queryAchvDetlInfo(achvID) {
                             append("<a href='http://localhost" + (achvJSON[0].AchvPath).substring(2) + "' download='" + achvJSON[0].AchvTitl + "'>" +
                                 "<img id='fileImg' src='../image/icon/zip.png' /></a>"); break;
                 }
+                let elemWidth = $("#achvMgtDiv #achvMgtFrm .qryAchvRecsDiv #achvInfoTbl #achvFile").innerWidth();
+                let elemHeight = $("#achvMgtDiv #achvMgtFrm .qryAchvRecsDiv #achvInfoTbl #achvFile").innerHeight();
+                $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#achvFile").find("video").attr("style", "width: "+ 0.9 * elemWidth+"px;");
+                $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#achvFile").find("img").attr("style", "width: "+ 0.9 * elemWidth+"px;");
+                $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#achvFile").find("#fileImg").attr("style", "width: "+ 0.25 * elemWidth+"px;");
+                $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#achvFile").find("#fileImg").attr("style", "height: "+ 0.25 * elemHeight+"px;");
+
             }
         }
     });
