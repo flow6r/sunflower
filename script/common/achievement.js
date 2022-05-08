@@ -353,7 +353,6 @@ function queryAchvDetlInfo(achvID) {
                 $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#achvFile").find("img").attr("style", "width: "+ 0.9 * elemWidth+"px;");
                 $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#achvFile").find("#fileImg").attr("style", "width: "+ 0.25 * elemWidth+"px;");
                 $("#content").find("#achvMgtDiv").find("#achvMgtFrm").find(".qryAchvRecsDiv").find("#achvInfoTbl").find("#achvFile").find("#fileImg").attr("style", "height: "+ 0.25 * elemHeight+"px;");
-
             }
         }
     });
